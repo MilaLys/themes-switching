@@ -1,0 +1,27 @@
+.header {
+  background: pink;
+  padding: 20px;
+  margin: -8px;
+}
+.header .logo,
+.header .menu {
+  width: 50%;
+  display: inline-block;
+}
+
+.header .logo a{
+  color: palevioletred;
+  font-size: 25px;
+  text-decoration: none;
+  border: 1px solid palevioletred;
+  padding: 5px;
+  background: white;
+  }
+.header .menu {
+  float: right;
+  text-align: right;
+}
+.header .menu a {
+  text-decoration: none;
+  margin-right: 10px;
+}
