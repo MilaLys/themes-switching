@@ -1,4 +1,11 @@
-import {Component, ReflectiveInjector, ViewChild, ViewContainerRef, Input, ComponentFactoryResolver} from '@angular/core';
+import {
+  Component,
+  ReflectiveInjector,
+  ViewChild,
+  ViewContainerRef,
+  Input,
+  ComponentFactoryResolver
+} from '@angular/core';
 
 import {DefaultThemeComponent} from '../default-theme/default-theme.component';
 /*import {FirstThemeComponent} from '../first-theme/first-theme.component';*/
@@ -16,25 +23,30 @@ import {THEMES} from '../themes';
 
 export class OutletComponentComponent {
   currentComponent = null;
-  @ViewChild('dynamicComponentContainer', { read: ViewContainerRef }) dynamicComponentContainer: ViewContainerRef;
+  @ViewChild('dynamicComponentContainer', {read: ViewContainerRef}) dynamicComponentContainer: ViewContainerRef;
 
   // component: Class for the component you want to create
   // inputs: An object with key/value pairs mapped to input name/input value
-  @Input() set componentData(data: {component: any, inputs: any }) {
+  @Input() set componentData(data: { component: any, inputs: any }) {
     if (!data) {
       return;
     }
-    let inputProviders = Object.keys(data.inputs).map((inputName) => {return {provide: inputName, useValue: data.inputs[inputName]}; });
-    let resolvedInputs = ReflectiveInjector.resolve(inputProviders);
-    let injector = ReflectiveInjector.fromResolvedProviders(resolvedInputs, this.dynamicComponentContainer.parentInjector);
-    let factory = this.resolver.resolveComponentFactory(data.component);
-    let component = factory.create(injector);
+    const inputProviders = Object.keys(data.inputs).map((inputName) => {
+      return {provide: inputName, useValue: data.inputs[inputName]};
+    });
+    const resolvedInputs = ReflectiveInjector.resolve(inputProviders);
+    const injector = ReflectiveInjector.fromResolvedProviders(resolvedInputs, this.dynamicComponentContainer.parentInjector);
+    const factory = this.resolver.resolveComponentFactory(data.component);
+    const component = factory.create(injector);
+
     this.dynamicComponentContainer.insert(component.hostView);
+
     if (this.currentComponent) {
       this.currentComponent.destroy();
     }
     this.currentComponent = component;
   }
 
-  constructor(private resolver: ComponentFactoryResolver) {}
+  constructor(private resolver: ComponentFactoryResolver) {
+  }
 }
