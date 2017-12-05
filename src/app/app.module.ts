@@ -4,23 +4,19 @@ import { AppComponent } from './app.component';
 import {OutletComponentComponent} from './outlet-component/outlet-component.component';
 import {DefaultThemeComponent} from './default-theme/default-theme.component';
 import {THEMES} from './themes';
+import {ThemeModule} from './themes/theme.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     OutletComponentComponent,
-    DefaultThemeComponent,
-    /*FirstThemeComponent*/
-    THEMES
-  ],
-  entryComponents: [
-    OutletComponentComponent,
-    DefaultThemeComponent,
-   /* FirstThemeComponent*/
-    THEMES
+    DefaultThemeComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    ThemeModule.withComponents([
+      THEMES
+    ])
   ],
   providers: [],
   bootstrap: [AppComponent]
