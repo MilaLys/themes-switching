@@ -1,0 +1,11 @@
+<ul class="menu" *ngIf="!isHiddenMenu && !otherMenu">
+  <li *ngFor="let item of listMenu">
+    <a href="#">{{item}}</a>
+  </li>
+</ul>
+
+<ul class="menu other-menu" *ngIf="!isHiddenMenu && otherMenu">
+  <li *ngFor="let item of listMenu">
+    <a href="#">{{item}}</a>
+  </li>
+</ul>

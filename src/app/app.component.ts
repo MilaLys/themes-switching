@@ -1,6 +1,7 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {THEMES} from './themes';
 import {DefaultThemeComponent} from './default-theme/default-theme.component';
+import {AppThemeService} from './app-theme.service';
 
 @Component({
   selector: 'app-root',
@@ -10,39 +11,58 @@ import {DefaultThemeComponent} from './default-theme/default-theme.component';
       <button (click)="createDefaultThemeComponent()">Default Theme</button>
       <button (click)="createFirstThemeComponent()">First Theme</button>
       <hr/>
-      <button (click)="detail = !detail">HEADER</button>
-      <!-- <button (click)="footerDetail = !footerDetail">FOOTER</button>-->
-      <div *ngIf="detail">
+      <button (click)="menuDetail = !menuDetail">HEADER</button>
+      <div *ngIf="menuDetail;">
         <h2>Menu</h2>
-        <!-- <input type="checkbox" id="show" [checked]="showenMenu" (change)="showenMenu = !showenMenu;"/>
-         <label for="show">Show Menu</label>
-         <br/>-->
         <input type="checkbox"
-               id="home"
+               id="menu"
                [checked]="hiddenMenu"
-               (change)="hiddenMenu = !hiddenMenu;"
+               [(ngModel)]="hiddenMenu"
+               (change)="changeVisibleMenu();"
         />
-        <label>Hide Menu</label>
+        <label for="menu">Hide Menu</label>
+        <h3>Choose menu</h3>
+        <input type="checkbox"
+               id="otherMenu"
+               [checked]="otherMenu"
+               [(ngModel)]="otherMenu"
+               (change)="setMenu();"
+        />
+        <label for="otherMenu">Other Menu</label>
+        <br/>
+        <h3>
+          <a href="#" (click)="editMenu = !editMenu">Edit menu</a>
+        </h3>
+        <div *ngIf="editMenu">
+          <input type="text" placeholder="Add menu item" [(ngModel)]="newItem" (keyup.enter)="addMenuItem(newItem);"/>
+        </div>
       </div>
-      <!-- <div *ngIf="footerDetail">
-         <input type="checkbox" id="show"/>
-         <label for="show">Show Footer</label>
-         <br/>
-         <input type="checkbox" id="home"/>
-         <label>Hide Footer</label>
-       </div>-->
     </div>
   `,
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
   componentData = null;
-  detail = false;
-  /*footerDetail = false;
-   showenMenu = true;*/
-  hiddenMenu: boolean;
+  menuDetail = false;
+  hiddenMenu = false;
+  editMenu = false;
+  newItem = '';
+  otherMenu = false;
+  defaultMenu = true;
 
-  constructor() {
+  constructor(private appThemeService: AppThemeService) {
+  }
+
+  changeVisibleMenu() {
+    this.appThemeService.visibleMenu.emit(this.hiddenMenu);
+  }
+
+  addMenuItem(item: string) {
+    this.appThemeService.addMenuItem.emit(this.newItem);
+  }
+
+  setMenu() {
+    this.appThemeService.otherMenu.emit(this.otherMenu);
   }
 
   ngOnInit() {

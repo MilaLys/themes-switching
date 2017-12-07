@@ -2,9 +2,6 @@
   <div class="logo">
     <a href="#">First Theme</a>
   </div>
-  <div class="menu" *ngIf="!menuVisibility">
-    <a href="#">Home</a>
-    <a href="#">About</a>
-    <a href="#">Contacts</a>
-  </div>
+
+  <app-menu *ngIf="!isHiddenMenu"></app-menu>
 </header>

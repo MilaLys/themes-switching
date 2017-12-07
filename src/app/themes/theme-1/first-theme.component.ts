@@ -1,4 +1,4 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-first-theme',
@@ -6,7 +6,6 @@ import {Component, OnInit, Input} from '@angular/core';
   styleUrls: ['./first-theme.component.css']
 })
 export class FirstThemeComponent implements OnInit {
-  @Input() menuVisibility: boolean;
 
   constructor() {
   }

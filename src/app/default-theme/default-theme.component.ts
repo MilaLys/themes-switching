@@ -1,5 +1,5 @@
-import {Component, Injectable, Input, OnInit} from '@angular/core';
-import {AppComponent} from '../app.component';
+import {Component, Injectable, OnInit} from '@angular/core';
+import {AppThemeService} from '../app-theme.service';
 
 @Injectable()
 @Component({
@@ -8,12 +8,14 @@ import {AppComponent} from '../app.component';
   styleUrls: ['./default-theme.component.css']
 })
 export class DefaultThemeComponent implements OnInit {
-  @Input() menuVisible;
+  isHiddenMenu = false;
 
-  constructor() {
+  constructor(private appThemeService: AppThemeService) {
   }
 
   ngOnInit() {
-
+    this.appThemeService.visibleMenu.subscribe(evt => {
+      this.isHiddenMenu = evt;
+    });
   }
 }
