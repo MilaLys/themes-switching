@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AppThemeService} from '../../../app-theme.service';
+import {appConfig} from '../../../appConfig';
 
 @Component({
   selector: 'app-default-menu',
@@ -8,9 +9,8 @@ import {AppThemeService} from '../../../app-theme.service';
 })
 export class MenuComponent implements OnInit {
   isHiddenMenu = false;
-  otherMenu = false;
-  defaultMenu = true;
-  listMenu = ['Home', 'About', 'Contacts'];
+  altMenu = false;
+  listMenu = appConfig.menu.items;
 
   constructor(private appThemeService: AppThemeService) {
   }
@@ -19,8 +19,8 @@ export class MenuComponent implements OnInit {
     this.appThemeService.visibleMenu.subscribe(evt => {
       this.isHiddenMenu = evt;
     });
-    this.appThemeService.otherMenu.subscribe(evt => {
-      this.otherMenu = evt;
+    this.appThemeService.altMenu.subscribe(evt => {
+      this.altMenu = evt;
     });
     this.appThemeService.addMenuItem.subscribe(item => {
       this.listMenu.push(item);

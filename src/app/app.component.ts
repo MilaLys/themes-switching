@@ -48,7 +48,6 @@ export class AppComponent implements OnInit {
   editMenu = false;
   newItem = '';
   otherMenu = false;
-  defaultMenu = true;
 
   constructor(private appThemeService: AppThemeService) {
   }
@@ -62,7 +61,7 @@ export class AppComponent implements OnInit {
   }
 
   setMenu() {
-    this.appThemeService.otherMenu.emit(this.otherMenu);
+    this.appThemeService.altMenu.emit(this.otherMenu);
   }
 
   ngOnInit() {

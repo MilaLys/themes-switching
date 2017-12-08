@@ -12,3 +12,10 @@
   text-decoration: none;
   margin-right: 10px;
 }
+
+.menu.alt-menu a {
+  text-transform: uppercase;
+  color: black;
+  font-weight: bold;
+  font-family:sans-serif;
+}
