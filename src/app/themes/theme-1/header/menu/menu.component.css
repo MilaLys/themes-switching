@@ -1,0 +1,21 @@
+.menu {
+  width: 50%;
+  float: right;
+  text-align: right;
+  margin-top: -23px;
+}
+.menu li {
+  display: inline-block;
+  list-style-image: none;
+}
+.menu a {
+  text-decoration: none;
+  margin-right: 10px;
+}
+
+.menu.alt-menu a {
+  text-transform: uppercase;
+  color: black;
+  font-weight: bold;
+  font-family:sans-serif;
+}

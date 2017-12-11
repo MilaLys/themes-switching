@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 
 import {DefaultThemeComponent} from '../default-theme/default-theme.component';
-/*import {FirstThemeComponent} from '../first-theme/first-theme.component';*/
+/*import {FirstThemeComponent} from '../themes/themes.component';*/
 import {THEMES} from '../themes';
 
 

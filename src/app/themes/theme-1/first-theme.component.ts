@@ -1,4 +1,4 @@
-import {Component, Injector, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-first-theme',
@@ -12,5 +12,4 @@ export class FirstThemeComponent implements OnInit {
 
   ngOnInit() {
   }
-
 }
