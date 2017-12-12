@@ -1,7 +1,12 @@
 import { Component } from '@nestjs/common';
-import { ThemeModule } from './theme.module';
+import {Theme} from './theme.interface';
+import * as mongoose from 'mongoose';
+import {ThemeSchema} from './theme.schema';
 
+const Themes = mongoose.model('ThemeSchema');
 @Component()
-export class CatsService {
- 
+export class ThemeService {
+  public getAll(name) {
+    return Themes.findOne({name});
+  }
 }
