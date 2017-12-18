@@ -1,12 +1,14 @@
-import { Component } from '@nestjs/common';
+import {Component, Inject} from '@nestjs/common';
 import {Theme} from './theme.interface';
-import * as mongoose from 'mongoose';
-import {ThemeSchema} from './theme.schema';
+import {Model} from 'mongoose';
+require('../../index');
 
-const Themes = mongoose.model('ThemeSchema');
 @Component()
 export class ThemeService {
-  public getAll(name) {
-    return Themes.findOne({name});
+  constructor(@Inject('ThemeModelToken') private readonly themeModel: Model<Theme>) {
+  }
+
+  async findAll(): Promise<Theme[]> {
+    return await this.themeModel.find({}).exec();
   }
 }
