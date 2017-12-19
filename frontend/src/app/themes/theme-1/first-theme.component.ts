@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Input} from '@angular/core';
 import {ThemeService} from '../../services/theme.service';
 
 @Component({
@@ -13,7 +13,9 @@ export class FirstThemeComponent implements OnInit {
   themes: any;
 
   getTheme() {
-    this.themes = this.themeService.getTheme();
+    this.themeService.getTheme().subscribe(data => {
+      this.themes = Object.assign({}, ...data);
+    });
   }
 
   ngOnInit() {

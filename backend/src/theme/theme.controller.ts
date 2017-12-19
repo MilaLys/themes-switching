@@ -9,7 +9,6 @@ export class ThemeController {
 
   @Get('/themes')
   async findAll(): Promise<Theme[]> {
-    console.log( await this.themeService.findAll());
-    return await this.themeService.findAll();
+    return this.themeService.findAll();
   }
 }

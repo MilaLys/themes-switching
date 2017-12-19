@@ -1,7 +1,6 @@
 <header class="header">
-  <div class="logo">
-    <a href="#">First Theme</a>
+  <div class="logo" *ngIf="headerConfig?.isVisibleLogo">
+    <a href="#">{{headerConfig?.name}}</a>
   </div>
-<h2>{{themes}}</h2>
-  <app-menu *ngIf="!isHiddenMenu"></app-menu>
+  <app-menu [menuConfig]="themes"></app-menu>
 </header>

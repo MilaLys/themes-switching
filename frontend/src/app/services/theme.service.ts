@@ -1,5 +1,7 @@
 import {EventEmitter, Injectable} from '@angular/core';
 import {HttpService} from './http.service';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
 
 @Injectable()
 export class ThemeService {
@@ -13,11 +15,7 @@ export class ThemeService {
   constructor(private httpService: HttpService) {
   }
 
-  public getTheme(): void {
-    this.httpService.get(`${this.apiUrl}`).subscribe(data => {
-      return data.json().theme;
-    }, err => {
-      console.log(err.body || err.statusText);
-    });
+  getTheme(): Observable<any> {
+    return this.httpService.get(`${this.apiUrl}`).map((data: any) => data.json());
   }
 }

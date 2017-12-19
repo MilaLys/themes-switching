@@ -9,10 +9,10 @@ import {ThemeService} from './services/theme.service';
     <div>
       <app-outlet-component [componentData]="componentData"></app-outlet-component>
       <button (click)="createDefaultThemeComponent()">Default Theme</button>
-      <button (click)="createFirstThemeComponent()">First Theme</button>
+      <button (click)="createFirstThemeComponent();">First Theme</button>
       <hr/>
       <button (click)="menuDetail = !menuDetail">HEADER</button>
-      <div *ngIf="menuDetail;">
+      <div>
         <h2>Menu</h2>
         <input type="checkbox"
                id="menu"

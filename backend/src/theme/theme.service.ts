@@ -9,6 +9,6 @@ export class ThemeService {
   }
 
   async findAll(): Promise<Theme[]> {
-    return await this.themeModel.find({}).exec();
+    return this.themeModel.find({}).exec();
   }
 }
