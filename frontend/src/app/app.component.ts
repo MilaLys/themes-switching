@@ -1,59 +1,49 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {FormsModule} from '@angular/forms';
 import {THEMES} from './themes';
 import {DefaultThemeComponent} from './default-theme/default-theme.component';
 import {ThemeService} from './services/theme.service';
 
 @Component({
   selector: 'app-root',
-  template: `
-    <div>
-      <app-outlet-component [componentData]="componentData"></app-outlet-component>
-      <button (click)="createDefaultThemeComponent()">Default Theme</button>
-      <button (click)="createFirstThemeComponent();">First Theme</button>
-      <hr/>
-      <button (click)="menuDetail = !menuDetail">HEADER</button>
-      <div>
-        <h2>Menu</h2>
-        <input type="checkbox"
-               id="menu"
-               [checked]="hiddenMenu"
-               [(ngModel)]="hiddenMenu"
-               (change)="changeVisibleMenu();"
-        />
-        <label for="menu">Hide Menu</label>
-        <h3>Choose menu</h3>
-        <input type="checkbox"
-               id="otherMenu"
-               [checked]="otherMenu"
-               [(ngModel)]="otherMenu"
-               (change)="setMenu();"
-        />
-        <label for="otherMenu">Other Menu</label>
-        <br/>
-        <h3>
-          <a href="#" (click)="editMenu = !editMenu">Edit menu</a>
-        </h3>
-        <div *ngIf="editMenu">
-          <input type="text" placeholder="Add menu item" [(ngModel)]="newItem" (keyup.enter)="addMenuItem(newItem);"/>
-        </div>
-      </div>
-    </div>
-  `,
+  templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
   componentData = null;
-  menuDetail = false;
   hiddenMenu = false;
-  editMenu = false;
   newItem = '';
   otherMenu = false;
+  name: string;
+  isVisibleMenu: boolean;
+  isVisibleLogo: boolean;
+  theme = {name: '', isVisibleLogo: this.isVisibleLogo, isVisibleMenu: this.isVisibleMenu};
 
   constructor(private themeService: ThemeService) {
   }
 
+  updateThemeConfig(theme) {
+    this.themeService.updateThemeConfig(this.themeService.theme[0]._id, {
+      name: this.theme.name,
+      isVisibleLogo: this.theme.isVisibleLogo,
+      isVisibleMenu: this.theme.isVisibleMenu
+    }, err => {
+      if (err) {
+        console.log(err);
+      }
+    });
+  }
+
   changeVisibleMenu() {
-    this.themeService.visibleMenu.emit(this.hiddenMenu);
+    this.themeService.visibleMenu.emit(this.isVisibleMenu);
+  }
+
+  changeVisibleLogo() {
+    this.themeService.visibleLogo.emit(this.isVisibleLogo);
+  }
+
+  changedLogoName() {
+    this.themeService.changeLogoName.emit(this.name);
   }
 
   addMenuItem(item: string) {

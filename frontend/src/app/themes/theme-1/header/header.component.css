@@ -3,13 +3,15 @@
   padding: 20px;
   margin: -8px;
   height: 30px;
+  line-height: 30px;
 }
 .header .logo,
 .header .menu {
   width: 50%;
-  display: inline-block;
 }
-
+.header .logo{
+  float: left;
+}
 .header .logo a{
   color: palevioletred;
   font-size: 25px;
@@ -18,11 +20,4 @@
   padding: 5px;
   background: white;
 }
-.header .menu {
-  float: right;
-  text-align: right;
-}
-.header .menu a {
-  text-decoration: none;
-  margin-right: 10px;
-}
+

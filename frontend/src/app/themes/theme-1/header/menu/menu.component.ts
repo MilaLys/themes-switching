@@ -2,7 +2,6 @@ import {Component, OnInit, Input} from '@angular/core';
 import {ThemeService} from '../../../../services/theme.service';
 import {appConfig} from '../../../../appConfig';
 
-
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
@@ -10,8 +9,7 @@ import {appConfig} from '../../../../appConfig';
 })
 export class MenuComponent implements OnInit {
   @Input() menuConfig: any;
-  // @Input() isVisibleMenu = this.menuConfig.isVisibleMenu;
-
+  isVisibleMenu: boolean;
   altMenu = false;
   listMenu = appConfig.menu.items;
 
@@ -19,9 +17,9 @@ export class MenuComponent implements OnInit {
   }
 
   ngOnInit() {
-    /*this.themeService.visibleMenu.subscribe(evt => {
+    this.themeService.visibleMenu.subscribe(evt => {
       this.isVisibleMenu = evt;
-    });*/
+    });
 
     this.themeService.altMenu.subscribe(evt => {
       this.altMenu = evt;

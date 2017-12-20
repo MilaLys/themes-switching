@@ -1,3 +1,58 @@
-<!--<h1>AppComponent</h1>-->
+<div>
+  <app-outlet-component [componentData]="componentData"></app-outlet-component>
+  <button (click)="createDefaultThemeComponent()">Default Theme</button>
+  <button (click)="createFirstThemeComponent();">First Theme</button>
+  <hr/>
+  <button (click)="menuDetail = !menuDetail">HEADER</button>
+  <div>
+    <h2>Menu</h2>
+    <label for="name">Change logo</label>
+    <input type="text"
+           id="name"
+           name="name"
+           placeholder="Type name of logo"
+           [(ngModel)]="theme.name"
+
+    />
+    <br/>
+    <input type="checkbox"
+           id="menu"
+           [checked]="theme.isVisibleMenu"
+           [(ngModel)]="theme.isVisibleMenu"
+           (ngModelChange)="changeVisibleMenu();"
+    />
+    <label for="menu">
+      <span *ngIf="defaultVisibleMenu">Hide Menu</span>
+      <span *ngIf="!defaultVisibleMenu">Show Menu</span>
+    </label>
+    <br/>
+    <input type="checkbox"
+           id="logoInput"
+           [checked]="theme.isVisibleLogo"
+           [(ngModel)]="theme.isVisibleLogo"
+           (ngModelChange)="changeVisibleLogo();"
+    />
+    <label for="logoInput">
+      <span>Hide Logo</span>
+      <!-- <span *ngIf="theme.isVisibleLogo">Show Logo</span>-->
+    </label>
+    <!--<h3>Choose menu</h3>
+    <input type="checkbox"
+           id="otherMenu"
+           [checked]="otherMenu"
+           [(ngModel)]="otherMenu"
+           (change)="setMenu();"
+    />
+    <label for="otherMenu">Other Menu</label>-->
+    <br/>
+    <h3>
+      <a href="#" (click)="editMenu = !editMenu">Edit menu</a>
+    </h3>
+    <div *ngIf="editMenu">
+      <input type="text" placeholder="Add menu item" [(ngModel)]="newItem" (keyup.enter)="addMenuItem(newItem);"/>
+    </div>
+    <button (click)="updateThemeConfig(theme)">Save changes</button>
+  </div>
+</div>
 <app-outlet-component></app-outlet-component>
 
