@@ -11,14 +11,16 @@ export class FirstThemeComponent implements OnInit {
   }
 
   themes: any;
+  theme: any;
 
-  getTheme() {
+  /*getTheme() {
     this.themeService.getTheme().subscribe(data => {
       this.themes = Object.assign({}, ...data);
     });
-  }
+  }*/
 
   ngOnInit() {
-    this.getTheme();
+    // this.getTheme();
+    /*this.getOneTheme(id);*/
   }
 }

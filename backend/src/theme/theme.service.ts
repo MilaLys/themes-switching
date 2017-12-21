@@ -12,6 +12,10 @@ export class ThemeService {
     return this.themeModel.find({}).exec();
   }
 
+  async findOne(id, cb): Promise<Theme> {
+    return this.themeModel.findOne({'_id': id}).exec();
+  }
+
   async update(id, data, cb) {
     this.themeModel.update({_id: id}, {$set: data}).lean().exec(cb);
   }

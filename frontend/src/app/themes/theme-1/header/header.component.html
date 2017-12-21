@@ -1,6 +1,6 @@
 <header class="header">
-  <div class="logo" *ngIf="!headerConfig?.isVisibleLogo">
-    <a href="#">{{headerConfig?.name}}</a>
+  <div class="logo" *ngIf="headerConfig?.isVisibleLogo">
+    <a href="#">{{headerConfig?.name || 'Logotype'}}</a>
   </div>
   <app-menu [menuConfig]="themes" *ngIf="headerConfig?.isVisibleMenu"></app-menu>
 </header>

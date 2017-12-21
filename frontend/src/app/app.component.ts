@@ -11,15 +11,30 @@ import {ThemeService} from './services/theme.service';
 })
 export class AppComponent implements OnInit {
   componentData = null;
-  hiddenMenu = false;
   newItem = '';
   otherMenu = false;
   name: string;
+  id: number;
+  oneTheme = {id: this.id};
   isVisibleMenu: boolean;
   isVisibleLogo: boolean;
   theme = {name: '', isVisibleLogo: this.isVisibleLogo, isVisibleMenu: this.isVisibleMenu};
+  themes: any;
 
   constructor(private themeService: ThemeService) {
+  }
+
+  getTheme() {
+    this.themeService.getTheme().subscribe(data => {
+      this.themes = data;
+    });
+  }
+
+  getOneTheme(id) {
+    this.themeService.getOneTheme(id).subscribe(data => {
+      this.oneTheme = data;
+      console.log(this.oneTheme);
+    });
   }
 
   updateThemeConfig(theme) {
@@ -27,10 +42,11 @@ export class AppComponent implements OnInit {
       name: this.theme.name,
       isVisibleLogo: this.theme.isVisibleLogo,
       isVisibleMenu: this.theme.isVisibleMenu
-    }, err => {
-      if (err) {
-        console.log(err);
-      }
+    }).subscribe(data => {
+      this.themeService.theme = this.theme;
+      // this.name = this.theme.name;
+    }, error => {
+      console.log(error);
     });
   }
 
@@ -42,9 +58,9 @@ export class AppComponent implements OnInit {
     this.themeService.visibleLogo.emit(this.isVisibleLogo);
   }
 
-  changedLogoName() {
-    this.themeService.changeLogoName.emit(this.name);
-  }
+  // changedLogoName() {
+  //   this.themeService.changeLogoName.emit(this.name);
+  // }
 
   addMenuItem(item: string) {
     this.themeService.addMenuItem.emit(this.newItem);
@@ -56,6 +72,8 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.createDefaultThemeComponent();
+    this.getTheme();
+    this.getOneTheme(this.oneTheme.id);
   }
 
   createDefaultThemeComponent() {
@@ -70,5 +88,6 @@ export class AppComponent implements OnInit {
       component: THEMES[0], // ???
       inputs: {}
     };
+    console.log(this.oneTheme.id);
   }
 }

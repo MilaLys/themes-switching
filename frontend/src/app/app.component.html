@@ -2,6 +2,12 @@
   <app-outlet-component [componentData]="componentData"></app-outlet-component>
   <button (click)="createDefaultThemeComponent()">Default Theme</button>
   <button (click)="createFirstThemeComponent();">First Theme</button>
+
+  <h4>Themes:</h4>
+  <div *ngFor="let item of themes">
+    <input type="checkbox" [(ngModel)]="oneTheme.id"/>
+    <label>{{item._id}}</label>
+  </div>
   <hr/>
   <button (click)="menuDetail = !menuDetail">HEADER</button>
   <div>
@@ -21,10 +27,7 @@
            [(ngModel)]="theme.isVisibleMenu"
            (ngModelChange)="changeVisibleMenu();"
     />
-    <label for="menu">
-      <span *ngIf="defaultVisibleMenu">Hide Menu</span>
-      <span *ngIf="!defaultVisibleMenu">Show Menu</span>
-    </label>
+    <label for="menu">Hide Menu</label>
     <br/>
     <input type="checkbox"
            id="logoInput"
@@ -32,10 +35,7 @@
            [(ngModel)]="theme.isVisibleLogo"
            (ngModelChange)="changeVisibleLogo();"
     />
-    <label for="logoInput">
-      <span>Hide Logo</span>
-      <!-- <span *ngIf="theme.isVisibleLogo">Show Logo</span>-->
-    </label>
+    <label for="logoInput">Hide Logo</label>
     <!--<h3>Choose menu</h3>
     <input type="checkbox"
            id="otherMenu"

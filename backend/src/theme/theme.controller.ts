@@ -13,13 +13,24 @@ export class ThemeController {
     return this.themeService.findAll();
   }
 
+  @Get('/themes/:id')
+  private findOne(@Req() req, @Res() res) {
+    this.themeService.findOne(req.params.id, (err, theme) => {
+      if (err) {
+        return console.log(err);
+      }
+      res.json({theme});
+    });
+  }
+
+
   @Put('/themes/:id')
   private updateThemeConfig(@Req() req, @Res() res) {
     this.themeService.update(req.params.id, req.body, (err, theme) => {
       if (err) {
         return console.error(err);
       }
-      res.json({theme});
+      res.json(theme);
     });
   }
 }

@@ -24,11 +24,14 @@ export class ThemeService {
     });
   }
 
-  updateThemeConfig(id, themeConfig, cb): void {
-    this.httpService.put(`${this.apiUrl}/${id}`, themeConfig).subscribe(data => {
-      return cb(null, data.json());
-    }, err => {
-      cb(err.statusText);
+  getOneTheme(id): Observable<any> {
+    return this.httpService.get(`${this.apiUrl}/${id}`).map((data: any) => {
+      this.theme = data.json();
+      return this.theme;
     });
+  }
+
+  updateThemeConfig(id, themeConfig): Observable<any> {
+    return this.httpService.put(`${this.apiUrl}/${id}`, themeConfig).map((data: any) => data.json());
   }
 }
