@@ -6,6 +6,10 @@ export const THEMES = [
   FirstThemeComponent
 ];
 
+export const THEMES_ID = {
+  1: FirstThemeComponent
+};
+
 export const THEMES_COMPONENT = [
   HeaderComponent,
   MenuComponent

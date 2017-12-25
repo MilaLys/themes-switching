@@ -1,4 +1,5 @@
 import {EventEmitter, Injectable} from '@angular/core';
+import {Http} from '@angular/http';
 import {HttpService} from './http.service';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -12,9 +13,10 @@ export class ThemeService {
   changeLogoName: EventEmitter<string> = new EventEmitter();
 
   theme = {};
+  oneTheme = {};
   private apiUrl = 'http://localhost:3000/api/themes';
 
-  constructor(private httpService: HttpService) {
+  constructor(private httpService: HttpService, private http: Http) {
   }
 
   getTheme(): Observable<any> {
@@ -26,8 +28,8 @@ export class ThemeService {
 
   getOneTheme(id): Observable<any> {
     return this.httpService.get(`${this.apiUrl}/${id}`).map((data: any) => {
-      this.theme = data.json();
-      return this.theme;
+      this.oneTheme = data.json();
+      return this.oneTheme;
     });
   }
 

@@ -19,7 +19,7 @@ export class ThemeController {
       if (err) {
         return console.log(err);
       }
-      res.json({theme});
+      res.json(theme);
     });
   }
 

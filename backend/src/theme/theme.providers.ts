@@ -5,7 +5,7 @@ import {Connection} from 'mongoose';
 export const ThemeProviders = [
   {
     provide: 'ThemeModelToken',
-    useFactory: (connection: Connection) => connection.model('Theme', ThemeSchema, 'theme-1'),
+    useFactory: (connection: Connection) => connection.model('Theme', ThemeSchema, 'themes'),
     inject: ['DbConnectionToken']
   },
 ];

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormsModule} from '@angular/forms';
-import {THEMES} from './themes';
+import {THEMES, THEMES_ID} from './themes';
 import {DefaultThemeComponent} from './default-theme/default-theme.component';
 import {ThemeService} from './services/theme.service';
 
@@ -14,8 +14,7 @@ export class AppComponent implements OnInit {
   newItem = '';
   otherMenu = false;
   name: string;
-  id: number;
-  oneTheme = {id: this.id};
+  oneTheme: any;
   isVisibleMenu: boolean;
   isVisibleLogo: boolean;
   theme = {name: '', isVisibleLogo: this.isVisibleLogo, isVisibleMenu: this.isVisibleMenu};
@@ -33,7 +32,6 @@ export class AppComponent implements OnInit {
   getOneTheme(id) {
     this.themeService.getOneTheme(id).subscribe(data => {
       this.oneTheme = data;
-      console.log(this.oneTheme);
     });
   }
 
@@ -73,7 +71,6 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.createDefaultThemeComponent();
     this.getTheme();
-    this.getOneTheme(this.oneTheme.id);
   }
 
   createDefaultThemeComponent() {
@@ -83,11 +80,23 @@ export class AppComponent implements OnInit {
     };
   }
 
-  createFirstThemeComponent() {
+  // createFirstThemeComponent() {
+  //   this.componentData = {
+  //     component: THEMES[0], // ???
+  //     inputs: {}
+  //   };
+  // }
+
+  showTheme(id, themeId) {
     this.componentData = {
-      component: THEMES[0], // ???
+      component: THEMES_ID[themeId], // ???
       inputs: {}
     };
-    console.log(this.oneTheme.id);
+
+    // return this.themeService.getOneTheme(id).subscribe(data => {
+    //   this.oneTheme = data;
+    // });
+    console.log(this.themeService.oneTheme);
+    return this.themeService.oneTheme;
   }
 }
