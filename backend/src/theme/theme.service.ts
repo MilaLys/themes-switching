@@ -12,8 +12,8 @@ export class ThemeService {
     return this.themeModel.find({}).exec();
   }
 
-  async findOne(id, cb): Promise<Theme> {
-    return this.themeModel.findOne({'_id': id}).exec();
+  async findOne(id): Promise<Theme> {
+    return this.themeModel.findOne({'id': id}).exec();
   }
 
   async update(id, data, cb) {

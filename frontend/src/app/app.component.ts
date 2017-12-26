@@ -29,11 +29,11 @@ export class AppComponent implements OnInit {
     });
   }
 
-  getOneTheme(id) {
-    this.themeService.getOneTheme(id).subscribe(data => {
-      this.oneTheme = data;
-    });
-  }
+  // getOneTheme(id) {
+  //   this.themeService.getOneTheme(id).subscribe(data => {
+  //     this.oneTheme = data;
+  //   });
+  // }
 
   updateThemeConfig(theme) {
     this.themeService.updateThemeConfig(this.themeService.theme[0]._id, {
@@ -46,6 +46,7 @@ export class AppComponent implements OnInit {
     }, error => {
       console.log(error);
     });
+    alert('Changes were saved succeed!');
   }
 
   changeVisibleMenu() {
@@ -87,16 +88,16 @@ export class AppComponent implements OnInit {
   //   };
   // }
 
-  showTheme(id, themeId) {
-    this.componentData = {
-      component: THEMES_ID[themeId], // ???
-      inputs: {}
-    };
+  showTheme(id) {
+    this.themeService.getOneTheme(id).subscribe(data => {
+      this.oneTheme = data.theme;
 
-    // return this.themeService.getOneTheme(id).subscribe(data => {
-    //   this.oneTheme = data;
-    // });
-    console.log(this.themeService.oneTheme);
-    return this.themeService.oneTheme;
+      this.componentData = {
+        component: THEMES_ID[id], // ???
+        inputs: {}
+      };
+
+      this.themeService.changeTheme.emit(this.oneTheme);
+    });
   }
 }

@@ -13,14 +13,23 @@ export class FirstThemeComponent implements OnInit {
   themes: any;
   theme: any;
 
-  /*getTheme() {
-    this.themeService.getTheme().subscribe(data => {
-      this.themes = Object.assign({}, ...data);
-    });
-  }*/
+  // getTheme() {
+  //   this.themeService.getTheme().subscribe(data => {
+  //     this.themes = Object.assign({}, ...data);
+  //   });
+  // }
+
+  // getOneTheme(id) {
+  //     this.themeService.getOneTheme(id).subscribe(data => {
+  //       this.themes = data;
+  //     });
+  //   }
 
   ngOnInit() {
+    this.themeService.changeTheme.subscribe(evt => {
+      console.log(this.themes = evt);
+    });
     // this.getTheme();
-    /*this.getOneTheme(id);*/
+    // this.getOneTheme(id);
   }
 }

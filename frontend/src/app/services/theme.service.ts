@@ -1,5 +1,5 @@
 import {EventEmitter, Injectable} from '@angular/core';
-import {Http} from '@angular/http';
+import {Http, Response} from '@angular/http';
 import {HttpService} from './http.service';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -10,7 +10,7 @@ export class ThemeService {
   visibleLogo: EventEmitter<boolean> = new EventEmitter();
   altMenu: EventEmitter<boolean> = new EventEmitter();
   addMenuItem: EventEmitter<string> = new EventEmitter();
-  changeLogoName: EventEmitter<string> = new EventEmitter();
+  changeTheme: EventEmitter<any> = new EventEmitter(true);
 
   theme = {};
   oneTheme = {};
@@ -20,20 +20,26 @@ export class ThemeService {
   }
 
   getTheme(): Observable<any> {
-    return this.httpService.get(`${this.apiUrl}`).map((data: any) => {
-      this.theme = data.json();
-      return this.theme;
-    });
+    return this.httpService
+      .get(`${this.apiUrl}`)
+      .map((data: Response) => {
+        this.theme = data.json();
+        return this.theme;
+      });
   }
 
   getOneTheme(id): Observable<any> {
-    return this.httpService.get(`${this.apiUrl}/${id}`).map((data: any) => {
-      this.oneTheme = data.json();
-      return this.oneTheme;
-    });
+    return this.httpService
+      .get(`${this.apiUrl}/${id}`)
+      .map((data: Response) => {
+        this.oneTheme = data.json();
+        return this.oneTheme;
+      });
   }
 
   updateThemeConfig(id, themeConfig): Observable<any> {
-    return this.httpService.put(`${this.apiUrl}/${id}`, themeConfig).map((data: any) => data.json());
+    return this.httpService
+      .put(`${this.apiUrl}/${id}`, themeConfig)
+      .map((data: Response) => data.json());
   }
 }

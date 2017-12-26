@@ -1,7 +1,7 @@
 <div>
   <app-outlet-component [componentData]="componentData"></app-outlet-component>
   <button (click)="createDefaultThemeComponent()">Default Theme</button>
- <!--<button (click)="createFirstThemeComponent();">First Theme</button>-->
+  <!--<button (click)="createFirstThemeComponent();">First Theme</button>-->
 
   <h4>Themes:</h4>
   <!--<select>
@@ -11,7 +11,7 @@
     </option>
   </select>-->
   <ul>
-    <li *ngFor="let item of themes" (click)="showTheme(item._id, item.id)" style="list-style: none;">
+    <li *ngFor="let item of themes" (click)="showTheme(item.id);" style="list-style: none;">
       <input type="radio"/>
       <label>Apply {{item.name}}</label>
     </li>
@@ -25,7 +25,6 @@
            name="name"
            placeholder="Type name of logo"
            [(ngModel)]="theme.name"
-
     />
     <br/>
     <input type="checkbox"
@@ -61,5 +60,5 @@
     <button (click)="updateThemeConfig(theme)">Save changes</button>
   </div>
 </div>
-<app-outlet-component></app-outlet-component>
+<!--<app-outlet-component></app-outlet-component>-->
 

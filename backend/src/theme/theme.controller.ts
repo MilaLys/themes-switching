@@ -14,15 +14,10 @@ export class ThemeController {
   }
 
   @Get('/themes/:id')
-  private findOne(@Req() req, @Res() res) {
-    this.themeService.findOne(req.params.id, (err, theme) => {
-      if (err) {
-        return console.log(err);
-      }
-      res.json(theme);
-    });
+  private async findOne(@Req() req, @Res() res) {
+    const theme = await this.themeService.findOne(req.params.id);
+    res.json({theme});
   }
-
 
   @Put('/themes/:id')
   private updateThemeConfig(@Req() req, @Res() res) {
