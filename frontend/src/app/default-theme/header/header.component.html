@@ -1,7 +1,13 @@
-<header class="header">
-  <div class="logo">
-    <a href="#">{{logoName}}</a>
-  </div>
+<header class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="navbar-brand bg-danger">
+          <a href="#" class="text-uppercase">{{logoName}}</a>
+        </div>
 
-  <app-default-menu *ngIf="!isHiddenMenu"></app-default-menu>
+        <app-default-menu *ngIf="!isHiddenMenu"></app-default-menu>
+      </div>
+    </div>
+  </div>
 </header>

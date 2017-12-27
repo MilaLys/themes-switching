@@ -13,17 +13,9 @@ export class DefaultThemeComponent implements OnInit {
   constructor(private themeService: ThemeService) {
   }
 
-  themes: any;
-
-  getTheme() {
-    this.themes = this.themeService.getTheme();
-  }
-
   ngOnInit() {
     this.themeService.visibleMenu.subscribe(evt => {
       this.isHiddenMenu = evt;
     });
-
-    this.getTheme();
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, EventEmitter, Output, Input} from '@angular/core';
 import {DefaultThemeComponent} from '../default-theme/default-theme.component';
 import {THEMES_ID} from '../themes';
 import {ThemeService} from '../services/theme.service';
@@ -13,38 +13,33 @@ export class ThemeManagerComponent implements OnInit {
   newItem = '';
   otherMenu = false;
   name: string;
-  oneTheme: any;
+  oneTheme: object = {};
   isVisibleMenu: boolean;
   isVisibleLogo: boolean;
   theme = {name: '', isVisibleLogo: this.isVisibleLogo, isVisibleMenu: this.isVisibleMenu};
-  themes: any;
+  themes = [];
 
   constructor(private themeService: ThemeService) {
   }
 
-  getTheme() {
-    this.themeService.getTheme().subscribe(data => {
+  getThemes() {
+    this.themeService.getThemes().subscribe(data => {
       this.themes = data;
     });
   }
 
-  // getOneTheme(id) {
-  //   this.themeService.getOneTheme(id).subscribe(data => {
-  //     this.oneTheme = data;
-  //   });
-  // }
-
   updateThemeConfig(theme) {
-    this.themeService.updateThemeConfig(this.themeService.theme[0]._id, {
+    this.themeService.updateThemeConfig(this.themeService.themes[0]._id, {
       name: this.theme.name,
       isVisibleLogo: this.theme.isVisibleLogo,
       isVisibleMenu: this.theme.isVisibleMenu
     }).subscribe(data => {
-      this.themeService.theme = this.theme;
+      this.themeService.themes = this.theme;
       // this.name = this.theme.name;
     }, error => {
       console.log(error);
     });
+    console.log(this.theme.isVisibleLogo, this.theme.isVisibleMenu);
     alert('Changes were saved succeed!');
   }
 
@@ -70,7 +65,8 @@ export class ThemeManagerComponent implements OnInit {
 
   ngOnInit() {
     this.createDefaultThemeComponent();
-    this.getTheme();
+    this.getThemes();
+    this.resetSelectedTheme();
   }
 
   createDefaultThemeComponent() {
@@ -80,18 +76,18 @@ export class ThemeManagerComponent implements OnInit {
     };
   }
 
-  showTheme(id) {
+  resetSelectedTheme() {
+
+
+  }
+
+  applyTheme(id) {
     this.themeService.getOneTheme(id).subscribe(data => {
       this.oneTheme = data.theme;
-
       this.componentData = {
         component: THEMES_ID[id], // ???
         inputs: {}
       };
     });
-  }
-
-  changeTheme() {
-    this.themeService.changeTheme.emit(this.oneTheme);
   }
 }

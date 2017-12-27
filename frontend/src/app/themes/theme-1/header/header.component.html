@@ -1,6 +1,12 @@
-<header class="header">
-  <div class="logo" >
-    <a href="#">{{theme?.name}}</a>
+<header class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="navbar-brand bg-danger" *ngIf="theme.theme?.isVisibleLogo">
+          <a href="#" class="text-uppercase">{{theme.theme.name}}</a>
+        </div>
+        <app-menu [menuConfig]="theme" *ngIf="theme.theme?.isVisibleMenu"></app-menu>
+      </div>
+    </div>
   </div>
-  <app-menu [menuConfig]="theme" *ngIf="!headerConfig?.isVisibleMenu"></app-menu>
 </header>

@@ -10,21 +10,20 @@ export class ThemeService {
   visibleLogo: EventEmitter<boolean> = new EventEmitter();
   altMenu: EventEmitter<boolean> = new EventEmitter();
   addMenuItem: EventEmitter<string> = new EventEmitter();
-  changeTheme: EventEmitter<any> = new EventEmitter(true);
 
-  theme = {};
-  oneTheme = {};
+  themes: object = {};
+  oneTheme: object = {};
   private apiUrl = 'http://localhost:3000/api/themes';
 
   constructor(private httpService: HttpService, private http: Http) {
   }
 
-  getTheme(): Observable<any> {
+  getThemes(): Observable<any> {
     return this.httpService
       .get(`${this.apiUrl}`)
       .map((data: Response) => {
-        this.theme = data.json();
-        return this.theme;
+        this.themes = data.json();
+        return this.themes;
       });
   }
 
