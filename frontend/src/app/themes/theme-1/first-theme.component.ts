@@ -26,9 +26,9 @@ export class FirstThemeComponent implements OnInit {
   //   }
 
   ngOnInit() {
-    this.themeService.changeTheme.subscribe(evt => {
-      console.log(this.themes = evt);
-    });
+    // this.themeService.changeTheme.subscribe(evt => {
+    //   console.log(this.themes = evt);
+    // });
     // this.getTheme();
     // this.getOneTheme(id);
   }

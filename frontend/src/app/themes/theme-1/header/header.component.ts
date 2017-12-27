@@ -12,13 +12,14 @@ import {Observable} from 'rxjs/Observable';
 export class HeaderComponent implements OnInit, OnDestroy {
   @Input() headerConfig: any;
   theme = {
-    name: 'Default Theme',
-    isVisibleLogo: true,
-    isVisibleMenu: false
+    // name: 'Default Theme',
+    // isVisibleLogo: true,
+    // isVisibleMenu: false
   };
+
   isVisibleLogo: boolean;
-  visibleLogo$: Observable<any>;
-  changeTheme$: Observable<Theme>;
+  // visibleLogo$: Observable<any>;
+  // changeTheme$: Observable<Theme>;
 
   constructor(private themeService: ThemeService) {
   }
@@ -32,7 +33,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     this.themeService.changeTheme.subscribe(theme => {
       this.theme = theme;
-      console.log(theme);
     }, (error: string) => {
       console.log(error);
     });

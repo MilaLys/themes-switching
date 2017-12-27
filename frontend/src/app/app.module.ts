@@ -11,6 +11,7 @@ import {MenuComponent} from './default-theme/header/menu/menu.component';
 import {HttpService} from './services/http.service';
 import {XHRBackend, RequestOptions} from '@angular/http';
 import {ThemeService} from './services/theme.service';
+import { ThemeManagerComponent } from './theme-manager/theme-manager.component';
 
 
 export function httpFactory(backend: XHRBackend, defaultOptions: RequestOptions): any {
@@ -23,7 +24,8 @@ export function httpFactory(backend: XHRBackend, defaultOptions: RequestOptions)
     OutletComponentComponent,
     DefaultThemeComponent,
     DefaultHeaderComponent,
-    MenuComponent
+    MenuComponent,
+    ThemeManagerComponent
 
   ],
   imports: [

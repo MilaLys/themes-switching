@@ -1,0 +1,49 @@
+<div>
+  <app-container [componentData]="componentData"></app-container>
+  <button (click)="createDefaultThemeComponent()">Default Theme</button>
+  <!--<button (click)="createFirstThemeComponent();">First Theme</button>-->
+
+  <h4>Themes:</h4>
+  <ul>
+    <li *ngFor="let item of themes" style="list-style: none;" (click)="changeTheme()">
+      <input type="radio" (click)="showTheme(item.id);" />
+      <label>Apply {{item.name}}</label>
+    </li>
+  </ul>
+  <hr/>
+  <div>
+    <h2>Menu</h2>
+    <label for="name">Change logo</label>
+    <input type="text"
+           id="name"
+           name="name"
+           placeholder="Type name of logo"
+           [(ngModel)]="theme.name"
+    />
+    <br/>
+    <input type="checkbox"
+           id="menu"
+           [checked]="theme.isVisibleMenu"
+           [(ngModel)]="theme.isVisibleMenu"
+           (ngModelChange)="changeVisibleMenu();"
+    />
+    <label for="menu">Hide Menu</label>
+    <br/>
+    <input type="checkbox"
+           id="logoInput"
+           [checked]="theme.isVisibleLogo"
+           [(ngModel)]="theme.isVisibleLogo"
+           (ngModelChange)="changeVisibleLogo();"
+    />
+    <label for="logoInput">Hide Logo</label>
+    <br/>
+    <h3>
+      <a href="#" (click)="editMenu = !editMenu">Edit menu</a>
+    </h3>
+    <div *ngIf="editMenu">
+      <input type="text" placeholder="Add menu item" [(ngModel)]="newItem" (keyup.enter)="addMenuItem(newItem);"/>
+    </div>
+    <button (click)="updateThemeConfig(theme)">Save changes</button>
+  </div>
+</div>
+

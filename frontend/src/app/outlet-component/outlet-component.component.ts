@@ -12,7 +12,7 @@ import {THEMES} from '../themes';
 
 
 @Component({
-  selector: 'app-outlet-component',
+  selector: 'app-container',
   entryComponents: [DefaultThemeComponent, THEMES],
   template: `
     <div #dynamicComponentContainer></div>
