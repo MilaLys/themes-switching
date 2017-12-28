@@ -23,6 +23,6 @@ export class HeaderComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
-    console.log(this.theme = this.themeService.oneTheme);
+    this.theme = this.themeService.oneTheme;
   }
 }

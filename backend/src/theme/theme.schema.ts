@@ -2,7 +2,8 @@ import * as mongoose from 'mongoose';
 
 export const ThemeSchema = new mongoose.Schema({
   id: Number,
-  name: String,
+  themeName: String,
+  logoName: String,
   isVisibleLogo: Boolean,
   isVisibleMenu: Boolean
 });

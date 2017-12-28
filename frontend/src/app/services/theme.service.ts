@@ -13,6 +13,7 @@ export class ThemeService {
 
   themes: object = {};
   oneTheme: object = {};
+
   private apiUrl = 'http://localhost:3000/api/themes';
 
   constructor(private httpService: HttpService, private http: Http) {
@@ -42,3 +43,4 @@ export class ThemeService {
       .map((data: Response) => data.json());
   }
 }
+

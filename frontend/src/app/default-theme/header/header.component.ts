@@ -1,5 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, OnChanges, Input} from '@angular/core';
 import {appConfig} from '../../appConfig';
+import {ThemeService} from '../../services/theme.service';
 
 @Component({
   selector: 'app-default-header',
@@ -7,11 +8,19 @@ import {appConfig} from '../../appConfig';
   styleUrls: ['./header.component.css']
 })
 export class DefaultHeaderComponent implements OnInit {
+  @Input() headerConfig: any;
   logoName = appConfig.logoName;
+  theme: object;
 
-  constructor() {
+  constructor(public themeService: ThemeService) {
   }
 
   ngOnInit() {
+    // this.themeService.currentTheme.subscribe(evt => {
+    //   this.theme = evt;
+    // }, (error: string) => {
+    //   console.log(error);
+    // });
+    // console.log(this.theme);
   }
 }

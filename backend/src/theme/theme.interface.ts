@@ -1,7 +1,8 @@
 import {Document} from 'mongoose';
 
 export interface Theme extends Document {
-  name: string;
+  themeName: string;
+  logoName: string;
   isVisibleLogo: boolean;
   isVisibleMenu: boolean;
 }

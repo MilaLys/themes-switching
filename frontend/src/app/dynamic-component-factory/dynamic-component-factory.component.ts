@@ -17,10 +17,10 @@ import {THEMES} from '../themes';
   template: `
     <div #dynamicComponentContainer></div>
   `,
-  styleUrls: ['./outlet-component.component.css']
+  styleUrls: ['./dynamic-component-factory.component.css']
 })
 
-export class OutletComponentComponent {
+export class DynamicComponentFactory {
   currentComponent = null;
   @ViewChild('dynamicComponentContainer', {read: ViewContainerRef}) dynamicComponentContainer: ViewContainerRef;
 

@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-lg-12">
         <div class="navbar-brand bg-danger" *ngIf="theme.theme?.isVisibleLogo">
-          <a href="#" class="text-uppercase">{{theme.theme.name}}</a>
+          <a href="#" class="text-uppercase">{{theme.theme.logoName}}</a>
         </div>
         <app-menu [menuConfig]="theme" *ngIf="theme.theme?.isVisibleMenu"></app-menu>
       </div>

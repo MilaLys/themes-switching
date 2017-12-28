@@ -8,15 +8,15 @@ import {ThemeService} from '../services/theme.service';
   templateUrl: './theme-manager.component.html',
   styleUrls: ['./theme-manager.component.css']
 })
+
 export class ThemeManagerComponent implements OnInit {
   componentData = null;
   newItem = '';
   otherMenu = false;
-  name: string;
   oneTheme: object = {};
   isVisibleMenu: boolean;
   isVisibleLogo: boolean;
-  theme = {name: '', isVisibleLogo: this.isVisibleLogo, isVisibleMenu: this.isVisibleMenu};
+  theme = {logoName: '', isVisibleLogo: this.isVisibleLogo, isVisibleMenu: this.isVisibleMenu};
   themes = [];
 
   constructor(private themeService: ThemeService) {
@@ -30,7 +30,7 @@ export class ThemeManagerComponent implements OnInit {
 
   updateThemeConfig(theme) {
     this.themeService.updateThemeConfig(this.themeService.themes[0]._id, {
-      name: this.theme.name,
+      logoName: this.theme.logoName,
       isVisibleLogo: this.theme.isVisibleLogo,
       isVisibleMenu: this.theme.isVisibleMenu
     }).subscribe(data => {
@@ -39,7 +39,7 @@ export class ThemeManagerComponent implements OnInit {
     }, error => {
       console.log(error);
     });
-    console.log(this.theme.isVisibleLogo, this.theme.isVisibleMenu);
+    console.log(this.theme.isVisibleLogo, this.theme.isVisibleMenu, this.theme.logoName);
     alert('Changes were saved succeed!');
   }
 
@@ -66,7 +66,7 @@ export class ThemeManagerComponent implements OnInit {
   ngOnInit() {
     this.createDefaultThemeComponent();
     this.getThemes();
-    this.resetSelectedTheme();
+    // this.applyTheme(id); // theme_id from current user
   }
 
   createDefaultThemeComponent() {
@@ -74,11 +74,6 @@ export class ThemeManagerComponent implements OnInit {
       component: DefaultThemeComponent,
       inputs: {}
     };
-  }
-
-  resetSelectedTheme() {
-
-
   }
 
   applyTheme(id) {

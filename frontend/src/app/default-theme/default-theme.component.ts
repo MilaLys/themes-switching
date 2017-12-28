@@ -8,14 +8,15 @@ import {ThemeService} from '../services/theme.service';
   styleUrls: ['./default-theme.component.css']
 })
 export class DefaultThemeComponent implements OnInit {
-  isHiddenMenu = false;
+  // isHiddenMenu = false;
+  // content: object = {};
 
   constructor(private themeService: ThemeService) {
   }
 
   ngOnInit() {
-    this.themeService.visibleMenu.subscribe(evt => {
-      this.isHiddenMenu = evt;
-    });
+    // this.themeService.visibleMenu.subscribe(evt => {
+    //   this.isHiddenMenu = evt;
+    // });
   }
 }

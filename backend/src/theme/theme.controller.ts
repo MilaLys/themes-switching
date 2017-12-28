@@ -1,7 +1,6 @@
-import {Controller, Get, Param, Put, Req, Res} from '@nestjs/common';
+import {Controller, Get, Put, Req, Res} from '@nestjs/common';
 import {ThemeService} from './theme.service';
 import {Theme} from './theme.interface';
-import {error} from 'util';
 
 @Controller('api')
 export class ThemeController {

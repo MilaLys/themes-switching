@@ -14,19 +14,19 @@
         <li *ngFor="let item of themes">
           <label>
             <input type="radio" name="chooseTheme" (click)="applyTheme(item.id);"/>
-            Apply {{item.name}}
+            Apply {{item.themeName}}
           </label>
         </li>
       </ul>
       <hr/>
       <div>
         <h4>Menu</h4>
-        <label for="name">Change logo</label>
+        <label for="logoName">Change logo</label>
         <input type="text"
-               id="name"
-               name="name"
+               id="logoName"
+               name="logoName"
                placeholder="Type name of logo"
-               [(ngModel)]="theme.name"
+               [(ngModel)]="theme.logoName"
         />
         <br/>
         <input type="checkbox"

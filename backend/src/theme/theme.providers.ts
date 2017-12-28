@@ -1,4 +1,3 @@
-import * as mongoose from 'mongoose';
 import {ThemeSchema} from './theme.schema';
 import {Connection} from 'mongoose';
 
