@@ -1,6 +1,6 @@
-import {Component, OnInit, Input} from '@angular/core';
-import {ThemeService} from '../../../../services/theme.service';
-import {appConfig} from '../../../../appConfig';
+import {Component, OnInit} from '@angular/core';
+import {appConfig} from '../../appConfig';
+import {ThemeService} from '../../services/theme.service';
 
 @Component({
   selector: 'app-menu',
@@ -8,9 +8,8 @@ import {appConfig} from '../../../../appConfig';
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent implements OnInit {
-  @Input() menuConfig: any;
-  isVisibleMenu: boolean;
-  altMenu = false;
+  isHiddenMenu = false;
+  // altMenu = false;
   listMenu = appConfig.menu.items;
 
   constructor(private themeService: ThemeService) {
@@ -18,12 +17,12 @@ export class MenuComponent implements OnInit {
 
   ngOnInit() {
     this.themeService.visibleMenu.subscribe(evt => {
-      this.isVisibleMenu = evt;
+      this.isHiddenMenu = evt;
     });
 
-    this.themeService.altMenu.subscribe(evt => {
-      this.altMenu = evt;
-    });
+    // this.themeService.altMenu.subscribe(evt => {
+    //   this.altMenu = evt;
+    // });
 
     this.themeService.addMenuItem.subscribe(item => {
       this.listMenu.push(item);

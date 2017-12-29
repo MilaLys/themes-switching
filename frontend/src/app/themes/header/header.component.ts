@@ -1,5 +1,5 @@
 import {Component, OnInit, OnChanges, Input} from '@angular/core';
-import {ThemeService} from '../../../services/theme.service';
+import {ThemeService} from '../../services/theme.service';
 
 @Component({
   selector: 'app-header',
@@ -10,6 +10,7 @@ export class HeaderComponent implements OnInit, OnChanges {
   @Input() headerConfig: any;
   theme = {};
   isVisibleLogo: boolean;
+  newLogoName: string;
 
   constructor(public themeService: ThemeService) {
   }
@@ -17,6 +18,12 @@ export class HeaderComponent implements OnInit, OnChanges {
   ngOnInit() {
     this.themeService.visibleLogo.subscribe(evt => {
       this.isVisibleLogo = evt;
+    }, (error: string) => {
+      console.log(error);
+    });
+
+    this.themeService.changeLogoName.subscribe(evt => {
+      console.log(this.newLogoName = evt);
     }, (error: string) => {
       console.log(error);
     });

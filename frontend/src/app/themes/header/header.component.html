@@ -1,0 +1,12 @@
+<header class="navbar" [ngClass]="(theme.theme?.headerDark)?'navbar-inverse':'navbar-default'">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="navbar-brand bg-danger" *ngIf="theme.theme?.isVisibleLogo">
+          <a href="#" class="text-uppercase">{{theme.theme?.logoName || newLogoName}}</a>
+        </div>
+        <app-menu *ngIf="theme.theme?.isVisibleMenu"></app-menu>
+      </div>
+    </div>
+  </div>
+</header>

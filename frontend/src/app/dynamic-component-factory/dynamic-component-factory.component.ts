@@ -6,14 +6,12 @@ import {
   Input,
   ComponentFactoryResolver
 } from '@angular/core';
-
-import {DefaultThemeComponent} from '../default-theme/default-theme.component';
 import {THEMES} from '../themes';
 
 
 @Component({
   selector: 'app-container',
-  entryComponents: [DefaultThemeComponent, THEMES],
+  entryComponents: [THEMES],
   template: `
     <div #dynamicComponentContainer></div>
   `,

@@ -1,5 +1,5 @@
 import {EventEmitter, Injectable} from '@angular/core';
-import {Http, Response} from '@angular/http';
+import {Response} from '@angular/http';
 import {HttpService} from './http.service';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -10,13 +10,14 @@ export class ThemeService {
   visibleLogo: EventEmitter<boolean> = new EventEmitter();
   altMenu: EventEmitter<boolean> = new EventEmitter();
   addMenuItem: EventEmitter<string> = new EventEmitter();
+  changeLogoName: EventEmitter<string> = new EventEmitter<string>();
 
   themes: object = {};
   oneTheme: object = {};
 
   private apiUrl = 'http://localhost:3000/api/themes';
 
-  constructor(private httpService: HttpService, private http: Http) {
+  constructor(private httpService: HttpService) {
   }
 
   getThemes(): Observable<any> {

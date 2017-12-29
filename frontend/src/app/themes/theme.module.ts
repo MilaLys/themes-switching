@@ -6,7 +6,6 @@ import { HttpModule } from '@angular/http';
 import {HttpService} from '../services/http.service';
 import {ThemeService} from '../services/theme.service';
 
-
 @NgModule({
   imports: [
     BrowserModule,

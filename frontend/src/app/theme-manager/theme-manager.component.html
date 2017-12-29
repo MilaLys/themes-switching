@@ -2,18 +2,11 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-lg-12">
-      <!--<button (click)="createDefaultThemeComponent()">Default Theme</button>-->
       <h4>Themes:</h4>
       <ul class="list-unstyled">
-        <li>
-          <label>
-            <input type="radio" name="chooseTheme" (click)="createDefaultThemeComponent()"/>
-            Default Theme
-          </label>
-        </li>
         <li *ngFor="let item of themes">
           <label>
-            <input type="radio" name="chooseTheme" (click)="applyTheme(item.id);"/>
+            <input type="radio" name="chooseTheme" (click)="applyTheme(item.id);" [checked]="item.id===oneTheme.id"/>
             Apply {{item.themeName}}
           </label>
         </li>
@@ -27,23 +20,30 @@
                name="logoName"
                placeholder="Type name of logo"
                [(ngModel)]="theme.logoName"
+               required
         />
         <br/>
         <input type="checkbox"
                id="menu"
                [checked]="theme.isVisibleMenu"
-               [(ngModel)]="theme.isVisibleMenu"
+               [(ngModel)]="!theme.isVisibleMenu"
                (ngModelChange)="changeVisibleMenu();"
         />
-        <label for="menu">Hide Menu</label>
+        <label for="menu">
+          <span *ngIf="this.oneTheme.isVisibleMenu">Hide Menu</span>
+          <span *ngIf="!this.oneTheme.isVisibleMenu">Show Menu</span>
+        </label>
         <br/>
         <input type="checkbox"
                id="logoInput"
                [checked]="theme.isVisibleLogo"
-               [(ngModel)]="theme.isVisibleLogo"
+               [(ngModel)]="!theme.isVisibleLogo"
                (ngModelChange)="changeVisibleLogo();"
         />
-        <label for="logoInput">Hide Logo</label>
+        <label for="logoInput">
+          <span *ngIf="this.oneTheme.isVisibleLogo">Hide Logo</span>
+          <span *ngIf="!this.oneTheme.isVisibleLogo">Show Logo</span>
+        </label>
         <br/>
         <h4>
           <a href="#" (click)="editMenu = !editMenu">Edit menu</a>
