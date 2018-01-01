@@ -8,7 +8,7 @@ import {ThemeService} from '../../services/theme.service';
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent implements OnInit {
-  isHiddenMenu = false;
+  isVisibleMenu = true;
   // altMenu = false;
   listMenu = appConfig.menu.items;
 
@@ -17,7 +17,7 @@ export class MenuComponent implements OnInit {
 
   ngOnInit() {
     this.themeService.visibleMenu.subscribe(evt => {
-      this.isHiddenMenu = evt;
+      this.isVisibleMenu = evt;
     });
 
     // this.themeService.altMenu.subscribe(evt => {

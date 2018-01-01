@@ -1,7 +1,7 @@
-import {Component, OnInit, EventEmitter, Output, Input} from '@angular/core';
-import {DefaultThemeComponent} from '../themes/default-theme/default-theme.component';
-import {THEMES_ID} from '../themes';
-import {ThemeService} from '../services/theme.service';
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
+import { DefaultThemeComponent } from '../themes/default-theme/default-theme.component';
+import { THEMES_ID } from '../themes';
+import { ThemeService } from '../services/theme.service';
 
 @Component({
   selector: 'app-theme-manager',
@@ -19,8 +19,37 @@ export class ThemeManagerComponent implements OnInit {
   theme = {logoName: '', isVisibleLogo: this.isVisibleLogo, isVisibleMenu: this.isVisibleMenu};
   themes = [];
   logoName = '';
+  currentUser = {_id: null, name: null, email: null, password: null};
+  currentTheme = {_id: null, themeId: null, userId: null};
+  currentConfig = {_id: null, userId: null, isVisibleMenu: null, isVisibleLogo: null, logoName: null, headerDark: null};
 
   constructor(private themeService: ThemeService) {
+  }
+
+  ngOnInit() {
+    this.getCurrentUser();
+    this.getThemes();
+  }
+
+  getCurrentUser() {
+    this.themeService.getCurrentUser().subscribe(data => {
+      this.currentUser = data;
+      this.getUserTheme(this.currentUser._id);
+    })
+  }
+
+  getUserTheme(currentUserId) {
+    this.themeService.getUserTheme(currentUserId).subscribe(data => {
+      this.currentTheme = data;
+      this.getUserConfig(currentUserId);
+    })
+  }
+
+  getUserConfig(currentUserId) {
+    this.themeService.getUserConfig(currentUserId).subscribe(data => {
+      this.currentConfig = data;
+      this.applyTheme(this.currentTheme.themeId);
+    })
   }
 
   getThemes() {
@@ -29,31 +58,22 @@ export class ThemeManagerComponent implements OnInit {
     });
   }
 
-  updateThemeConfig(theme) {
-    this.themeService.updateThemeConfig(this.themeService.themes[2]._id, { // themes[2] - default theme
-      logoName: this.theme.logoName,
-      isVisibleLogo: this.theme.isVisibleLogo,
-      isVisibleMenu: this.theme.isVisibleMenu
-    }).subscribe(data => {
-      this.themeService.themes = this.theme;
-      this.logoName = this.theme.logoName;
-    }, error => {
-      console.log(error);
-    });
-    this.theme.logoName = '';
-    console.log(this.theme.isVisibleLogo, this.theme.isVisibleMenu, this.theme.logoName);
-    alert('Changes were saved succeed!');
+  updateUserConfig() {
+    this.themeService.updateUserConfig();
+    this.themeService.updateUserTheme();
   }
+  updateUserTheme(){
 
+  }
   changeVisibleMenu() {
-    this.themeService.visibleMenu.emit(this.isVisibleMenu);
+    this.themeService.visibleMenu.emit(this.theme.isVisibleMenu);
   }
 
   changeVisibleLogo() {
-    this.themeService.visibleLogo.emit(this.isVisibleLogo);
+    this.themeService.visibleLogo.emit(this.theme.isVisibleLogo);
   }
 
-  changedLogoName() {
+  changeLogoName() {
     this.themeService.changeLogoName.emit(this.theme.logoName);
   }
 
@@ -65,18 +85,11 @@ export class ThemeManagerComponent implements OnInit {
     this.themeService.altMenu.emit(this.otherMenu);
   }
 
-  ngOnInit() {
-    this.applyTheme(0); // theme_id from user
-    this.getThemes();
-  }
-
   applyTheme(id) {
-    this.themeService.getOneTheme(id).subscribe(data => {
-      this.oneTheme = data.theme;
-      this.componentData = {
-        component: THEMES_ID[id], // ???
-        inputs: {}
-      };
-    });
+    this.themeService.currentTheme.themeId = id;
+    this.componentData = {
+      component: THEMES_ID[id], // ???
+      inputs: {}
+    };
   }
 }

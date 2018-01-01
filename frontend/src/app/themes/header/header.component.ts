@@ -1,5 +1,5 @@
-import {Component, OnInit, OnChanges, Input} from '@angular/core';
-import {ThemeService} from '../../services/theme.service';
+import { Component, OnInit, OnChanges, Input } from '@angular/core';
+import { ThemeService } from '../../services/theme.service';
 
 @Component({
   selector: 'app-header',
@@ -8,28 +8,29 @@ import {ThemeService} from '../../services/theme.service';
 })
 export class HeaderComponent implements OnInit, OnChanges {
   @Input() headerConfig: any;
-  theme = {};
-  isVisibleLogo: boolean;
+  theme = {isVisibleLogo: false, logoName: ''};
+
   newLogoName: string;
 
-  constructor(public themeService: ThemeService) {
+  constructor(private themeService: ThemeService) {
   }
 
   ngOnInit() {
     this.themeService.visibleLogo.subscribe(evt => {
-      this.isVisibleLogo = evt;
+      this.theme.isVisibleLogo = evt;
     }, (error: string) => {
-      console.log(error);
+      console.error(error);
     });
 
     this.themeService.changeLogoName.subscribe(evt => {
-      console.log(this.newLogoName = evt);
+      this.theme.logoName = evt;
     }, (error: string) => {
-      console.log(error);
+      console.error(error);
     });
   }
 
   ngOnChanges() {
-    this.theme = this.themeService.oneTheme;
+    this.theme = this.themeService.getMergedConfig();
+    console.log(this.theme);
   }
 }

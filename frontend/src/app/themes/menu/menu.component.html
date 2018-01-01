@@ -1,4 +1,4 @@
-<ul class="nav nav-pills navbar-right" [class.alt-menu]="altMenu" *ngIf="!isHiddenMenu">
+<ul class="nav nav-pills navbar-right" [class.alt-menu]="altMenu" *ngIf="isVisibleMenu">
   <li *ngFor="let item of listMenu">
     <a href="#">{{item}}</a>
   </li>

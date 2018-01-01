@@ -6,7 +6,8 @@
       <ul class="list-unstyled">
         <li *ngFor="let item of themes">
           <label>
-            <input type="radio" name="chooseTheme" (click)="applyTheme(item.id);" [checked]="item.id===oneTheme.id"/>
+            <input type="radio" name="chooseTheme" (click)="applyTheme(item.id);"
+                   [checked]="item.id==currentTheme.themeId"/>
             Apply {{item.themeName}}
           </label>
         </li>
@@ -20,30 +21,26 @@
                name="logoName"
                placeholder="Type name of logo"
                [(ngModel)]="theme.logoName"
-               required
+               (ngModelChange)="changeLogoName();"
         />
         <br/>
         <input type="checkbox"
                id="menu"
+               name="menu"
                [checked]="theme.isVisibleMenu"
-               [(ngModel)]="!theme.isVisibleMenu"
+               [(ngModel)]="theme.isVisibleMenu"
                (ngModelChange)="changeVisibleMenu();"
         />
-        <label for="menu">
-          <span *ngIf="this.oneTheme.isVisibleMenu">Hide Menu</span>
-          <span *ngIf="!this.oneTheme.isVisibleMenu">Show Menu</span>
-        </label>
+        <label for="menu">Show Menu</label>
         <br/>
         <input type="checkbox"
                id="logoInput"
+               name="logoInput"
                [checked]="theme.isVisibleLogo"
-               [(ngModel)]="!theme.isVisibleLogo"
+               [(ngModel)]="theme.isVisibleLogo"
                (ngModelChange)="changeVisibleLogo();"
         />
-        <label for="logoInput">
-          <span *ngIf="this.oneTheme.isVisibleLogo">Hide Logo</span>
-          <span *ngIf="!this.oneTheme.isVisibleLogo">Show Logo</span>
-        </label>
+        <label for="logoInput">Show Logo</label>
         <br/>
         <h4>
           <a href="#" (click)="editMenu = !editMenu">Edit menu</a>
@@ -51,7 +48,7 @@
         <div *ngIf="editMenu">
           <input type="text" placeholder="Add menu item" [(ngModel)]="newItem" (keyup.enter)="addMenuItem(newItem);"/>
         </div>
-        <button class="btn btn-default" (click)="updateThemeConfig(theme)">Save changes</button>
+        <button class="btn btn-default" (click)="updateUserConfig()">Save changes</button>
       </div>
     </div>
   </div>

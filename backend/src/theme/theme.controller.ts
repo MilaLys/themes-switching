@@ -8,23 +8,22 @@ export class ThemeController {
   }
 
   @Get('/themes')
-  async findAll(): Promise<Theme[]> {
-    return this.themeService.findAll();
+   findAll(@Req() req, @Res() res) {
+     this.themeService.findAll().then((data) => res.json(data));
   }
 
   @Get('/themes/:id')
-  private async findOne(@Req() req, @Res() res) {
-    const theme = await this.themeService.findOne(req.params.id);
-    res.json({theme});
+    findOne(@Req() req, @Res() res) {
+    this.themeService.findOne(req.params.id).then((data) => res.json(data));
   }
 
-  @Put('/themes/:id')
-  private updateThemeConfig(@Req() req, @Res() res) {
-    this.themeService.update(req.params.id, req.body, (err, theme) => {
-      if (err) {
-        return console.error(err);
-      }
-      res.json(theme);
-    });
-  }
+  // @Put('/themes/:id')
+  // private updateThemeConfig(@Req() req, @Res() res) {
+  //   this.themeService.update(req.params.id, req.body, (err, theme) => {
+  //     if (err) {
+  //       return console.error(err);
+  //     }
+  //     res.json(theme);
+  //   });
+  // }
 }
