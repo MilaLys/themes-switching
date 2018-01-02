@@ -1,7 +1,10 @@
-import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
-import { DefaultThemeComponent } from '../themes/default-theme/default-theme.component';
+import { Component, OnInit } from '@angular/core';
 import { THEMES_ID } from '../themes';
 import { ThemeService } from '../services/theme.service';
+import { Theme } from '../models/theme.interface';
+import { User } from '../models/user.interface';
+import { CurrentTheme } from '../models/current-theme.interface';
+import { CurrentConfig } from '../models/current-config';
 
 @Component({
   selector: 'app-theme-manager',
@@ -12,16 +15,13 @@ import { ThemeService } from '../services/theme.service';
 export class ThemeManagerComponent implements OnInit {
   componentData = null;
   newItem = '';
-  otherMenu = false;
-  oneTheme: object = {};
   isVisibleMenu = true;
   isVisibleLogo = true;
-  theme = {logoName: '', isVisibleLogo: this.isVisibleLogo, isVisibleMenu: this.isVisibleMenu};
-  themes = [];
-  logoName = '';
-  currentUser = {_id: null, name: null, email: null, password: null};
-  currentTheme = {_id: null, themeId: null, userId: null};
-  currentConfig = {_id: null, userId: null, isVisibleMenu: null, isVisibleLogo: null, logoName: null, headerDark: null};
+  theme: Theme = {logoName: '', isVisibleLogo: this.isVisibleLogo, isVisibleMenu: this.isVisibleMenu};
+  themes: Theme[] = [];
+  currentUser: User;
+  currentTheme: CurrentTheme = {_id: null, themeId: null, userId: null};
+  currentConfig: CurrentConfig;
 
   constructor(private themeService: ThemeService) {
   }
@@ -35,21 +35,22 @@ export class ThemeManagerComponent implements OnInit {
     this.themeService.getCurrentUser().subscribe(data => {
       this.currentUser = data;
       this.getUserTheme(this.currentUser._id);
-    })
+    });
   }
 
   getUserTheme(currentUserId) {
     this.themeService.getUserTheme(currentUserId).subscribe(data => {
       this.currentTheme = data;
       this.getUserConfig(currentUserId);
-    })
+
+    });
   }
 
   getUserConfig(currentUserId) {
     this.themeService.getUserConfig(currentUserId).subscribe(data => {
       this.currentConfig = data;
       this.applyTheme(this.currentTheme.themeId);
-    })
+    });
   }
 
   getThemes() {
@@ -59,12 +60,10 @@ export class ThemeManagerComponent implements OnInit {
   }
 
   updateUserConfig() {
-    this.themeService.updateUserConfig();
-    this.themeService.updateUserTheme();
+    this.themeService.updateUserConfig(this.currentUser._id, this.theme);
+    this.themeService.updateUserTheme(this.currentUser._id, this.currentTheme.themeId);
   }
-  updateUserTheme(){
 
-  }
   changeVisibleMenu() {
     this.themeService.visibleMenu.emit(this.theme.isVisibleMenu);
   }
@@ -78,17 +77,17 @@ export class ThemeManagerComponent implements OnInit {
   }
 
   addMenuItem(item: string) {
-    this.themeService.addMenuItem.emit(this.newItem);
+    // this.themeService.addMenuItem.emit(this.newItem);
   }
 
   setMenu() {
-    this.themeService.altMenu.emit(this.otherMenu);
+    // this.themeService.altMenu.emit(this.otherMenu);
   }
 
   applyTheme(id) {
     this.themeService.currentTheme.themeId = id;
     this.componentData = {
-      component: THEMES_ID[id], // ???
+      component: THEMES_ID[id],
       inputs: {}
     };
   }

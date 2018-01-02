@@ -10,8 +10,6 @@ export class HeaderComponent implements OnInit, OnChanges {
   @Input() headerConfig: any;
   theme = {isVisibleLogo: false, logoName: ''};
 
-  newLogoName: string;
-
   constructor(private themeService: ThemeService) {
   }
 
@@ -31,6 +29,5 @@ export class HeaderComponent implements OnInit, OnChanges {
 
   ngOnChanges() {
     this.theme = this.themeService.getMergedConfig();
-    console.log(this.theme);
   }
 }

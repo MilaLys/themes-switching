@@ -1,24 +1,23 @@
 import { Controller, Get, Put, Req, Res } from '@nestjs/common';
 import { UserThemeService } from './user-theme.service';
 
-@Controller('api')
+@Controller('api/user-theme')
 export class UserThemeController {
   constructor(private readonly userThemeService: UserThemeService) {
   }
 
-  @Get('/user-theme/:userId')
+  @Get('/:userId')
   getUserTheme(@Req() req, @Res() res) {
    this.userThemeService.getUserTheme(req.params.userId).then((data) => res.json(data));
   }
 
-  @Put('/user-theme/:userId')
-  private updateUserTheme(@Req() req, @Res() res) {
-    console.log(req.params.userId);
-    this.userThemeService.updateUserTheme(req.params.userId, req.body, (err, themeConfig) => {
+  @Put('/:userId')
+  updateUserTheme(@Req() req, @Res() res) {
+    this.userThemeService.updateUserTheme(req.params.userId, req.body.themeId, (err, themeId) => {
       if (err) {
         return console.error(err);
       }
-      res.json(themeConfig);
+      res.json(themeId);
     });
   }
 }

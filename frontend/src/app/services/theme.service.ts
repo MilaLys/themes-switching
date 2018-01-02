@@ -3,6 +3,9 @@ import { Response } from '@angular/http';
 import { HttpService } from './http.service';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
+import { User } from '../models/user.interface';
+import { CurrentTheme } from '../models/current-theme.interface';
+import { CurrentConfig } from '../models/current-config';
 
 @Injectable()
 export class ThemeService {
@@ -13,17 +16,16 @@ export class ThemeService {
   changeLogoName: EventEmitter<string> = new EventEmitter<string>();
 
   themes = [];
-  // oneTheme: object = {}; // TODO: change to currentTheme
-  currentUser = {_id: null, name: null, email: null, password: null};
-  currentTheme = {_id: null, themeId: null, userId: null};
-  currentConfig = {_id: null, userId: null, isVisibleMenu: null, isVisibleLogo: null, logoName: null};
+  currentUser: User;
+  currentTheme: CurrentTheme;
+  currentConfig: CurrentConfig;
 
   private apiUrl = 'http://localhost:3000/api';
 
   constructor(private httpService: HttpService) {
   }
 
-  getThemes(): Observable<any> {
+  public getThemes(): Observable<any> {
     return this.httpService
       .get(`${this.apiUrl}/themes`)
       .map((data: Response) => {
@@ -32,58 +34,49 @@ export class ThemeService {
       });
   }
 
-  // getOneTheme(id): Observable<any> {
-  //   return this.httpService
-  //     .get(`${this.apiUrl}/themes/${id}`)
-  //     .map((data: Response) => {
-  //       this.oneTheme = data.json();
-  //       return this.oneTheme;
-  //     });
-  // }
-
-  updateUserConfig(): Observable<any> {
-    return this.httpService
-      .put(`${this.apiUrl}/user-config/${this.currentUser._id}`, this.currentConfig)
-      .map((data: Response) => data.json());
+  public updateUserConfig(id, config): void {
+    this.httpService
+      .put(`${this.apiUrl}/user-config/${id}`, config)
+      .subscribe(data => data.json());
   }
 
-  updateUserTheme(): Observable<any> {
-    console.log(124);
-    return this.httpService
-      .put(`${this.apiUrl}/user-theme/${this.currentUser._id}`, this.currentTheme);
+  public updateUserTheme(userId, themeId): void {
+    this.httpService
+      .put(`${this.apiUrl}/user-theme/${userId}`, {themeId: themeId})
+      .subscribe(data => data.json());
   }
 
-  getCurrentUser(): Observable<any> {
+  public getCurrentUser(): Observable<any> {
     return this.httpService
       .get(`${this.apiUrl}/user`)
       .map((data: Response) => {
         this.currentUser = data.json();
         return this.currentUser;
-      })
+      });
   }
 
-  getUserTheme(id): Observable<any> {
+  public getUserTheme(id): Observable<any> {
     return this.httpService
       .get(`${this.apiUrl}/user-theme/${id}`)
       .map((data: Response) => {
         this.currentTheme = data.json();
         return this.currentTheme;
-      })
+      });
   }
 
-  getUserConfig(id): Observable<any> {
+  public getUserConfig(id): Observable<any> {
     return this.httpService
       .get(`${this.apiUrl}/user-config/${id}`)
       .map((data: Response) => {
         this.currentConfig = data.json();
         return this.currentConfig;
-      })
+      });
   }
 
   public getMergedConfig() {
     let theme;
     for (let i = 0; i < this.themes.length; i++) {
-      if (this.themes[i].id == this.currentTheme.themeId) {
+      if (this.themes[i].id === this.currentTheme.themeId) {
         theme = this.themes[i];
         break;
       }

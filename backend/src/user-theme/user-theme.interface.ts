@@ -1,6 +1,6 @@
 import {Document} from 'mongoose';
 
 export interface UserTheme extends Document {
-  userId:string,
-  themeId:string
+  userId: string;
+  themeId: number;
 }

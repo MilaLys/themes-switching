@@ -12,12 +12,12 @@ export class UserConfigController {
   }
 
   @Put('/user-config/:userId')
-  private updateUserConfig(@Req() req, @Res() res) {
+  updateUserConfig(@Req() req, @Res() res) {
     this.userConfigService.updateUserConfig(req.params.userId, req.body, (err, data) => {
       if (err) {
         return console.error(err);
       }
-      res.json(data);
+      res.json({data});
     });
   }
 }
