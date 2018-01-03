@@ -12,7 +12,17 @@ export class UserConfigService {
   }
 
   async updateUserConfig(userId, config, cb) {
-    this.userConfigModel.update({userId: userId}, {isVisibleMenu: config.isVisibleMenu, isVisibleLogo: config.isVisibleLogo, logoName: config.logoName}).lean().exec(cb);
+    console.log(config);
+    this.userConfigModel
+      .update({userId: userId},
+        {
+          isVisibleMenu: config.isVisibleMenu,
+          isVisibleLogo: config.isVisibleLogo,
+          logoName: config.logoName,
+          menuItem: config.menuItem
+        })
+      .lean()
+      .exec(cb);
   }
 }
 

@@ -8,7 +8,7 @@ import {ThemeService} from '../../services/theme.service';
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent implements OnInit {
-  isVisibleMenu = true;
+  theme = {isVisibleMenu: false, menuItems: []};
   // altMenu = false;
   listMenu = appConfig.menu.items;
 
@@ -16,8 +16,11 @@ export class MenuComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.theme.isVisibleMenu = this.themeService.currentConfig.isVisibleMenu;
     this.themeService.visibleMenu.subscribe(evt => {
-      this.isVisibleMenu = evt;
+      this.theme.isVisibleMenu = evt;
+    }, (error: string) => {
+      console.error(error);
     });
 
     // this.themeService.altMenu.subscribe(evt => {
@@ -25,7 +28,8 @@ export class MenuComponent implements OnInit {
     // });
 
     this.themeService.addMenuItem.subscribe(item => {
-      this.listMenu.push(item);
+      // this.theme.menuItems.push(item);
+       this.theme.menuItems = item;
     });
   }
 }

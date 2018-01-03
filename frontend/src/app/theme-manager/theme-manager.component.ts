@@ -14,14 +14,15 @@ import { CurrentConfig } from '../models/current-config';
 
 export class ThemeManagerComponent implements OnInit {
   componentData = null;
-  newItem = '';
-  isVisibleMenu = true;
-  isVisibleLogo = true;
-  theme: Theme = {logoName: '', isVisibleLogo: this.isVisibleLogo, isVisibleMenu: this.isVisibleMenu};
+  newMenuItem: string;
+  newMenuItemLink: '';
   themes: Theme[] = [];
   currentUser: User;
   currentTheme: CurrentTheme = {_id: null, themeId: null, userId: null};
   currentConfig: CurrentConfig;
+  isVisibleMenu;
+  isVisibleLogo;
+  theme: Theme = {logoName: '', isVisibleLogo: this.isVisibleLogo, isVisibleMenu: this.isVisibleMenu, menuItems: []};
 
   constructor(private themeService: ThemeService) {
   }
@@ -42,13 +43,14 @@ export class ThemeManagerComponent implements OnInit {
     this.themeService.getUserTheme(currentUserId).subscribe(data => {
       this.currentTheme = data;
       this.getUserConfig(currentUserId);
-
     });
   }
 
   getUserConfig(currentUserId) {
     this.themeService.getUserConfig(currentUserId).subscribe(data => {
       this.currentConfig = data;
+      this.theme.isVisibleLogo = data.isVisibleLogo;
+      this.theme.isVisibleMenu = data.isVisibleMenu;
       this.applyTheme(this.currentTheme.themeId);
     });
   }
@@ -76,8 +78,9 @@ export class ThemeManagerComponent implements OnInit {
     this.themeService.changeLogoName.emit(this.theme.logoName);
   }
 
-  addMenuItem(item: string) {
-    // this.themeService.addMenuItem.emit(this.newItem);
+  addMenuItem() {
+    this.theme.menuItems.push(this.newMenuItem);
+    this.themeService.addMenuItem.emit(this.theme.menuItems);
   }
 
   setMenu() {

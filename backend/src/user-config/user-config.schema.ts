@@ -5,6 +5,6 @@ export const UserConfigSchema = new mongoose.Schema({
   isVisibleMenu: Boolean,
   isVisibleLogo: Boolean,
   logoName: String,
-  headerDark: Boolean
+  menuItems: Object
 });
 

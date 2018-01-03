@@ -5,4 +5,5 @@ export interface Theme extends Document {
   logoName: string;
   isVisibleLogo: boolean;
   isVisibleMenu: boolean;
+  headerDark: boolean;
 }

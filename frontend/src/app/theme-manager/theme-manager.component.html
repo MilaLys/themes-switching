@@ -27,7 +27,7 @@
         <input type="checkbox"
                id="menu"
                name="menu"
-               [checked]="theme.isVisibleMenu"
+               [checked]="theme?.isVisibleMenu"
                [(ngModel)]="theme.isVisibleMenu"
                (ngModelChange)="changeVisibleMenu();"
         />
@@ -36,18 +36,20 @@
         <input type="checkbox"
                id="logoInput"
                name="logoInput"
-               [checked]="theme.isVisibleLogo"
+               [checked]="theme?.isVisibleLogo"
                [(ngModel)]="theme.isVisibleLogo"
                (ngModelChange)="changeVisibleLogo();"
         />
         <label for="logoInput">Show Logo</label>
         <br/>
         <h4>
-          <a href="#" (click)="editMenu = !editMenu">Edit menu</a>
+          <a href="#">Add menu item</a>
         </h4>
-        <div *ngIf="editMenu">
-          <input type="text" placeholder="Add menu item" [(ngModel)]="newItem" (keyup.enter)="addMenuItem(newItem);"/>
+        <div>
+          <input type="text" placeholder="Add menu item" [(ngModel)]="newMenuItem" (keyup.enter)="addMenuItem(newMenuItem);newMenuItem='';"/>
+          <input type="text" placeholder="Add link" [(ngModel)]="newMenuItemLink" (keyup.enter)="addMenuItemLink(newMenuItemLink);"/>
         </div>
+        <hr/>
         <button class="btn btn-default" (click)="updateUserConfig()">Save changes</button>
       </div>
     </div>
