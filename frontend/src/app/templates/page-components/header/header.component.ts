@@ -1,5 +1,5 @@
 import { Component, OnInit, OnChanges, Input } from '@angular/core';
-import { ThemeService } from '../../services/theme.service';
+import { ThemeService } from '../../../services/theme.service';
 
 @Component({
   selector: 'app-header',
@@ -8,7 +8,8 @@ import { ThemeService } from '../../services/theme.service';
 })
 export class HeaderComponent implements OnInit, OnChanges {
   @Input() headerConfig: any;
-  theme = {isVisibleLogo: false, logoName: ''};
+  theme = {isVisibleLogo: false, logoName: '', content: {}};
+  page = "/app-home";
 
   constructor(private themeService: ThemeService) {
   }
@@ -22,6 +23,12 @@ export class HeaderComponent implements OnInit, OnChanges {
 
     this.themeService.changeLogoName.subscribe(evt => {
       this.theme.logoName = evt;
+    }, (error: string) => {
+      console.error(error);
+    });
+
+    this.themeService.changePage.subscribe(evt => {
+      this.page = evt;
     }, (error: string) => {
       console.error(error);
     });

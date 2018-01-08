@@ -1,8 +1,8 @@
 import {LightThemeComponent} from './themes/light-theme/light-theme.component';
 import {DefaultThemeComponent} from './themes/default-theme/default-theme.component';
 import {DarkThemeComponent} from './themes/dark-theme/dark-theme.component';
-import {HeaderComponent} from './themes/header/header.component';
-import {MenuComponent} from './themes/menu/menu.component';
+import {HeaderComponent} from './templates/page-components/header/header.component';
+import {MenuComponent} from './templates/page-components/menu/menu.component';
 
 export const THEMES = [
   DefaultThemeComponent,

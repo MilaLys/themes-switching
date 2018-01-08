@@ -22,7 +22,7 @@ export class ThemeManagerComponent implements OnInit {
   currentConfig: CurrentConfig;
   isVisibleMenu;
   isVisibleLogo;
-  theme: Theme = {logoName: '', isVisibleLogo: this.isVisibleLogo, isVisibleMenu: this.isVisibleMenu, menuItems: []};
+  theme = {logoName: '', isVisibleLogo: this.isVisibleLogo, isVisibleMenu: this.isVisibleMenu, menuItems: [], content: {"/app-home": "home"}};
 
   constructor(private themeService: ThemeService) {
   }
@@ -51,6 +51,8 @@ export class ThemeManagerComponent implements OnInit {
       this.currentConfig = data;
       this.theme.isVisibleLogo = data.isVisibleLogo;
       this.theme.isVisibleMenu = data.isVisibleMenu;
+      this.theme.logoName = data.logoName;
+      this.theme.content = data.content;
       this.applyTheme(this.currentTheme.themeId);
     });
   }
@@ -80,11 +82,7 @@ export class ThemeManagerComponent implements OnInit {
 
   addMenuItem() {
     this.theme.menuItems.push(this.newMenuItem);
-    this.themeService.addMenuItem.emit(this.theme.menuItems);
-  }
-
-  setMenu() {
-    // this.themeService.altMenu.emit(this.otherMenu);
+    this.themeService.addMenuItem.emit(this.newMenuItem);
   }
 
   applyTheme(id) {

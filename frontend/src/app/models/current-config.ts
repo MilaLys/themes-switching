@@ -4,4 +4,6 @@ export interface CurrentConfig {
   isVisibleMenu: boolean;
   isVisibleLogo: boolean;
   logoName: string;
+  menuItems: any;
+  content: object;
 }

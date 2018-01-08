@@ -1,0 +1,16 @@
+<ul class="nav nav-pills navbar-right" *ngIf="theme?.isVisibleMenu">
+  <li>
+    <a (click)="onClick('/app-home')" class="text-uppercase">home</a>
+  </li>
+  <li>
+    <a (click)="onClick('/app-about')" class="text-uppercase">about</a>
+  </li>
+  <!--<li *ngFor="let item of theme?.menuItems">
+    <a routerLink="/app-about" routerLinkActive="active" (click)="onClick('')" class="text-uppercase">{{item}}</a>
+  </li>-->
+</ul>
+
+
+
+
+

@@ -11,9 +11,9 @@ import { CurrentConfig } from '../models/current-config';
 export class ThemeService {
   visibleMenu: EventEmitter<boolean> = new EventEmitter();
   visibleLogo: EventEmitter<boolean> = new EventEmitter();
-  altMenu: EventEmitter<boolean> = new EventEmitter();
   addMenuItem: EventEmitter<string> = new EventEmitter();
   changeLogoName: EventEmitter<string> = new EventEmitter<string>();
+  changePage: EventEmitter<string> = new EventEmitter<string>();
 
   themes = [];
   currentUser: User;
@@ -81,6 +81,7 @@ export class ThemeService {
         break;
       }
     }
+    console.log(this.currentConfig);
     return Object.assign({}, theme, this.currentConfig);
   }
 }
