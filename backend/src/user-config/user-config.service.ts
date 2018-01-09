@@ -16,12 +16,12 @@ export class UserConfigService {
       .update({userId: userId},
         {
           $set: {
-            "isVisibleMenu": config.isVisibleMenu,
-            "isVisibleLogo": config.isVisibleLogo,
-            "logoName": config.logoName
+            'isVisibleMenu': config.isVisibleMenu,
+            'isVisibleLogo': config.isVisibleLogo,
+            'logoName': config.logoName
           },
           $push: {
-            "menuItems": config.menuItems
+            'menuItems': {$each: config.menuItems}
           }
         }
       )

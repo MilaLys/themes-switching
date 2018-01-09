@@ -22,7 +22,7 @@ export class ThemeManagerComponent implements OnInit {
   currentConfig: CurrentConfig;
   isVisibleMenu;
   isVisibleLogo;
-  theme = {logoName: '', isVisibleLogo: this.isVisibleLogo, isVisibleMenu: this.isVisibleMenu, menuItems: [], content: {"/app-home": "home"}};
+  theme = {logoName: '', isVisibleLogo: this.isVisibleLogo, isVisibleMenu: this.isVisibleMenu, menuItems: [], content: {'/app-home': 'home'}};
 
   constructor(private themeService: ThemeService) {
   }
@@ -65,6 +65,7 @@ export class ThemeManagerComponent implements OnInit {
 
   updateUserConfig() {
     this.themeService.updateUserConfig(this.currentUser._id, this.theme);
+    this.theme.menuItems.length = 0;
     this.themeService.updateUserTheme(this.currentUser._id, this.currentTheme.themeId);
   }
 

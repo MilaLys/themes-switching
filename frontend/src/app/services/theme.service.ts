@@ -81,7 +81,6 @@ export class ThemeService {
         break;
       }
     }
-    console.log(this.currentConfig);
     return Object.assign({}, theme, this.currentConfig);
   }
 }
