@@ -1,5 +1,5 @@
-import { Component, OnInit, OnChanges, Input } from '@angular/core';
-import { ThemeService } from '../../../services/theme.service';
+import {Component, OnInit, OnChanges, Input} from '@angular/core';
+import {ThemeService} from '../../../services/theme.service';
 import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
@@ -13,7 +13,7 @@ export class HeaderComponent implements OnInit, OnChanges {
   page = '/app-home';
 
   constructor(private themeService: ThemeService, private sanitizer: DomSanitizer) {
-    this.theme.content[this.page] = this.getInnerHtmlValue();
+    this.theme.content = this.getInnerHtmlValue(this.page);
   }
 
   ngOnInit() {
@@ -36,11 +36,13 @@ export class HeaderComponent implements OnInit, OnChanges {
     });
   }
 
-  getInnerHtmlValue() {
-    return this.sanitizer.bypassSecurityTrustHtml(this.theme.content[this.page]);
+  getInnerHtmlValue(page) {
+    return this.sanitizer.bypassSecurityTrustHtml(page);
   }
 
   ngOnChanges() {
     this.theme = this.themeService.getMergedConfig();
+    console.log(this.theme.content);
+    console.log(this.page);
   }
 }

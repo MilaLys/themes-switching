@@ -13,7 +13,7 @@ import {THEMES} from '../themes';
   selector: 'app-container',
   entryComponents: [THEMES],
   template: `
-    <div #dynamicComponentContainer></div>
+    <div #dynamicComponentContainer class="here"></div>
   `,
   styleUrls: ['./dynamic-component-factory.component.css']
 })

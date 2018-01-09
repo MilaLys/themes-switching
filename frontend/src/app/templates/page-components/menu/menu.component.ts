@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ThemeService } from '../../../services/theme.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menu',
@@ -10,13 +11,15 @@ import { ThemeService } from '../../../services/theme.service';
 export class MenuComponent implements OnInit {
   theme = {isVisibleMenu: false, menuItems: []};
 
-  constructor(private themeService: ThemeService) {
+  constructor(private themeService: ThemeService, private router: Router) {
   }
 
-  onClick(path) {
-    this.themeService.changePage.emit(path);
+  changePage(path) {
+    // this.themeService.changePage.emit(path);
   }
-
+  onClick (path) {
+    this.router.navigate([path]);
+  }
   ngOnInit() {
 
     this.theme.isVisibleMenu = this.themeService.currentConfig.isVisibleMenu;

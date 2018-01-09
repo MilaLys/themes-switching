@@ -9,6 +9,9 @@ import { HttpService } from './services/http.service';
 import { XHRBackend, RequestOptions } from '@angular/http';
 import { ThemeService } from './services/theme.service';
 import { ThemeManagerComponent } from './theme-manager/theme-manager.component';
+import { HomeComponent } from './templates/pages/home/home.component';
+import { BlogComponent } from './templates/pages/blog/blog.component';
+import {appRoutingProviders, routing} from './app.routes';
 
 export function httpFactory(backend: XHRBackend, defaultOptions: RequestOptions): any {
   return new HttpService(backend, defaultOptions);
@@ -18,11 +21,14 @@ export function httpFactory(backend: XHRBackend, defaultOptions: RequestOptions)
   declarations: [
     AppComponent,
     DynamicComponentFactory,
-    ThemeManagerComponent
+    ThemeManagerComponent,
+    HomeComponent,
+    BlogComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    routing,
     ThemeModule.withComponents([
       THEMES,
       THEMES_COMPONENT
@@ -30,6 +36,7 @@ export function httpFactory(backend: XHRBackend, defaultOptions: RequestOptions)
   ],
   providers: [
     ThemeService,
+    appRoutingProviders,
     {
       provide: HttpService,
       useFactory: httpFactory,

@@ -5,6 +5,7 @@ import { Theme } from '../models/theme.interface';
 import { User } from '../models/user.interface';
 import { CurrentTheme } from '../models/current-theme.interface';
 import { CurrentConfig } from '../models/current-config';
+import {logger} from 'codelyzer/util/logger';
 
 @Component({
   selector: 'app-theme-manager',
@@ -22,7 +23,7 @@ export class ThemeManagerComponent implements OnInit {
   currentConfig: CurrentConfig;
   isVisibleMenu;
   isVisibleLogo;
-  theme = {logoName: '', isVisibleLogo: this.isVisibleLogo, isVisibleMenu: this.isVisibleMenu, menuItems: [], content: {'/app-home': 'home'}};
+  theme = {logoName: '', isVisibleLogo: this.isVisibleLogo, isVisibleMenu: this.isVisibleMenu, menuItems: [], content: {}};
 
   constructor(private themeService: ThemeService) {
   }
