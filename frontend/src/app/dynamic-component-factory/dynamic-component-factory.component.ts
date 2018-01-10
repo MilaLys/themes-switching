@@ -10,7 +10,7 @@ import {THEMES} from '../themes';
 
 
 @Component({
-  selector: 'app-container',
+  selector: 'router-outlet',
   entryComponents: [THEMES],
   template: `
     <div #dynamicComponentContainer class="here"></div>

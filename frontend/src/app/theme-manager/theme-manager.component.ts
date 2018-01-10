@@ -5,7 +5,6 @@ import { Theme } from '../models/theme.interface';
 import { User } from '../models/user.interface';
 import { CurrentTheme } from '../models/current-theme.interface';
 import { CurrentConfig } from '../models/current-config';
-import {logger} from 'codelyzer/util/logger';
 
 @Component({
   selector: 'app-theme-manager',
@@ -85,6 +84,13 @@ export class ThemeManagerComponent implements OnInit {
   addMenuItem() {
     this.theme.menuItems.push(this.newMenuItem);
     this.themeService.addMenuItem.emit(this.newMenuItem);
+  }
+
+  addMenuItemLink() {
+    // 1) show list of available pages
+    // 2) choose page
+    // 3) get link of this page
+    // 4) put this link to routes
   }
 
   applyTheme(id) {

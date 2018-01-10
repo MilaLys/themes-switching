@@ -42,7 +42,5 @@ export class HeaderComponent implements OnInit, OnChanges {
 
   ngOnChanges() {
     this.theme = this.themeService.getMergedConfig();
-    console.log(this.theme.content);
-    console.log(this.page);
   }
 }

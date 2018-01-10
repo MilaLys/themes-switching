@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 
 @Component({
-  selector: 'app-first-theme',
+  selector: 'app-light-theme',
   templateUrl: './light-theme.component.html',
   styleUrls: ['./light-theme.component.css']
 })
