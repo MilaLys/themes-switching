@@ -1,11 +1,13 @@
-import { EventEmitter, Injectable } from '@angular/core';
-import { Response } from '@angular/http';
-import { HttpService } from './http.service';
-import { Observable } from 'rxjs/Observable';
+import {EventEmitter, Injectable} from '@angular/core';
+import {Response} from '@angular/http';
+import {HttpService} from './http.service';
+import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
-import { User } from '../models/user.interface';
-import { CurrentTheme } from '../models/current-theme.interface';
-import { CurrentConfig } from '../models/current-config';
+import {User} from '../models/user.interface';
+import {CurrentTheme} from '../models/current-theme.interface';
+import {CurrentConfig} from '../models/current-config';
+import {Theme} from '../models/theme.interface';
+import {Page} from '../models/page.interface';
 
 @Injectable()
 export class ThemeService {
@@ -19,13 +21,14 @@ export class ThemeService {
   currentUser: User;
   currentTheme: CurrentTheme;
   currentConfig: CurrentConfig;
+  page: Page;
 
   private apiUrl = 'http://localhost:3000/api';
 
   constructor(private httpService: HttpService) {
   }
 
-  public getThemes(): Observable<any> {
+  public getThemes(): Observable<Theme[]> {
     return this.httpService
       .get(`${this.apiUrl}/themes`)
       .map((data: Response) => {
@@ -46,7 +49,7 @@ export class ThemeService {
       .subscribe(data => data.json());
   }
 
-  public getCurrentUser(): Observable<any> {
+  public getCurrentUser(): Observable<User> {
     return this.httpService
       .get(`${this.apiUrl}/user`)
       .map((data: Response) => {
@@ -55,7 +58,7 @@ export class ThemeService {
       });
   }
 
-  public getUserTheme(id): Observable<any> {
+  public getUserTheme(id): Observable<CurrentTheme> {
     return this.httpService
       .get(`${this.apiUrl}/user-theme/${id}`)
       .map((data: Response) => {
@@ -64,7 +67,7 @@ export class ThemeService {
       });
   }
 
-  public getUserConfig(id): Observable<any> {
+  public getUserConfig(id): Observable<CurrentConfig> {
     return this.httpService
       .get(`${this.apiUrl}/user-config/${id}`)
       .map((data: Response) => {
@@ -82,6 +85,23 @@ export class ThemeService {
       }
     }
     return Object.assign({}, theme, this.currentConfig);
+  }
+
+  public addPage(pageData, cb): void {
+    this.httpService.post(`${this.apiUrl}/pages`, pageData).subscribe(data => {
+      return cb(null, data.json());
+    }, err => {
+      cb(err.tatusText);
+    });
+  }
+
+  public getPageByLink(link): Observable<Page> {
+    return this.httpService
+      .get(`${this.apiUrl}/page/${link}`)
+      .map(data => {
+        this.page = data.json();
+        return this.page;
+      });
   }
 }
 

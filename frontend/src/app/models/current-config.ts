@@ -1,3 +1,5 @@
+import {Page} from './page.interface';
+
 export interface CurrentConfig {
   _id: string;
   userId: number;
@@ -5,5 +7,5 @@ export interface CurrentConfig {
   isVisibleLogo: boolean;
   logoName: string;
   menuItems: any;
-  content: object;
+  pages: Page;
 }

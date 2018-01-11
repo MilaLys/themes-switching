@@ -12,6 +12,7 @@ import { ThemeManagerComponent } from './theme-manager/theme-manager.component';
 import { HomeComponent } from './templates/pages/home/home.component';
 import { BlogComponent } from './templates/pages/blog/blog.component';
 import {appRoutingProviders, routing} from './app.routes';
+import { CustomPageComponent } from './templates/pages/custom-page/custom-page.component';
 
 export function httpFactory(backend: XHRBackend, defaultOptions: RequestOptions): any {
   return new HttpService(backend, defaultOptions);
@@ -23,7 +24,8 @@ export function httpFactory(backend: XHRBackend, defaultOptions: RequestOptions)
     DynamicComponentFactory,
     ThemeManagerComponent,
     HomeComponent,
-    BlogComponent
+    BlogComponent,
+    CustomPageComponent
   ],
   imports: [
     BrowserModule,

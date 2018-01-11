@@ -5,6 +5,7 @@ import { Theme } from '../models/theme.interface';
 import { User } from '../models/user.interface';
 import { CurrentTheme } from '../models/current-theme.interface';
 import { CurrentConfig } from '../models/current-config';
+import {Page} from '../models/page.interface';
 
 @Component({
   selector: 'app-theme-manager',
@@ -15,14 +16,15 @@ import { CurrentConfig } from '../models/current-config';
 export class ThemeManagerComponent implements OnInit {
   componentData = null;
   newMenuItem: string;
-  newMenuItemLink: '';
+  link: string;
   themes: Theme[] = [];
   currentUser: User;
   currentTheme: CurrentTheme = {_id: null, themeId: null, userId: null};
   currentConfig: CurrentConfig;
   isVisibleMenu;
   isVisibleLogo;
-  theme = {logoName: '', isVisibleLogo: this.isVisibleLogo, isVisibleMenu: this.isVisibleMenu, menuItems: [], content: {}};
+  theme = {logoName: '', isVisibleLogo: this.isVisibleLogo, isVisibleMenu: this.isVisibleMenu, menuItems: [], pages: []};
+  page: Page = {link: '', title: '', content: ''};
 
   constructor(private themeService: ThemeService) {
   }
@@ -52,7 +54,6 @@ export class ThemeManagerComponent implements OnInit {
       this.theme.isVisibleLogo = data.isVisibleLogo;
       this.theme.isVisibleMenu = data.isVisibleMenu;
       this.theme.logoName = data.logoName;
-      this.theme.content = data.content;
       this.applyTheme(this.currentTheme.themeId);
     });
   }
@@ -82,15 +83,16 @@ export class ThemeManagerComponent implements OnInit {
   }
 
   addMenuItem() {
-    this.theme.menuItems.push(this.newMenuItem);
+    this.theme.menuItems.push({name: this.newMenuItem, link: this.link});
     this.themeService.addMenuItem.emit(this.newMenuItem);
   }
 
-  addMenuItemLink() {
+  addMenuItemLink(link) {
     // 1) show list of available pages
     // 2) choose page
     // 3) get link of this page
     // 4) put this link to routes
+    this.link = link;
   }
 
   applyTheme(id) {
@@ -100,4 +102,16 @@ export class ThemeManagerComponent implements OnInit {
       inputs: {}
     };
   }
+
+  addPage() {
+    this.theme.pages.push(this.page);
+  }
+
+  // addPage() {
+  //   this.themeService.addPage(this.page, (err, data) => {
+  //    // this.pages.push(data.page);
+  //     this.page = {link: '', title: '', content: ''};
+  //   });
+  // }
 }
+

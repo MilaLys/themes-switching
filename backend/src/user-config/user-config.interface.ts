@@ -5,6 +5,6 @@ export interface UserConfig extends Document {
   isVisibleMenu: boolean;
   isVisibleLogo: boolean;
   logoName: string;
-  menuItems: any;
-  content: any;
+  menuItems: object;
+  pages: object;
 }

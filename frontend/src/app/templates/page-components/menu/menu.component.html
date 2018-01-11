@@ -4,9 +4,11 @@
   </li>
   <li>
     <a routerLink="/app-blog" routerLinkActive="active" class="text-uppercase" (click)="onClick('/app-blog')">blog</a>
-  </li>
-  <li *ngFor="let item of theme?.menuItems">
-    <a routerLink="/app-about" routerLinkActive="active" class="text-uppercase" (click)="onClick('')">{{item}}</a>
+  </li><li>
+  <a routerLink="/app-custom-page" routerLinkActive="active" class="text-uppercase" (click)="onClick('/app-custom-page')">custom</a>
+</li>
+  <li *ngFor="let items of theme?.menuItems">
+    <a routerLink="/app-about" routerLinkActive="active" class="text-uppercase" (click)="onClick('')">{{items.name}}</a>
   </li>
 </ul>
 

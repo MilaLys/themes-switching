@@ -46,11 +46,66 @@
           <a href="#">Add menu item</a>
         </h4>
         <div>
-          <input type="text" placeholder="Add menu item" [(ngModel)]="newMenuItem" (keyup.enter)="addMenuItem(newMenuItem);newMenuItem='';"/>
-          <input type="text" placeholder="Add link" [(ngModel)]="newMenuItemLink" (keyup.enter)="addMenuItemLink(newMenuItemLink);"/>
+          <input type="text"
+                 placeholder="Add menu item"
+                 [(ngModel)]="newMenuItem"
+          />
+          <input type="text"
+                 placeholder="Link to page {{link}}"
+          />
+          <button (click)="addMenuItem(newMenuItem);newMenuItem='';">Add menu item</button>
+          <ul class="list-unstyled list-group">
+            <b>Available pages:</b>
+            <li *ngFor="let item of currentConfig?.pages" (click)="addMenuItemLink(item.link);">
+              <a href="javascript:void(0)" class="list-group-item">
+                <b>Page: </b>{{item.title}},
+                <u>link:</u> {{item.link}}
+              </a>
+            </li>
+          </ul>
+          <hr/>
+          <form (submit)="addPage()">
+            <h4>Add page</h4>
+            <div class="card-body">
+              <div class="form-inline">
+                <div class="form-group">
+                  <label class="sr-only" for="title">Title</label>
+                  <input type="text"
+                         [(ngModel)]="page.title"
+                         id="title"
+                         name="title"
+                         placeholder="Enter Title"
+                  />
+                </div>
+                <div class="form-group">
+                  <label class="sr-only" for="link">Link</label>
+                  <input type="text"
+                         [(ngModel)]="page.link"
+                         id="link"
+                         name="link"
+                         placeholder="Enter Link"
+                  />
+                </div>
+                <br/>
+                <div class="form-group">
+                  <label class="sr-only" for="link">Content</label>
+                  <textarea
+                    [(ngModel)]="page.content"
+                    id="content"
+                    name="content"
+                    placeholder="Enter Content"
+                  ></textarea>
+                </div>
+              </div>
+            </div>
+            <div style="padding-top: 10px;">
+              <button type="submit" class="btn btn-info">Add</button>
+              <button type="reset" class="btn btn-warning">Reset</button>
+            </div>
+          </form>
         </div>
         <hr/>
-        <button class="btn btn-default" (click)="updateUserConfig()">Save changes</button>
+        <button class="btn btn-info" (click)="updateUserConfig()">Save changes</button>
       </div>
     </div>
   </div>

@@ -21,7 +21,8 @@ export class UserConfigService {
             'logoName': config.logoName
           },
           $push: {
-            'menuItems': {$each: config.menuItems}
+            'menuItems': {$each: config.menuItems},
+            'pages': {$each: config.pages}
           }
         }
       )
