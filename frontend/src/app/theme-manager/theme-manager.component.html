@@ -42,9 +42,7 @@
         />
         <label for="logoInput">Show Logo</label>
         <br/>
-        <h4>
-          <a href="#">Add menu item</a>
-        </h4>
+        <h4>Add menu item</h4>
         <div>
           <input type="text"
                  placeholder="Add menu item"
@@ -56,10 +54,9 @@
           <button (click)="addMenuItem(newMenuItem);newMenuItem='';">Add menu item</button>
           <ul class="list-unstyled list-group">
             <b>Available pages:</b>
-            <li *ngFor="let item of currentConfig?.pages" (click)="addMenuItemLink(item.link);">
+            <li *ngFor="let item of currentConfig?.pages | keys" (click)="addMenuItemLink(item);">
               <a href="javascript:void(0)" class="list-group-item">
-                <b>Page: </b>{{item.title}},
-                <u>link:</u> {{item.link}}
+                <b>Page: </b>{{currentConfig?.pages[item].title}}
               </a>
             </li>
           </ul>

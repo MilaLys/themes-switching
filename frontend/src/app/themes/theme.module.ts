@@ -3,17 +3,20 @@ import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule} from '@angular/forms';
 import { THEMES, THEMES_COMPONENT } from '../themes';
 import { HttpModule } from '@angular/http';
-import {HttpService} from '../services/http.service';
-import {ThemeService} from '../services/theme.service';
+import {RouterModule} from '@angular/router';
+import {HomeComponent} from '../templates/pages/home/home.component';
+import {BlogComponent} from '../templates/pages/blog/blog.component';
+import {CustomPageComponent} from '../templates/pages/custom-page/custom-page.component';
 
 @NgModule({
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    RouterModule
   ],
-  providers: [HttpService, ThemeService],
-  declarations: [THEMES, THEMES_COMPONENT],
+  providers: [],
+  declarations: [THEMES, THEMES_COMPONENT, HomeComponent, BlogComponent, CustomPageComponent],
   exports: [THEMES, THEMES_COMPONENT]
 })
 export class ThemeModule {

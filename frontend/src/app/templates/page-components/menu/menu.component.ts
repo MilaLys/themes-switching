@@ -14,11 +14,9 @@ export class MenuComponent implements OnInit {
   constructor(private themeService: ThemeService, private router: Router) {
   }
 
-  changePage(path) {
-    // this.themeService.changePage.emit(path);
-  }
   onClick (path) {
     this.router.navigate([path]);
+    this.themeService.onClick.emit(path);
   }
   ngOnInit() {
 
@@ -29,11 +27,14 @@ export class MenuComponent implements OnInit {
     }, (error: string) => {
       console.error(error);
     });
+    console.log(this.themeService.currentConfig.menuItems);
+    this.theme.menuItems = this.themeService.currentConfig.menuItems; // TODO: fix
 
-    this.theme.menuItems = this.themeService.currentConfig.menuItems;
 
-    this.themeService.addMenuItem.subscribe(items => {
-      this.theme.menuItems = this.theme.menuItems.concat(items);
-    });
+    // this.themeService.addMenuItem.subscribe(items => {
+    //   console.log(items);
+    //   console.log(this.theme.menuItems);
+    //   this.theme.menuItems = this.theme.menuItems.concat(items);
+    // });
   }
 }

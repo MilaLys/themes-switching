@@ -12,8 +12,7 @@ export class HeaderComponent implements OnInit, OnChanges {
   theme = {isVisibleLogo: false, logoName: '', content: {}};
   page = '/app-home';
 
-  constructor(private themeService: ThemeService, private sanitizer: DomSanitizer) {
-    this.theme.content = this.getInnerHtmlValue(this.page);
+  constructor(private themeService: ThemeService) {
   }
 
   ngOnInit() {
@@ -34,10 +33,6 @@ export class HeaderComponent implements OnInit, OnChanges {
     }, (error: string) => {
       console.error(error);
     });
-  }
-
-  getInnerHtmlValue(page) {
-    return this.sanitizer.bypassSecurityTrustHtml(page);
   }
 
   ngOnChanges() {

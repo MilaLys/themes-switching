@@ -16,6 +16,7 @@ export class ThemeService {
   addMenuItem: EventEmitter<string> = new EventEmitter();
   changeLogoName: EventEmitter<string> = new EventEmitter<string>();
   changePage: EventEmitter<string> = new EventEmitter<string>();
+  onClick: EventEmitter<string> = new EventEmitter<string>();
 
   themes = [];
   currentUser: User;
@@ -87,17 +88,17 @@ export class ThemeService {
     return Object.assign({}, theme, this.currentConfig);
   }
 
-  public addPage(pageData, cb): void {
-    this.httpService.post(`${this.apiUrl}/pages`, pageData).subscribe(data => {
-      return cb(null, data.json());
-    }, err => {
-      cb(err.tatusText);
-    });
-  }
+  // public addPage(pageData, cb): void {
+  //   this.httpService.post(`${this.apiUrl}/pages`, pageData).subscribe(data => {
+  //     return cb(null, data.json());
+  //   }, err => {
+  //     cb(err.tatusText);
+  //   });
+  // }
 
   public getPageByLink(link): Observable<Page> {
     return this.httpService
-      .get(`${this.apiUrl}/page/${link}`)
+      .get(`${this.apiUrl}/user-config/${link}`)
       .map(data => {
         this.page = data.json();
         return this.page;

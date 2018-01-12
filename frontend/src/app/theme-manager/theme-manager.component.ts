@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { THEMES_ID } from '../themes';
-import { ThemeService } from '../services/theme.service';
-import { Theme } from '../models/theme.interface';
-import { User } from '../models/user.interface';
-import { CurrentTheme } from '../models/current-theme.interface';
-import { CurrentConfig } from '../models/current-config';
-import {Page} from '../models/page.interface';
+import {Component, OnInit, Pipe, PipeTransform} from '@angular/core';
+import {THEMES_ID} from '../themes';
+import {ThemeService} from '../services/theme.service';
+import {Theme} from '../models/theme.interface';
+import {User} from '../models/user.interface';
+import {CurrentTheme} from '../models/current-theme.interface';
+import {CurrentConfig} from '../models/current-config';
 
 @Component({
   selector: 'app-theme-manager',
@@ -23,8 +22,8 @@ export class ThemeManagerComponent implements OnInit {
   currentConfig: CurrentConfig;
   isVisibleMenu;
   isVisibleLogo;
-  theme = {logoName: '', isVisibleLogo: this.isVisibleLogo, isVisibleMenu: this.isVisibleMenu, menuItems: [], pages: []};
-  page: Page = {link: '', title: '', content: ''};
+  theme = {logoName: '', isVisibleLogo: this.isVisibleLogo, isVisibleMenu: this.isVisibleMenu, menuItems: [], pages: {}};
+  page = {title: '', content: ''};
 
   constructor(private themeService: ThemeService) {
   }
@@ -85,13 +84,11 @@ export class ThemeManagerComponent implements OnInit {
   addMenuItem() {
     this.theme.menuItems.push({name: this.newMenuItem, link: this.link});
     this.themeService.addMenuItem.emit(this.newMenuItem);
+    this.link = '';
+    alert(`Menu item: "${this.newMenuItem}" is added! For save changes push "Save changes" button!`);
   }
 
   addMenuItemLink(link) {
-    // 1) show list of available pages
-    // 2) choose page
-    // 3) get link of this page
-    // 4) put this link to routes
     this.link = link;
   }
 
@@ -104,7 +101,7 @@ export class ThemeManagerComponent implements OnInit {
   }
 
   addPage() {
-    this.theme.pages.push(this.page);
+    // this.theme.pages.push(this.page); //TODO: fix
   }
 
   // addPage() {
@@ -113,5 +110,15 @@ export class ThemeManagerComponent implements OnInit {
   //     this.page = {link: '', title: '', content: ''};
   //   });
   // }
+}
+
+@Pipe({name: 'keys', pure: false})
+export class KeysPipe implements PipeTransform {
+  transform(value: any, args: any[] = null): any {
+    if (!value) {
+      return;
+    }
+    return Object.keys(value);
+  }
 }
 

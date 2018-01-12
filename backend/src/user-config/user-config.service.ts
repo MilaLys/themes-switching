@@ -22,12 +22,16 @@ export class UserConfigService {
           },
           $push: {
             'menuItems': {$each: config.menuItems},
-            'pages': {$each: config.pages}
+            'pages': config.pages
           }
         }
       )
       .lean()
       .exec(cb);
+  }
+
+  async getByLink(link) {
+    return this.userConfigModel.findOne({link: link}).lean().exec();
   }
 }
 

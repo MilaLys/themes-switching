@@ -8,7 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpService } from './services/http.service';
 import { XHRBackend, RequestOptions } from '@angular/http';
 import { ThemeService } from './services/theme.service';
-import { ThemeManagerComponent } from './theme-manager/theme-manager.component';
+import {KeysPipe, ThemeManagerComponent} from './theme-manager/theme-manager.component';
 import { HomeComponent } from './templates/pages/home/home.component';
 import { BlogComponent } from './templates/pages/blog/blog.component';
 import {appRoutingProviders, routing} from './app.routes';
@@ -23,9 +23,7 @@ export function httpFactory(backend: XHRBackend, defaultOptions: RequestOptions)
     AppComponent,
     DynamicComponentFactory,
     ThemeManagerComponent,
-    HomeComponent,
-    BlogComponent,
-    CustomPageComponent
+    KeysPipe
   ],
   imports: [
     BrowserModule,
