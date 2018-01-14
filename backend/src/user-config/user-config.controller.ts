@@ -13,6 +13,7 @@ export class UserConfigController {
 
   @Put('/user-config/:userId')
   updateUserConfig(@Req() req, @Res() res) {
+    console.log(req.body);
     this.userConfigService.updateUserConfig(req.params.userId, req.body, (err, data) => {
       if (err) {
         return console.error(err);
@@ -31,8 +32,8 @@ export class UserConfigController {
   //   }
   // }
 
-  @Get('/user-config/:link')
-  getByLink(@Req() req, @Res() res) {
-    this.userConfigService.getByLink(req.params.link).then(data => res.json(data));
-  }
+  // @Get('/user-config/:link')
+  // getByLink(@Req() req, @Res() res) {
+  //   this.userConfigService.getByLink(req.params.link).then(data => res.json(data));
+  // }
 }

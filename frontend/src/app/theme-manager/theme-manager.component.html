@@ -48,18 +48,12 @@
                  placeholder="Add menu item"
                  [(ngModel)]="newMenuItem"
           />
-          <input type="text"
-                 placeholder="Link to page {{link}}"
-          />
-          <button (click)="addMenuItem(newMenuItem);newMenuItem='';">Add menu item</button>
-          <ul class="list-unstyled list-group">
-            <b>Available pages:</b>
-            <li *ngFor="let item of currentConfig?.pages | keys" (click)="addMenuItemLink(item);">
-              <a href="javascript:void(0)" class="list-group-item">
-                <b>Page: </b>{{currentConfig?.pages[item].title}}
-              </a>
-            </li>
-          </ul>
+          <select [(ngModel)]="newMenuItemLink">
+            <option *ngFor="let item of currentConfig?.pages | keys" value="{{item}}">
+              <b>Page: </b>{{currentConfig?.pages[item].title}}
+            </option>
+          </select>
+          <button (click)="addMenuItem();">Add menu item</button>
           <hr/>
           <form (submit)="addPage()">
             <h4>Add page</h4>

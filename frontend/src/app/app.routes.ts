@@ -4,10 +4,10 @@ import { BlogComponent } from './templates/pages/blog/blog.component';
 import {CustomPageComponent} from './templates/pages/custom-page/custom-page.component';
 
 export const routes: Routes = [
-  {path: '', redirectTo: 'app-home', pathMatch: 'full'},
-  {path: 'app-home', component: HomeComponent},
-  {path: 'app-blog', component: BlogComponent},
-  {path: 'app-custom-page', component: CustomPageComponent}
+  {path: '', redirectTo: 'pages', pathMatch: 'full'},
+  {path: 'home', component: HomeComponent},
+  {path: 'blog', component: BlogComponent},
+  {path: 'pages/:link', component: CustomPageComponent}
 ];
 
 export const appRoutingProviders: any[] = [];

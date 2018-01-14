@@ -5,6 +5,7 @@ import {Theme} from '../models/theme.interface';
 import {User} from '../models/user.interface';
 import {CurrentTheme} from '../models/current-theme.interface';
 import {CurrentConfig} from '../models/current-config';
+import { Page } from '../models/page.interface';
 
 @Component({
   selector: 'app-theme-manager',
@@ -15,7 +16,7 @@ import {CurrentConfig} from '../models/current-config';
 export class ThemeManagerComponent implements OnInit {
   componentData = null;
   newMenuItem: string;
-  link: string;
+  newMenuItemLink: string;
   themes: Theme[] = [];
   currentUser: User;
   currentTheme: CurrentTheme = {_id: null, themeId: null, userId: null};
@@ -23,7 +24,7 @@ export class ThemeManagerComponent implements OnInit {
   isVisibleMenu;
   isVisibleLogo;
   theme = {logoName: '', isVisibleLogo: this.isVisibleLogo, isVisibleMenu: this.isVisibleMenu, menuItems: [], pages: {}};
-  page = {title: '', content: ''};
+  page: Page = {title: '', content: '', link: ''};
 
   constructor(private themeService: ThemeService) {
   }
@@ -53,6 +54,7 @@ export class ThemeManagerComponent implements OnInit {
       this.theme.isVisibleLogo = data.isVisibleLogo;
       this.theme.isVisibleMenu = data.isVisibleMenu;
       this.theme.logoName = data.logoName;
+      this.theme.pages = data.pages || {};
       this.applyTheme(this.currentTheme.themeId);
     });
   }
@@ -82,14 +84,11 @@ export class ThemeManagerComponent implements OnInit {
   }
 
   addMenuItem() {
-    this.theme.menuItems.push({name: this.newMenuItem, link: this.link});
+    this.theme.menuItems.push({name: this.newMenuItem, link: this.newMenuItemLink});
     this.themeService.addMenuItem.emit(this.newMenuItem);
-    this.link = '';
     alert(`Menu item: "${this.newMenuItem}" is added! For save changes push "Save changes" button!`);
-  }
-
-  addMenuItemLink(link) {
-    this.link = link;
+    this.newMenuItem = '';
+    this.newMenuItemLink = '';
   }
 
   applyTheme(id) {
@@ -101,7 +100,7 @@ export class ThemeManagerComponent implements OnInit {
   }
 
   addPage() {
-    // this.theme.pages.push(this.page); //TODO: fix
+     this.theme.pages[this.page.link] = {content: this.page.content, title: this.page.title};
   }
 
   // addPage() {

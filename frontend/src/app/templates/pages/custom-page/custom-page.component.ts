@@ -3,7 +3,7 @@ import {ThemeService} from '../../../services/theme.service';
 import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
-  selector: 'app-custom-page',
+  selector: 'custom-page',
   templateUrl: './custom-page.component.html',
   styleUrls: ['./custom-page.component.css']
 })

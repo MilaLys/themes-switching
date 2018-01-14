@@ -15,7 +15,7 @@ export class MenuComponent implements OnInit {
   }
 
   onClick (path) {
-    this.router.navigate([path]);
+    this.router.navigate(['/pages', path]);
     this.themeService.onClick.emit(path);
   }
   ngOnInit() {
@@ -27,9 +27,9 @@ export class MenuComponent implements OnInit {
     }, (error: string) => {
       console.error(error);
     });
-    console.log(this.themeService.currentConfig.menuItems);
-    this.theme.menuItems = this.themeService.currentConfig.menuItems; // TODO: fix
 
+    this.theme.menuItems = this.themeService.currentConfig.menuItems;
+    console.log(this.theme.menuItems);
 
     // this.themeService.addMenuItem.subscribe(items => {
     //   console.log(items);

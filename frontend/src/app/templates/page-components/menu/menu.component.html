@@ -1,4 +1,4 @@
-<ul class="nav nav-pills navbar-right" *ngIf="theme?.isVisibleMenu">
+<ul class="nav nav-tabs navbar-right" *ngIf="theme?.isVisibleMenu">
   <!--<li>
     <a href="javascript:void(0)" routerLink="/app-home" routerLinkActive="active" class="text-uppercase" (click)="onClick('app-home')">home</a>
   </li>
@@ -6,7 +6,7 @@
     <a href="javascript:void(0)" routerLink="/app-blog" routerLinkActive="active" class="text-uppercase" (click)="onClick('app-blog')">blog</a>
   </li>-->
   <li *ngFor="let items of theme?.menuItems">
-    <a href="javascript:void(0)" [routerLink]="items.link" routerLinkActive="active" class="text-uppercase" (click)="onClick(items.link)">{{items.name}}</a>
+    <a href="javascript:void(0)" [routerLink]="['/pages', items.link]" routerLinkActive="btn-info" class="text-uppercase" (click)="onClick(items.link)">{{items.name}}</a>
   </li>
 </ul>
 

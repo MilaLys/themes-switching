@@ -18,11 +18,12 @@ export class UserConfigService {
           $set: {
             'isVisibleMenu': config.isVisibleMenu,
             'isVisibleLogo': config.isVisibleLogo,
-            'logoName': config.logoName
+            'logoName': config.logoName,
+            'pages': config.pages
           },
           $push: {
-            'menuItems': {$each: config.menuItems},
-            'pages': config.pages
+            'menuItems': {$each: config.menuItems}
+
           }
         }
       )
@@ -30,8 +31,8 @@ export class UserConfigService {
       .exec(cb);
   }
 
-  async getByLink(link) {
-    return this.userConfigModel.findOne({link: link}).lean().exec();
-  }
+  // async getByLink(link) {
+  //   return this.userConfigModel.findOne({link: link}).lean().exec();
+  // }
 }
 
