@@ -4,9 +4,9 @@ import { BlogComponent } from './templates/pages/blog/blog.component';
 import {CustomPageComponent} from './templates/pages/custom-page/custom-page.component';
 
 export const routes: Routes = [
-  {path: '', redirectTo: 'pages', pathMatch: 'full'},
-  {path: 'home', component: HomeComponent},
-  {path: 'blog', component: BlogComponent},
+  {path: '', redirectTo: 'pages/home', pathMatch: 'full'},
+  {path: 'pages/home', component: HomeComponent},
+  {path: 'pages/blog', component: BlogComponent},
   {path: 'pages/:link', component: CustomPageComponent}
 ];
 

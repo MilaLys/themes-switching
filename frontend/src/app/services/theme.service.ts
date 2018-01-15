@@ -16,7 +16,7 @@ export class ThemeService {
   addMenuItem: EventEmitter<string> = new EventEmitter();
   changeLogoName: EventEmitter<string> = new EventEmitter<string>();
   changePage: EventEmitter<string> = new EventEmitter<string>();
-  onClick: EventEmitter<string> = new EventEmitter<string>();
+  // onClick: EventEmitter<string> = new EventEmitter<string>();
 
   themes = [];
   currentUser: User;
