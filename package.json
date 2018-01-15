@@ -1,0 +1,20 @@
+{
+  "name": "church-app-test",
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "version": "0.0.1",
+  "license": "MIT",
+  "scripts": {
+    "commitmsg": "validate-commit-msg",
+    "start": "npm run server",
+    "server": "cd backend && npm run start:prod",
+    "postinstall": "cd backend && npm i",
+    "heroku-postbuild": "cd frontend && npm i && npm run build-client"
+  },
+  "devDependencies": {
+    "@angular/cli": "1.5.4",
+    "husky": "0.14.3",
+    "validate-commit-msg": "2.14.0"
+  }
+}
