@@ -8,6 +8,7 @@ import {CurrentTheme} from '../models/current-theme.interface';
 import {CurrentConfig} from '../models/current-config';
 import {Theme} from '../models/theme.interface';
 import {Page} from '../models/page.interface';
+import {environment} from '../../environments/environment';
 
 @Injectable()
 export class ThemeService {
@@ -16,7 +17,6 @@ export class ThemeService {
   addMenuItem: EventEmitter<string> = new EventEmitter();
   changeLogoName: EventEmitter<string> = new EventEmitter<string>();
   changePage: EventEmitter<string> = new EventEmitter<string>();
-  // onClick: EventEmitter<string> = new EventEmitter<string>();
 
   themes = [];
   currentUser: User;
@@ -24,7 +24,7 @@ export class ThemeService {
   currentConfig: CurrentConfig;
   page: Page;
 
-  private apiUrl = 'http://localhost:3000/api';
+  private apiUrl = environment.apiUrl; // 'http://localhost:3000/api';
 
   constructor(private httpService: HttpService) {
   }
@@ -96,13 +96,13 @@ export class ThemeService {
   //   });
   // }
 
-  public getPageByLink(link): Observable<Page> {
-    return this.httpService
-      .get(`${this.apiUrl}/user-config/${link}`)
-      .map(data => {
-        this.page = data.json();
-        return this.page;
-      });
-  }
+  // public getPageByLink(link): Observable<Page> {
+  //   return this.httpService
+  //     .get(`${this.apiUrl}/user-config/${link}`)
+  //     .map(data => {
+  //       this.page = data.json();
+  //       return this.page;
+  //     });
+  // }
 }
 

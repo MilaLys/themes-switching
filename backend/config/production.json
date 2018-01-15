@@ -1,0 +1,10 @@
+{
+  "port": 3000,
+  "wsport": 3001,
+  "newRelic": "",
+  "db": {
+    "debug": true,
+    "url": "mongodb://Mila:g_o_o/23@ds119306.mlab.com:19306/church-app"
+  },
+   "serverName": "https://church-app-test.herokuapp.com"
+}
