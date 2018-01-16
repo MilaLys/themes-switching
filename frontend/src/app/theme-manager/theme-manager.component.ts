@@ -95,7 +95,9 @@ export class ThemeManagerComponent implements OnInit {
     this.themeService.currentTheme.themeId = id;
     this.componentData = {
       component: THEMES_ID[id],
-      inputs: {}
+      inputs: {
+        theme: this.theme
+      }
     };
   }
 

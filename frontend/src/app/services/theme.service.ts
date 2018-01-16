@@ -24,14 +24,14 @@ export class ThemeService {
   currentConfig: CurrentConfig;
   page: Page;
 
-  private apiUrl = 'http://localhost:3000/api'; // environment.apiUrl;
+  private apiUrl = environment.apiUrl; // 'http://localhost:3000/api';
 
   constructor(private httpService: HttpService) {
   }
 
   public getThemes(): Observable<Theme[]> {
     return this.httpService
-      .get(`${this.apiUrl}/themes`)
+      .get(`${this.apiUrl}/api/themes`)
       .map((data: Response) => {
         this.themes = data.json();
         return this.themes;
@@ -40,19 +40,19 @@ export class ThemeService {
 
   public updateUserConfig(id, config): void {
     this.httpService
-      .put(`${this.apiUrl}/user-config/${id}`, config)
+      .put(`${this.apiUrl}/api/user-config/${id}`, config)
       .subscribe(data => data.json());
   }
 
   public updateUserTheme(userId, themeId): void {
     this.httpService
-      .put(`${this.apiUrl}/user-theme/${userId}`, {themeId: themeId})
+      .put(`${this.apiUrl}/api/user-theme/${userId}`, {themeId: themeId})
       .subscribe(data => data.json());
   }
 
   public getCurrentUser(): Observable<User> {
     return this.httpService
-      .get(`${this.apiUrl}/user`)
+      .get(`${this.apiUrl}/api/user`)
       .map((data: Response) => {
         this.currentUser = data.json();
         return this.currentUser;
@@ -61,7 +61,7 @@ export class ThemeService {
 
   public getUserTheme(id): Observable<CurrentTheme> {
     return this.httpService
-      .get(`${this.apiUrl}/user-theme/${id}`)
+      .get(`${this.apiUrl}/api/user-theme/${id}`)
       .map((data: Response) => {
         this.currentTheme = data.json();
         return this.currentTheme;
@@ -70,7 +70,7 @@ export class ThemeService {
 
   public getUserConfig(id): Observable<CurrentConfig> {
     return this.httpService
-      .get(`${this.apiUrl}/user-config/${id}`)
+      .get(`${this.apiUrl}/api/user-config/${id}`)
       .map((data: Response) => {
         this.currentConfig = data.json();
         return this.currentConfig;

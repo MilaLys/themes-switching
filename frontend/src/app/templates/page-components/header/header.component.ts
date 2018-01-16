@@ -9,7 +9,7 @@ import {DomSanitizer} from '@angular/platform-browser';
 })
 export class HeaderComponent implements OnInit, OnChanges {
   @Input() headerConfig: any;
-  theme = {isVisibleLogo: false, logoName: '', content: {}};
+  theme = {isVisibleLogo: false, logoName: '', content: {}, headerDark: ''};
   page = '/app-home';
 
   constructor(private themeService: ThemeService) {

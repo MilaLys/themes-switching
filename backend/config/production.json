@@ -4,7 +4,7 @@
   "newRelic": "",
   "db": {
     "debug": true,
-    "url": "mongodb://Mila:g_o_o/23@ds119306.mlab.com:19306/church-app"
+    "url": "mongodb://Mila:123456@ds251827.mlab.com:51827/church-app-test"
   },
    "serverName": "https://church-app-test.herokuapp.com"
 }

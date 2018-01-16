@@ -6,6 +6,7 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./light-theme.component.css']
 })
 export class LightThemeComponent implements OnInit {
+  theme;
   constructor() {
   }
 

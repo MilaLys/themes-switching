@@ -10,7 +10,7 @@ export const databaseProviders = [
     provide: 'DbConnectionToken',
     useFactory: async() => {
       (mongoose as any).Promise = global.Promise;
-      await mongoose.connect(mongoDb, { // mongodb://localhost:27017/church-app-test
+      await mongoose.connect(mongoDb, {
         useMongoClient: true
       }).then(
         () => {

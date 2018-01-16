@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dark-theme.component.css']
 })
 export class DarkThemeComponent implements OnInit {
-
+  theme;
   constructor() { }
 
   ngOnInit() {
