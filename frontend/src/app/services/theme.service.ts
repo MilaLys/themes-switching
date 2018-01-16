@@ -24,7 +24,7 @@ export class ThemeService {
   currentConfig: CurrentConfig;
   page: Page;
 
-  private apiUrl = environment.apiUrl; // 'http://localhost:3000/api';
+  private apiUrl = 'http://localhost:3000/api'; // environment.apiUrl;
 
   constructor(private httpService: HttpService) {
   }
