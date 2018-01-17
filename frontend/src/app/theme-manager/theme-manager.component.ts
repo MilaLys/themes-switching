@@ -69,6 +69,7 @@ export class ThemeManagerComponent implements OnInit {
     this.themeService.updateUserConfig(this.currentUser._id, this.theme);
     this.theme.menuItems.length = 0;
     this.themeService.updateUserTheme(this.currentUser._id, this.currentTheme.themeId);
+    alert('Your changes saved successfully!');
   }
 
   changeVisibleMenu() {
@@ -96,7 +97,7 @@ export class ThemeManagerComponent implements OnInit {
     this.componentData = {
       component: THEMES_ID[id],
       inputs: {
-        theme: this.theme
+         theme: this.theme
       }
     };
   }
@@ -104,13 +105,6 @@ export class ThemeManagerComponent implements OnInit {
   addPage() {
      this.theme.pages[this.page.link] = {content: this.page.content, title: this.page.title};
   }
-
-  // addPage() {
-  //   this.themeService.addPage(this.page, (err, data) => {
-  //    // this.pages.push(data.page);
-  //     this.page = {link: '', title: '', content: ''};
-  //   });
-  // }
 }
 
 @Pipe({name: 'keys', pure: false})

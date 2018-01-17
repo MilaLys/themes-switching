@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {ThemeService} from '../../../services/theme.service';
 
 @Component({
   selector: 'home',
@@ -6,10 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  page = {};
 
-  constructor() { }
+  constructor(private themeService: ThemeService) {
+  }
 
   ngOnInit() {
+    this.page = this.themeService.currentConfig;
+    console.log(this.page);
   }
 
 }

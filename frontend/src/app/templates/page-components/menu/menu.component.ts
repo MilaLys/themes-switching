@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 export class MenuComponent implements OnInit {
   theme = {isVisibleMenu: false, menuItems: []};
 
-  constructor(private themeService: ThemeService, private router: Router) {
+  constructor(private themeService: ThemeService) {
   }
 
   onClick (path) {
