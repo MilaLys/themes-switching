@@ -1,1 +1,6 @@
-
+.menu {
+  padding-top: 5px;
+}
+.menu a:hover, .menu a:focus {
+  color: #000;
+}

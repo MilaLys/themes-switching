@@ -1,10 +1,10 @@
-import {Component, OnInit, Pipe, PipeTransform} from '@angular/core';
-import {THEMES_ID} from '../themes';
-import {ThemeService} from '../services/theme.service';
-import {Theme} from '../models/theme.interface';
-import {User} from '../models/user.interface';
-import {CurrentTheme} from '../models/current-theme.interface';
-import {CurrentConfig} from '../models/current-config';
+import { Component, OnInit, Pipe, PipeTransform } from '@angular/core';
+import { THEMES_ID } from '../themes';
+import { ThemeService } from '../services/theme.service';
+import { Theme } from '../models/theme.interface';
+import { User } from '../models/user.interface';
+import { CurrentTheme } from '../models/current-theme.interface';
+import { CurrentConfig } from '../models/current-config';
 import { Page } from '../models/page.interface';
 
 @Component({
@@ -23,7 +23,13 @@ export class ThemeManagerComponent implements OnInit {
   currentConfig: CurrentConfig;
   isVisibleMenu;
   isVisibleLogo;
-  theme = {logoName: '', isVisibleLogo: this.isVisibleLogo, isVisibleMenu: this.isVisibleMenu, menuItems: [], pages: {}};
+  theme = {
+    logoName: '',
+    isVisibleLogo: this.isVisibleLogo,
+    isVisibleMenu: this.isVisibleMenu,
+    menuItems: [],
+    pages: {}
+  };
   page: Page = {title: '', content: '', link: ''};
 
   constructor(private themeService: ThemeService) {
@@ -69,17 +75,21 @@ export class ThemeManagerComponent implements OnInit {
     this.themeService.updateUserConfig(this.currentUser._id, this.theme);
     this.theme.menuItems.length = 0;
     this.themeService.updateUserTheme(this.currentUser._id, this.currentTheme.themeId);
+    alert('Your changes saved successfully!');
   }
 
   changeVisibleMenu() {
+    this.currentConfig.isVisibleMenu = this.theme.isVisibleMenu;
     this.themeService.visibleMenu.emit(this.theme.isVisibleMenu);
   }
 
   changeVisibleLogo() {
+    this.currentConfig.isVisibleLogo = this.theme.isVisibleLogo;
     this.themeService.visibleLogo.emit(this.theme.isVisibleLogo);
   }
 
   changeLogoName() {
+    this.currentConfig.logoName = this.theme.logoName;
     this.themeService.changeLogoName.emit(this.theme.logoName);
   }
 
@@ -102,15 +112,8 @@ export class ThemeManagerComponent implements OnInit {
   }
 
   addPage() {
-     this.theme.pages[this.page.link] = {content: this.page.content, title: this.page.title};
+    this.theme.pages[this.page.link] = {content: this.page.content, title: this.page.title};
   }
-
-  // addPage() {
-  //   this.themeService.addPage(this.page, (err, data) => {
-  //    // this.pages.push(data.page);
-  //     this.page = {link: '', title: '', content: ''};
-  //   });
-  // }
 }
 
 @Pipe({name: 'keys', pure: false})
