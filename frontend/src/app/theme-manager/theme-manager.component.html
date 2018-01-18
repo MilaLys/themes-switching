@@ -63,6 +63,7 @@
                        id="title"
                        name="title"
                        placeholder="Enter Title"
+                       required
                 />
               </div>
             </div>
@@ -72,10 +73,13 @@
                 <input type="text"
                        class="form-control"
                        [(ngModel)]="page.link"
+                       #link='ngModel'
                        id="link"
                        name="link"
                        placeholder="Enter Link"
+                       required
                 />
+                <div *ngIf="link.errors?.required">Link is required</div>
               </div>
             </div>
             <div class="col-xs-12">
@@ -84,15 +88,18 @@
                 <textarea
                   class="form-control"
                   [(ngModel)]="page.content"
+                  #content="ngModel"
                   id="content"
                   name="content"
                   placeholder="Enter Content"
+                  required
                 ></textarea>
+                <div *ngIf="content.errors?.required">Content is required</div>
               </div>
             </div>
           </div>
           <div style="padding-top: 10px;">
-            <button type="submit" class="btn btn-primary">Add</button>
+            <button type="submit" class="btn btn-primary" [class.disabled]="link.errors?.required || content.errors?.required">Add</button>
             <button type="reset" class="btn btn-info">Reset</button>
           </div>
         </form>

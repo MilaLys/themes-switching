@@ -73,10 +73,10 @@ export class ThemeService {
       .get(`${this.apiUrl}/api/user-config/${id}`)
       .map((data: Response) => {
         this.currentConfig = data.json();
-        if(this.currentConfig.pages == null){
+        if (this.currentConfig.pages == null) {
           this.currentConfig.pages = {};
         }
-        if(this.currentConfig.menuItems == null){
+        if (this.currentConfig.menuItems == null) {
           this.currentConfig.menuItems = [];
         }
         return this.currentConfig;

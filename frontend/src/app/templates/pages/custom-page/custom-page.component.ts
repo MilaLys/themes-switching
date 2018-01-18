@@ -13,7 +13,7 @@ import 'rxjs/add/operator/switchMap';
   styleUrls: ['./custom-page.component.css']
 })
 export class CustomPageComponent implements OnInit, OnDestroy {
-  page: object;
+  page = '';
   link;
   sub;
   user;
@@ -21,7 +21,7 @@ export class CustomPageComponent implements OnInit, OnDestroy {
   combinedObs;
 
   constructor(private themeService: ThemeService, private sanitizer: DomSanitizer, private route: ActivatedRoute) {
-    this.page = this.getInnerHtmlValue(this.page);
+    // this.page = this.getInnerHtmlValue(this.page);
   }
 
   ngOnInit() {

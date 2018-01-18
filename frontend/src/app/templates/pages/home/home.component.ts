@@ -14,7 +14,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.page = this.themeService.currentConfig;
-    console.log(this.page);
+    // console.log(this.page);
   }
 
 }

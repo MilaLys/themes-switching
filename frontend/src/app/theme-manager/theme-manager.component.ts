@@ -85,6 +85,7 @@ export class ThemeManagerComponent implements OnInit {
 
   changeVisibleLogo() {
     this.currentConfig.isVisibleLogo = this.theme.isVisibleLogo;
+    // console.log(this.theme.isVisibleLogo);
     this.themeService.visibleLogo.emit(this.theme.isVisibleLogo);
   }
 
