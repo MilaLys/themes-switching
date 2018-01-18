@@ -5,8 +5,6 @@ import {ActivatedRoute} from '@angular/router';
 import 'rxjs/operators/combineLatest';
 import 'rxjs/operators/switchMap';
 import {combineLatest} from 'rxjs/observable/combineLatest';
-import {Observable} from 'rxjs/Observable';
-import {merge} from 'rxjs/observable/merge';
 import 'rxjs/add/operator/switchMap';
 
 @Component({
@@ -15,7 +13,7 @@ import 'rxjs/add/operator/switchMap';
   styleUrls: ['./custom-page.component.css']
 })
 export class CustomPageComponent implements OnInit, OnDestroy {
-  page = {};
+  page: object;
   link;
   sub;
   user;
