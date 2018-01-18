@@ -13,7 +13,7 @@ import {THEMES} from '../themes';
   selector: 'router-outlet',
   entryComponents: [THEMES],
   template: `
-    <div #dynamicComponentContainer class="here"></div>
+    <div #dynamicComponentContainer></div>
   `,
   styleUrls: ['./dynamic-component-factory.component.css']
 })

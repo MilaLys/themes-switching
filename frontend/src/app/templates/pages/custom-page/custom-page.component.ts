@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {AfterViewInit, Component, ComponentFactoryResolver, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ThemeService} from '../../../services/theme.service';
 import {DomSanitizer} from '@angular/platform-browser';
 import {ActivatedRoute} from '@angular/router';
@@ -6,21 +6,26 @@ import 'rxjs/operators/combineLatest';
 import 'rxjs/operators/switchMap';
 import {combineLatest} from 'rxjs/observable/combineLatest';
 import 'rxjs/add/operator/switchMap';
+import {BasicTemplateComponent} from './basic-template/basic-template.component';
+import {ContactsTemplateComponent} from './contacts-template/contacts-template.component';
 
 @Component({
   selector: 'custom-page',
+  entryComponents: [BasicTemplateComponent, ContactsTemplateComponent],
   templateUrl: './custom-page.component.html',
   styleUrls: ['./custom-page.component.css']
 })
 export class CustomPageComponent implements OnInit, OnDestroy {
-  page = '';
+  page;
   link;
   sub;
   user;
   obs3;
   combinedObs;
 
-  constructor(private themeService: ThemeService, private sanitizer: DomSanitizer, private route: ActivatedRoute) {
+  constructor(private themeService: ThemeService,
+              private sanitizer: DomSanitizer,
+              private route: ActivatedRoute) {
     // this.page = this.getInnerHtmlValue(this.page);
   }
 
@@ -37,7 +42,7 @@ export class CustomPageComponent implements OnInit, OnDestroy {
           if (!this.themeService.currentConfig) {
             return;
           }
-          this.page = this.themeService.currentConfig.pages[this.link].content;
+          this.page = this.themeService.currentConfig.pages[this.link];
         });
       });
   }
@@ -52,3 +57,4 @@ export class CustomPageComponent implements OnInit, OnDestroy {
     return this.sanitizer.bypassSecurityTrustHtml(page);
   }
 }
+

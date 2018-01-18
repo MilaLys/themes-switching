@@ -1,3 +1,5 @@
 <div>
-  <h1 class="text-center text-uppercase" [innerHTML]="page"></h1>
+  <h1 class="text-center text-uppercase" *ngIf="page?.content" [innerHTML]="page.content"></h1>
 </div>
+
+<ng-template template-container></ng-template>

@@ -1,11 +1,12 @@
-import { Component, OnInit, Pipe, PipeTransform } from '@angular/core';
-import { THEMES_ID } from '../themes';
-import { ThemeService } from '../services/theme.service';
-import { Theme } from '../models/theme.interface';
-import { User } from '../models/user.interface';
-import { CurrentTheme } from '../models/current-theme.interface';
-import { CurrentConfig } from '../models/current-config';
-import { Page } from '../models/page.interface';
+import {Component, OnInit, Pipe, PipeTransform} from '@angular/core';
+import {THEMES_ID} from '../themes';
+import {ThemeService} from '../services/theme.service';
+import {Theme} from '../models/theme.interface';
+import {User} from '../models/user.interface';
+import {CurrentTheme} from '../models/current-theme.interface';
+import {CurrentConfig} from '../models/current-config';
+import {Page} from '../models/page.interface';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-theme-manager',
@@ -31,8 +32,9 @@ export class ThemeManagerComponent implements OnInit {
     pages: {}
   };
   page: Page = {title: '', content: '', link: ''};
+  template: string;
 
-  constructor(private themeService: ThemeService) {
+  constructor(private themeService: ThemeService, public router: Router, public route: ActivatedRoute) {
   }
 
   ngOnInit() {
@@ -85,7 +87,6 @@ export class ThemeManagerComponent implements OnInit {
 
   changeVisibleLogo() {
     this.currentConfig.isVisibleLogo = this.theme.isVisibleLogo;
-    // console.log(this.theme.isVisibleLogo);
     this.themeService.visibleLogo.emit(this.theme.isVisibleLogo);
   }
 
@@ -107,13 +108,17 @@ export class ThemeManagerComponent implements OnInit {
     this.componentData = {
       component: THEMES_ID[id],
       inputs: {
-         theme: this.theme
+        theme: this.theme
       }
     };
   }
 
   addPage() {
     this.theme.pages[this.page.link] = {content: this.page.content, title: this.page.title};
+  }
+
+  selectTemplate(path) {
+    console.log(path);
   }
 }
 
