@@ -101,13 +101,9 @@
               <div class="form-group">
                 <h5><b>Template</b></h5>
                 <p>Select a template for this page.</p>
-                <select [(ngModel)]="template" class="form-control" name="templates">
-                  <option value="basic">
-                    <a href="javascript:void(0)" routerLink="basic">template-basic</a>
-                  </option>
-                  <option value="contacts">
-                    <a href="javascript:void(0)" routerLink="contacts">template-contacts</a>
-                  </option>
+                <select [(ngModel)]="page.templateName" class="form-control" name="templates" (change)="applyTemplate(page.templateName)">
+                  <option value="BasicTemplateComponent">template-basic</option>
+                  <option value="ContactsTemplateComponent">template-contacts</option>
                 </select>
               </div>
             </div>

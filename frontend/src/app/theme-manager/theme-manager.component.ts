@@ -6,7 +6,6 @@ import {User} from '../models/user.interface';
 import {CurrentTheme} from '../models/current-theme.interface';
 import {CurrentConfig} from '../models/current-config';
 import {Page} from '../models/page.interface';
-import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-theme-manager',
@@ -31,10 +30,9 @@ export class ThemeManagerComponent implements OnInit {
     menuItems: [],
     pages: {}
   };
-  page: Page = {title: '', content: '', link: ''};
-  template: string;
+  page: Page = {title: '', content: '', link: '', templateName: ''};
 
-  constructor(private themeService: ThemeService, public router: Router, public route: ActivatedRoute) {
+  constructor(private themeService: ThemeService) {
   }
 
   ngOnInit() {
@@ -113,12 +111,12 @@ export class ThemeManagerComponent implements OnInit {
     };
   }
 
-  addPage() {
-    this.theme.pages[this.page.link] = {content: this.page.content, title: this.page.title};
+  applyTemplate() {
+    this.themeService.applyTemplate.emit(this.page.templateName);
   }
 
-  selectTemplate(path) {
-    console.log(path);
+  addPage() {
+    this.theme.pages[this.page.link] = {content: this.page.content, title: this.page.title, templateName: this.page.templateName};
   }
 }
 

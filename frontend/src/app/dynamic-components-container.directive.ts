@@ -1,27 +1,14 @@
-import {
-  Component,
-  ReflectiveInjector,
-  ViewChild,
-  ViewContainerRef,
-  Input,
-  ComponentFactoryResolver, OnInit, Output
-} from '@angular/core';
-import { THEMES } from '../themes';
+import {ComponentFactoryResolver, Directive, ElementRef, Input, ReflectiveInjector, ViewChild, ViewContainerRef} from '@angular/core';
 
-
-@Component({
-  selector: 'router-outlet',
-  entryComponents: [THEMES],
-  template: `
-    <div #dynamicComponentContainer></div>
-  `,
-  styleUrls: ['./dynamic-component-factory.component.css']
+@Directive({
+  selector: '[dynamicComponentContainer]'
 })
-
-export class DynamicComponentFactory {
+export class DynamicComponentsContainerDirective {
   currentComponent = null;
   @ViewChild('dynamicComponentContainer', {read: ViewContainerRef}) dynamicComponentContainer: ViewContainerRef;
 
+  // component: Class for the component you want to create
+  // inputs: An object with key/value pairs mapped to input name/input value
   @Input() set componentData(data: { component: any, inputs: any }) {
     if (!data) {
       return;
