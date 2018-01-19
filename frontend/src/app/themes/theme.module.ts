@@ -9,6 +9,8 @@ import {BlogComponent} from '../templates/pages/blog/blog.component';
 import {CustomPageComponent} from '../templates/pages/custom-page/custom-page.component';
 import {BasicTemplateComponent} from '../templates/pages/custom-page/basic-template/basic-template.component';
 import {ContactsTemplateComponent} from '../templates/pages/custom-page/contacts-template/contacts-template.component';
+import {CustomContentComponent} from '../templates/pages/custom-page/custom-content.component';
+import {DynamicComponentsContainerDirective} from '../dynamic-components-container.directive';
 
 @NgModule({
   imports: [
@@ -18,8 +20,17 @@ import {ContactsTemplateComponent} from '../templates/pages/custom-page/contacts
     RouterModule
   ],
   providers: [],
-  declarations: [THEMES, THEMES_COMPONENT, HomeComponent, BlogComponent, CustomPageComponent, BasicTemplateComponent, ContactsTemplateComponent],
-  exports: [THEMES, THEMES_COMPONENT]
+  declarations: [
+    THEMES,
+    THEMES_COMPONENT,
+    HomeComponent,
+    BlogComponent,
+    CustomPageComponent,
+    BasicTemplateComponent,
+    ContactsTemplateComponent,
+    CustomContentComponent
+  ],
+  exports: [THEMES, THEMES_COMPONENT, BasicTemplateComponent, ContactsTemplateComponent]
 })
 export class ThemeModule {
   static withComponents(components: any[]) {

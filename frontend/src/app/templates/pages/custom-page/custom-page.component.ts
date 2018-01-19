@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ComponentFactoryResolver, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ThemeService} from '../../../services/theme.service';
 import {DomSanitizer} from '@angular/platform-browser';
 import {ActivatedRoute} from '@angular/router';
@@ -6,22 +6,21 @@ import 'rxjs/operators/combineLatest';
 import 'rxjs/operators/switchMap';
 import {combineLatest} from 'rxjs/observable/combineLatest';
 import 'rxjs/add/operator/switchMap';
-import {BasicTemplateComponent} from './basic-template/basic-template.component';
-import {ContactsTemplateComponent} from './contacts-template/contacts-template.component';
 
 @Component({
   selector: 'custom-page',
-  entryComponents: [BasicTemplateComponent, ContactsTemplateComponent],
   templateUrl: './custom-page.component.html',
   styleUrls: ['./custom-page.component.css']
 })
 export class CustomPageComponent implements OnInit, OnDestroy {
+  componentData = null;
   page;
   link;
   sub;
   user;
   obs3;
   combinedObs;
+  template = '';
 
   constructor(private themeService: ThemeService,
               private sanitizer: DomSanitizer,

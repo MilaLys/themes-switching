@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ThemeService } from '../../../services/theme.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menu',
@@ -14,10 +13,6 @@ export class MenuComponent implements OnInit {
   constructor(private themeService: ThemeService) {
   }
 
-  onClick (path) {
-    // this.router.navigate(['/pages', path]);
-    // this.themeService.onClick.emit(path);
-  }
   ngOnInit() {
 
     this.theme.isVisibleMenu = this.themeService.currentConfig.isVisibleMenu;
@@ -29,11 +24,5 @@ export class MenuComponent implements OnInit {
     });
 
     this.theme.menuItems = this.themeService.currentConfig.menuItems;
-
-    // this.themeService.addMenuItem.subscribe(items => {
-    //   console.log(items);
-    //   console.log(this.theme.menuItems);
-    //   this.theme.menuItems = this.theme.menuItems.concat(items);
-    // });
   }
 }
