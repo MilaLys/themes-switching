@@ -14,7 +14,6 @@ export class MenuComponent implements OnInit {
   }
 
   ngOnInit() {
-
     this.theme.isVisibleMenu = this.themeService.currentConfig.isVisibleMenu;
 
     this.themeService.visibleMenu.subscribe(evt => {

@@ -1,4 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {ThemeService} from '../../../../services/theme.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'contacts-template',
@@ -6,10 +8,14 @@ import {Component, Input, OnInit} from '@angular/core';
   styleUrls: ['./contacts-template.component.css']
 })
 export class ContactsTemplateComponent implements OnInit {
-  @Input() data: any;
-  constructor() { }
+  currentPage;
+  pageContent;
 
-  ngOnInit() {
+  constructor(private themeService: ThemeService, private route: ActivatedRoute) {
   }
 
+  ngOnInit() {
+    this.route.params.subscribe(page => this.currentPage = page);
+    this.pageContent = this.themeService.currentConfig.pages[this.currentPage.link];
+  }
 }

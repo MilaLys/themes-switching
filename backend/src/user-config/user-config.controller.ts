@@ -20,19 +20,4 @@ export class UserConfigController {
       res.json({data});
     });
   }
-
-  // @Get('/user-config/:link')
-  // async getByLink(@Req() req, @Res() res) {
-  //   try {
-  //     const success = await this.userConfigService.getByLink(req.params.link);
-  //     console.log(res.json(success));
-  //   } catch (error) {
-  //     res.status(500).json(error);
-  //   }
-  // }
-
-  // @Get('/user-config/:link')
-  // getByLink(@Req() req, @Res() res) {
-  //   this.userConfigService.getByLink(req.params.link).then(data => res.json(data));
-  // }
 }

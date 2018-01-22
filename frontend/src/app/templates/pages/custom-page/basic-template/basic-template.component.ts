@@ -1,4 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {ThemeService} from '../../../../services/theme.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'basic-template',
@@ -6,12 +8,14 @@ import {Component, Input, OnInit} from '@angular/core';
   styleUrls: ['./basic-template.component.css']
 })
 export class BasicTemplateComponent implements OnInit {
-  @Input() data: any;
+  currentPage;
+  pageContent;
 
-  constructor() {
+  constructor(private themeService: ThemeService, private route: ActivatedRoute) {
   }
 
   ngOnInit() {
+    this.route.params.subscribe(page => this.currentPage = page);
+    this.pageContent = this.themeService.currentConfig.pages[this.currentPage.link];
   }
-
 }

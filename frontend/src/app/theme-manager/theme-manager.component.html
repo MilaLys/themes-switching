@@ -79,7 +79,7 @@
                        placeholder="Enter Link"
                        required
                 />
-                <div *ngIf="link.errors?.required">Link is required</div>
+                <div *ngIf="link.errors?.required" class="text-danger">Link is required</div>
               </div>
             </div>
             <div class="col-xs-12">
@@ -94,15 +94,16 @@
                   placeholder="Enter Content"
                   required
                 ></textarea>
-                <div *ngIf="content.errors?.required">Content is required</div>
+                <div *ngIf="content.errors?.required" class="text-danger">Content is required</div>
               </div>
             </div>
             <div class="col-xs-12">
               <div class="form-group">
                 <h5><b>Template</b></h5>
                 <p>Select a template for this page.</p>
-                <select [(ngModel)]="template" class="form-control" name="templates" (change)="applyTemplate(template)">
-                  <option value="BasicTemplateComponent">template-basic</option>
+                <select [(ngModel)]="page.templateName" class="form-control" name="templates" (change)="applyTemplate(page.templateName)">
+                  <option disabled>Choose template</option>
+                  <option selected value="BasicTemplateComponent">template-basic</option>
                   <option value="ContactsTemplateComponent">template-contacts</option>
                 </select>
               </div>

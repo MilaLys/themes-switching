@@ -23,3 +23,7 @@ export const THEMES_COMPONENT = [
   MenuComponent
 ];
 
+export const TEMPLATES = {
+  'BasicTemplateComponent': BasicTemplateComponent,
+  'ContactsTemplateComponent': ContactsTemplateComponent
+}

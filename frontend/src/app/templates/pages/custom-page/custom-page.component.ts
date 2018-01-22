@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {ThemeService} from '../../../services/theme.service';
 import {DomSanitizer} from '@angular/platform-browser';
 import {ActivatedRoute} from '@angular/router';
@@ -6,21 +6,24 @@ import 'rxjs/operators/combineLatest';
 import 'rxjs/operators/switchMap';
 import {combineLatest} from 'rxjs/observable/combineLatest';
 import 'rxjs/add/operator/switchMap';
+import {TEMPLATES} from '../../../themes';
+import {ContactsTemplateComponent} from './contacts-template/contacts-template.component';
+import {BasicTemplateComponent} from './basic-template/basic-template.component';
 
 @Component({
   selector: 'custom-page',
   templateUrl: './custom-page.component.html',
-  styleUrls: ['./custom-page.component.css']
+  styleUrls: ['./custom-page.component.css'],
+  entryComponents: [BasicTemplateComponent, ContactsTemplateComponent]
 })
 export class CustomPageComponent implements OnInit, OnDestroy {
-  componentData = null;
+  componentData;
   page;
   link;
   sub;
   user;
   obs3;
   combinedObs;
-  template = '';
 
   constructor(private themeService: ThemeService,
               private sanitizer: DomSanitizer,
@@ -29,21 +32,21 @@ export class CustomPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    const obs1 = this.route.params;
-    const obs2 = this.themeService.getCurrentUser();
-
-    obs2
-      .switchMap(data => this.obs3 = this.themeService.getUserConfig(data._id))
-      .subscribe(() => {
-        this.combinedObs = combineLatest(obs1, obs2, this.obs3);
-        this.sub = this.combinedObs.subscribe(info => {
-          this.link = info[0]['link'];
-          if (!this.themeService.currentConfig) {
-            return;
-          }
-          this.page = this.themeService.currentConfig.pages[this.link];
-        });
-      });
+    // const obs1 = this.route.params;
+    // const obs2 = this.themeService.getCurrentUser();
+    //
+    // obs2
+    //   .switchMap(data => this.obs3 = this.themeService.getUserConfig(data._id))
+    //   .subscribe(() => {
+    //     this.combinedObs = combineLatest(obs1, obs2, this.obs3);
+    //     this.sub = this.combinedObs.subscribe(info => {
+    //       this.link = info[0]['link'];
+    //       if (!this.themeService.currentConfig) {
+    //         return;
+    //       }
+    //       this.page = this.themeService.currentConfig.pages[this.link];
+    //     });
+    //   });
   }
 
   ngOnDestroy() {

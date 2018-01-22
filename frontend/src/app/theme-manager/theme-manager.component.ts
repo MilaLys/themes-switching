@@ -6,6 +6,7 @@ import {User} from '../models/user.interface';
 import {CurrentTheme} from '../models/current-theme.interface';
 import {CurrentConfig} from '../models/current-config';
 import {Page} from '../models/page.interface';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-theme-manager',
@@ -16,13 +17,15 @@ import {Page} from '../models/page.interface';
 export class ThemeManagerComponent implements OnInit {
   componentData = null;
   newMenuItem: string;
-  newMenuItemLink: string;
+  newMenuItemLink = 'Choose page';
   themes: Theme[] = [];
   currentUser: User;
   currentTheme: CurrentTheme = {_id: null, themeId: null, userId: null};
   currentConfig: CurrentConfig;
   isVisibleMenu;
   isVisibleLogo;
+  templateName = 'Choose template';
+  page: Page = {title: '', content: '', link: '', templateName: this.templateName};
   theme = {
     logoName: '',
     isVisibleLogo: this.isVisibleLogo,
@@ -30,8 +33,6 @@ export class ThemeManagerComponent implements OnInit {
     menuItems: [],
     pages: {}
   };
-  page: Page = {title: '', content: '', link: ''};
-  template = 'basic-template';
 
   constructor(private themeService: ThemeService) {
   }
@@ -113,10 +114,11 @@ export class ThemeManagerComponent implements OnInit {
   }
 
   applyTemplate() {
-    this.themeService.applyTemplate.emit(this.template);
+    this.themeService.applyTemplate.emit(this.page.templateName);
   }
+
   addPage() {
-    this.theme.pages[this.page.link] = {content: this.page.content, title: this.page.title};
+    this.theme.pages[this.page.link] = {content: this.page.content, title: this.page.title, templateName: this.page.templateName};
   }
 }
 

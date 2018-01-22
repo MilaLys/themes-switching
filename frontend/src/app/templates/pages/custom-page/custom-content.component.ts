@@ -1,61 +1,71 @@
-import {Component, Input, ReflectiveInjector, ViewChild, ViewContainerRef, ComponentFactoryResolver} from '@angular/core';
+import {
+  Component,
+  Input,
+  ReflectiveInjector,
+  ViewChild,
+  ViewContainerRef,
+  ComponentFactoryResolver, Output, EventEmitter
+} from '@angular/core';
 import {BasicTemplateComponent} from './basic-template/basic-template.component';
-import {ContactsTemplateComponent} from './contacts-template/contacts-template.component';
 import {ThemeService} from '../../../services/theme.service';
+import {TEMPLATES} from '../../../themes';
+import {combineLatest} from 'rxjs/observable/combineLatest';
+import {ActivatedRoute} from '@angular/router';
+import {ComponentLoader, inputData} from '../../../component-loader.decorator';
 
 @Component({
   selector: 'custom-content',
-  entryComponents: [BasicTemplateComponent, ContactsTemplateComponent],
   template: `
-    <div #dynamicComponentContainer dynamicComponentsContainer></div>
+    <div #dynamicComponentContainer></div>
   `,
-  styleUrls: ['./custom-page.component.css']
+  styleUrls: ['./custom-page.component.css'],
+  inputs: ['dynamicComponentContainer']
 })
 export class CustomContentComponent {
-  template = 'BasicTemplateComponent';
+  templateName = 'BasicTemplateComponent';
+  page;
+  link;
+  userConfig;
+  combinedObs;
+  sub;
   currentComponent = null;
-   @ViewChild('dynamicComponentContainer', {read: ViewContainerRef}) dynamicComponentContainer: ViewContainerRef;
 
-  // component: Class for the component you want to create
-  // inputs: An object with key/value pairs mapped to input name/input value
-  @Input() set componentData(data: { component: any, inputs: any }) {
-    if (!data) {
-      return;
-    }
-    const inputProviders = Object.keys(data.inputs).map((inputName) => {
-      return {provide: inputName, useValue: data.inputs[inputName]};
-    });
-    const resolvedInputs = ReflectiveInjector.resolve(inputProviders);
-    const injector = ReflectiveInjector.fromResolvedProviders(resolvedInputs, this.dynamicComponentContainer.parentInjector);
-    const factory = this.resolver.resolveComponentFactory(data.component);
-    const component = factory.create(injector);
+  @ViewChild('dynamicComponentContainer', {read: ViewContainerRef}) dynamicComponentContainer: ViewContainerRef;
 
-    this.dynamicComponentContainer.insert(component.hostView);
-
-    if (this.currentComponent) {
-      this.currentComponent.destroy();
-    }
-    this.currentComponent = component;
+  @ComponentLoader()
+  @Input() set componentData(@inputData data: { component: any, inputs: any }) {
   }
 
-  constructor(private resolver: ComponentFactoryResolver, private themeService: ThemeService) {
+  constructor(private resolver: ComponentFactoryResolver, private themeService: ThemeService, private route: ActivatedRoute) {
   }
 
   ngOnInit() {
+    const currentUser = this.themeService.getCurrentUser();
+    const currentPage = this.route.params;
+
+    currentUser
+      .switchMap(data => this.userConfig = this.themeService.getUserConfig(data._id))
+      .subscribe(() => {
+        this.combinedObs = combineLatest(currentPage, currentUser, this.userConfig);
+        this.sub = this.combinedObs.subscribe(info => {
+          this.page = info[0]['link'];
+          this.templateName = info[2]['pages'][this.page]['templateName'];
+          this.applyTemplate();
+        });
+      });
+
     this.themeService.applyTemplate.subscribe(data => {
-      this.template = data;
-      console.log(this.template);
+      this.templateName = data;
+      this.applyTemplate();
     }, (error: string) => {
       console.error(error);
     });
-    this.applyTemplate(this.template);
   }
 
-  applyTemplate(template) {
+  applyTemplate() {
     this.componentData = {
-      component: template,
-      inputs: {
-      }
+      component: TEMPLATES[this.templateName],
+      inputs: {}
     };
   }
 }

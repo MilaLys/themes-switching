@@ -70,9 +70,7 @@ export class ThemeService {
   }
 
   public getUserConfig(id): Observable<CurrentConfig> {
-    return this.httpService
-      .get(`${this.apiUrl}/api/user-config/${id}`)
-      .map((data: Response) => {
+    return this.httpService.get(`${this.apiUrl}/api/user-config/${id}`).map((data: Response) => {
         this.currentConfig = data.json();
         if (this.currentConfig.pages == null) {
           this.currentConfig.pages = {};

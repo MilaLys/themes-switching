@@ -30,9 +30,5 @@ export class UserConfigService {
       .lean()
       .exec(cb);
   }
-
-  // async getByLink(link) {
-  //   return this.userConfigModel.findOne({link: link}).lean().exec();
-  // }
 }
 

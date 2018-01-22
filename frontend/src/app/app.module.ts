@@ -13,7 +13,6 @@ import {appRoutingProviders, routing} from './app.routes';
 import {ContactsTemplateComponent} from './templates/pages/custom-page/contacts-template/contacts-template.component';
 import {BasicTemplateComponent} from './templates/pages/custom-page/basic-template/basic-template.component';
 import {CustomContentComponent} from './templates/pages/custom-page/custom-content.component';
-import {DynamicComponentsContainerDirective} from './dynamic-components-container.directive';
 
 export function httpFactory(backend: XHRBackend, defaultOptions: RequestOptions): any {
   return new HttpService(backend, defaultOptions);
@@ -24,8 +23,7 @@ export function httpFactory(backend: XHRBackend, defaultOptions: RequestOptions)
     AppComponent,
     DynamicComponentFactory,
     ThemeManagerComponent,
-    KeysPipe,
-    DynamicComponentsContainerDirective
+    KeysPipe
   ],
   imports: [
     BrowserModule,
@@ -37,6 +35,7 @@ export function httpFactory(backend: XHRBackend, defaultOptions: RequestOptions)
       BasicTemplateComponent, ContactsTemplateComponent, CustomContentComponent
     ])
   ],
+  entryComponents: [THEMES, BasicTemplateComponent, ContactsTemplateComponent],
   providers: [
     ThemeService,
     appRoutingProviders,
@@ -45,8 +44,7 @@ export function httpFactory(backend: XHRBackend, defaultOptions: RequestOptions)
       useFactory: httpFactory,
       deps: [XHRBackend, RequestOptions]
     }],
-  bootstrap: [AppComponent],
-  exports: [DynamicComponentsContainerDirective]
+  bootstrap: [AppComponent]
 })
 export class AppModule {
 }

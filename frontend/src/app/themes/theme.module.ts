@@ -10,7 +10,6 @@ import {CustomPageComponent} from '../templates/pages/custom-page/custom-page.co
 import {BasicTemplateComponent} from '../templates/pages/custom-page/basic-template/basic-template.component';
 import {ContactsTemplateComponent} from '../templates/pages/custom-page/contacts-template/contacts-template.component';
 import {CustomContentComponent} from '../templates/pages/custom-page/custom-content.component';
-import {DynamicComponentsContainerDirective} from '../dynamic-components-container.directive';
 
 @NgModule({
   imports: [
@@ -25,10 +24,10 @@ import {DynamicComponentsContainerDirective} from '../dynamic-components-contain
     THEMES_COMPONENT,
     HomeComponent,
     BlogComponent,
-    CustomPageComponent,
     BasicTemplateComponent,
     ContactsTemplateComponent,
-    CustomContentComponent
+    CustomContentComponent,
+    CustomPageComponent
   ],
   exports: [THEMES, THEMES_COMPONENT, BasicTemplateComponent, ContactsTemplateComponent]
 })
