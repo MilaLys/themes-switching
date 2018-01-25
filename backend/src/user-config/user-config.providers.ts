@@ -8,3 +8,4 @@ export const UserConfigProviders = [
     inject: ['DbConnectionToken']
   },
 ];
+

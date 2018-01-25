@@ -1,7 +1,7 @@
 import * as mongoose from 'mongoose';
 import {Schema} from 'mongoose';
 
-export const UserConfigSchema = new mongoose.Schema({
+export const UserConfigsSchema = new mongoose.Schema({
   any: Schema.Types.Mixed
 }, {strict: false});
 

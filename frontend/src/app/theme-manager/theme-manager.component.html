@@ -141,6 +141,10 @@
           <br/>
           <button class="btn btn-primary" (click)="addMenuItem();">Add menu item</button>
           <hr/>
+          <h5><b>Previous editions:</b></h5>
+          <ul>
+            <li *ngFor="let config of configs | keys">{{configs[config][0].startDate}}</li>
+          </ul>
           <button class="btn btn-primary btn-block" (click)="updateUserConfig()">Save changes</button>
         </div>
       </div>

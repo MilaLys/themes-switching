@@ -4,31 +4,35 @@ import { Model } from 'mongoose';
 
 @Component()
 export class UserConfigService {
+
   constructor(@Inject('UserConfigModelToken') private readonly userConfigModel: Model<UserConfig>) {
   }
 
-  async getUserConfig(userId): Promise<UserConfig> {
-    return this.userConfigModel.findOne({userId: userId}).exec();
+  async getAllConfigs(cb) {
+    return await this.userConfigModel.find({}).exec(cb);
   }
 
-  async updateUserConfig(userId, config, cb) {
+  async getUserConfig(userId): Promise<UserConfig> {
+    const dateNow = (new Date()).toISOString();
+    return await this.userConfigModel.findOne({userId: userId, endDate: {$gt: dateNow}}).exec();
+  }
+
+  async updateUserConfig(userId, config, cb): Promise<any> {
+    const dateNow = (new Date()).toISOString();
     this.userConfigModel
-      .update({userId: userId},
+      .update({userId: userId, endDate: {$gt: dateNow}},
         {
           $set: {
-            'isVisibleMenu': config.isVisibleMenu,
-            'isVisibleLogo': config.isVisibleLogo,
-            'logoName': config.logoName,
-            'pages': config.pages
-          },
-          $push: {
-            'menuItems': {$each: config.menuItems}
-
+            'endDate': dateNow
           }
         }
       )
-      .lean()
-      .exec(cb);
+      .exec();
+    const newConfig = config;
+    newConfig.startDate = dateNow;
+    newConfig.endDate = (new Date('3000-01-01')).toISOString();
+    newConfig.userId = userId;
+    const createdConfig = new this.userConfigModel(newConfig);
+    return await createdConfig.save(cb);
   }
 }
-
