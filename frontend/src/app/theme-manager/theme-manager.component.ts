@@ -25,6 +25,7 @@ export class ThemeManagerComponent implements OnInit {
   isVisibleMenu;
   isVisibleLogo;
   templateName = 'Choose template';
+  configs;
   page: Page = {title: '', content: '', link: '', templateName: this.templateName};
   theme = {
     logoName: '',
@@ -40,6 +41,15 @@ export class ThemeManagerComponent implements OnInit {
   ngOnInit() {
     this.getCurrentUser();
     this.getThemes();
+    // this.getAllConfigs();
+
+  }
+
+  getAllConfigs() {
+    // this.themeService.getAllConfigs().subscribe(data => {
+    //   this.configs = data;
+    //   console.log(this.configs);
+    // });
   }
 
   getCurrentUser() {
@@ -59,10 +69,10 @@ export class ThemeManagerComponent implements OnInit {
   getUserConfig(currentUserId) {
     this.themeService.getUserConfig(currentUserId).subscribe(data => {
       this.currentConfig = data;
-      this.theme.isVisibleLogo = data.isVisibleLogo;
-      this.theme.isVisibleMenu = data.isVisibleMenu;
-      this.theme.logoName = data.logoName;
-      this.theme.pages = data.pages || {};
+      this.theme.isVisibleLogo = data.config.isVisibleLogo;
+      this.theme.isVisibleMenu = data.config.isVisibleMenu;
+      this.theme.logoName = data.config.logoName;
+      this.theme.pages = data.config.pages || {};
       this.applyTheme(this.currentTheme.themeId);
     });
   }
@@ -75,23 +85,24 @@ export class ThemeManagerComponent implements OnInit {
 
   updateUserConfig() {
     this.themeService.updateUserConfig(this.currentUser._id, this.theme);
+    console.log(this.theme);
     this.theme.menuItems.length = 0;
     this.themeService.updateUserTheme(this.currentUser._id, this.currentTheme.themeId);
     alert('Your changes saved successfully!');
   }
 
   changeVisibleMenu() {
-    this.currentConfig.isVisibleMenu = this.theme.isVisibleMenu;
+    this.currentConfig.config.isVisibleMenu = this.theme.isVisibleMenu;
     this.themeService.visibleMenu.emit(this.theme.isVisibleMenu);
   }
 
   changeVisibleLogo() {
-    this.currentConfig.isVisibleLogo = this.theme.isVisibleLogo;
+    this.currentConfig.config.isVisibleLogo = this.theme.isVisibleLogo;
     this.themeService.visibleLogo.emit(this.theme.isVisibleLogo);
   }
 
   changeLogoName() {
-    this.currentConfig.logoName = this.theme.logoName;
+    this.currentConfig.config.logoName = this.theme.logoName;
     this.themeService.changeLogoName.emit(this.theme.logoName);
   }
 

@@ -14,7 +14,8 @@ export class MenuComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.theme.isVisibleMenu = this.themeService.currentConfig.isVisibleMenu;
+    console.log(this.themeService.currentConfig.config);
+    this.theme.isVisibleMenu = this.themeService.currentConfig.config.isVisibleMenu;
 
     this.themeService.visibleMenu.subscribe(evt => {
       this.theme.isVisibleMenu = evt;
@@ -22,6 +23,6 @@ export class MenuComponent implements OnInit {
       console.error(error);
     });
 
-    this.theme.menuItems = this.themeService.currentConfig.menuItems;
+    this.theme.menuItems = this.themeService.currentConfig.config.menuItems;
   }
 }

@@ -16,6 +16,6 @@ export class BasicTemplateComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(page => this.currentPage = page);
-    this.pageContent = this.themeService.currentConfig.pages[this.currentPage.link];
+    this.pageContent = this.themeService.currentConfig.config.pages[this.currentPage.link];
   }
 }

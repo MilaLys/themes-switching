@@ -24,6 +24,7 @@ export class ThemeService {
   currentTheme: CurrentTheme;
   currentConfig: CurrentConfig;
   page: Page;
+  // configs;
 
   private apiUrl = environment.apiUrl;
 
@@ -40,10 +41,27 @@ export class ThemeService {
   }
 
   public updateUserConfig(id, config): void {
+    console.log(config);
     this.httpService
-      .put(`${this.apiUrl}/api/user-config/${id}`, config)
+      .post(`${this.apiUrl}/api/user-config/${id}`, config)
       .subscribe(data => data.json());
   }
+
+  // public getAllConfigs(): Observable<CurrentConfig[]> {
+  //   return this.httpService
+  //     .get(`${this.apiUrl}/api/user-configs`)
+  //     .map((data: Response) => {
+  //       this.configs = data.json();
+  //       return this.configs;
+  //     });
+  // }
+  //
+  // public getLastConfig(date) {
+  //   this.httpService
+  //     .get(`${this.apiUrl}/api/user-configs/${date}`).subscribe(data => {
+  //     return data.json();
+  //   });
+  // }
 
   public updateUserTheme(userId, themeId): void {
     this.httpService
@@ -71,15 +89,16 @@ export class ThemeService {
 
   public getUserConfig(id): Observable<CurrentConfig> {
     return this.httpService.get(`${this.apiUrl}/api/user-config/${id}`).map((data: Response) => {
-        this.currentConfig = data.json();
-        if (this.currentConfig.pages == null) {
-          this.currentConfig.pages = {};
-        }
-        if (this.currentConfig.menuItems == null) {
-          this.currentConfig.menuItems = [];
-        }
-        return this.currentConfig;
-      });
+      this.currentConfig = data.json();
+      // console.log(data.json()); // TODO: why?
+      if (this.currentConfig.config.pages == null) {
+        this.currentConfig.config.pages = {};
+      }
+      if (this.currentConfig.config.menuItems == null) {
+        this.currentConfig.config.menuItems = [];
+      }
+      return this.currentConfig;
+    });
   }
 
   public getMergedConfig() {
