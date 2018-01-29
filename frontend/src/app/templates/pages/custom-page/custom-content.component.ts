@@ -49,7 +49,7 @@ export class CustomContentComponent {
         this.combinedObs = combineLatest(currentPage, currentUser, this.userConfig);
         this.sub = this.combinedObs.subscribe(info => {
           this.page = info[0]['link'];
-          this.templateName = info[2]['config']['pages'][this.page]['templateName'];
+          this.templateName = info[2]['pages'][this.page]['templateName'];
           this.applyTemplate();
         });
       });

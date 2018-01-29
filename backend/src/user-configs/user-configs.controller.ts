@@ -16,23 +16,23 @@ export class UserConfigsController {
   //   });
   // }
 
-  @Get('/user-configs')
-  private getAllConfigs(@Res() res) {
-    this.userConfigsService.getAllConfigs((err, configs) => {
-      if (err) {
-        return console.error(err);
-      }
-      res.json({configs});
-    });
-  }
+  // @Get('/user-configs')
+  // private getAllConfigs(@Res() res) {
+  //   this.userConfigsService.getAllConfigs((err, configs) => {
+  //     if (err) {
+  //       return console.error(err);
+  //     }
+  //     res.json({configs});
+  //   });
+  // }
 
-  @Get(':/date')
-  private getLastConfig(@Req() req, @Res() res) {
-    this.getLastConfig(req.params.date, (err, config) => {
-      if (err) {
-        return console.error(err);
-      }
-      res.json({config});
-    });
-  }
+  // @Get(':/date')
+  // private getLastConfig(@Req() req, @Res() res) {
+  //   this.getLastConfig(req.params.date, (err, config) => {
+  //     if (err) {
+  //       return console.error(err);
+  //     }
+  //     res.json({config});
+  //   });
+  // }
 }

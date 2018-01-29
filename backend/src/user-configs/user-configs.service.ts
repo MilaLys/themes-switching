@@ -14,12 +14,12 @@ export class UserConfigsService {
   //   return await createdConfig.save(cb);
   // }
 
-  async getAllConfigs(cb) {
-    return await this.userConfigsModel.find({}).exec(cb);
-  }
+  // async getAllConfigs(cb) {
+  //   return await this.userConfigsModel.find({}).exec(cb);
+  // }
 
-  async getLastConfig(date, cb) {
-    return await this.userConfigsModel.findOne({date: date}).lean().exec(cb);
-  }
+  // async getLastConfig(date, cb) {
+  //   return await this.userConfigsModel.findOne({date: date}).lean().exec(cb);
+  // }
 }
 

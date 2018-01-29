@@ -1,12 +1,12 @@
-import {Component, OnInit, Pipe, PipeTransform} from '@angular/core';
-import {THEMES_ID} from '../themes';
-import {ThemeService} from '../services/theme.service';
-import {Theme} from '../models/theme.interface';
-import {User} from '../models/user.interface';
-import {CurrentTheme} from '../models/current-theme.interface';
-import {CurrentConfig} from '../models/current-config';
-import {Page} from '../models/page.interface';
-import {ActivatedRoute} from '@angular/router';
+import { Component, OnInit, Pipe, PipeTransform } from '@angular/core';
+import { THEMES_ID } from '../themes';
+import { ThemeService } from '../services/theme.service';
+import { Theme } from '../models/theme.interface';
+import { User } from '../models/user.interface';
+import { CurrentTheme } from '../models/current-theme.interface';
+import { CurrentConfig } from '../models/current-config';
+import { Page } from '../models/page.interface';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-theme-manager',
@@ -41,15 +41,14 @@ export class ThemeManagerComponent implements OnInit {
   ngOnInit() {
     this.getCurrentUser();
     this.getThemes();
-    // this.getAllConfigs();
-
+    this.getAllConfigs();
   }
 
   getAllConfigs() {
-    // this.themeService.getAllConfigs().subscribe(data => {
-    //   this.configs = data;
-    //   console.log(this.configs);
-    // });
+    this.themeService.getAllConfigs()
+      .subscribe(data => {
+        this.configs = data;
+      });
   }
 
   getCurrentUser() {
@@ -69,10 +68,11 @@ export class ThemeManagerComponent implements OnInit {
   getUserConfig(currentUserId) {
     this.themeService.getUserConfig(currentUserId).subscribe(data => {
       this.currentConfig = data;
-      this.theme.isVisibleLogo = data.config.isVisibleLogo;
-      this.theme.isVisibleMenu = data.config.isVisibleMenu;
-      this.theme.logoName = data.config.logoName;
-      this.theme.pages = data.config.pages || {};
+      this.theme.isVisibleLogo = data.isVisibleLogo;
+      this.theme.isVisibleMenu = data.isVisibleMenu;
+      this.theme.logoName = data.logoName;
+      this.theme.pages = data.pages || {};
+      this.theme.menuItems = data.menuItems || [];
       this.applyTheme(this.currentTheme.themeId);
     });
   }
@@ -85,24 +85,24 @@ export class ThemeManagerComponent implements OnInit {
 
   updateUserConfig() {
     this.themeService.updateUserConfig(this.currentUser._id, this.theme);
-    console.log(this.theme);
-    this.theme.menuItems.length = 0;
     this.themeService.updateUserTheme(this.currentUser._id, this.currentTheme.themeId);
     alert('Your changes saved successfully!');
   }
 
   changeVisibleMenu() {
-    this.currentConfig.config.isVisibleMenu = this.theme.isVisibleMenu;
+    this.currentConfig.isVisibleMenu = this.theme.isVisibleMenu;
     this.themeService.visibleMenu.emit(this.theme.isVisibleMenu);
   }
 
   changeVisibleLogo() {
-    this.currentConfig.config.isVisibleLogo = this.theme.isVisibleLogo;
+    this.currentConfig.isVisibleLogo = this.theme.isVisibleLogo;
+    console.log('curr', this.currentConfig.isVisibleLogo);
+    console.log(this.theme.isVisibleLogo);
     this.themeService.visibleLogo.emit(this.theme.isVisibleLogo);
   }
 
   changeLogoName() {
-    this.currentConfig.config.logoName = this.theme.logoName;
+    this.currentConfig.logoName = this.theme.logoName;
     this.themeService.changeLogoName.emit(this.theme.logoName);
   }
 
@@ -125,11 +125,15 @@ export class ThemeManagerComponent implements OnInit {
   }
 
   applyTemplate() {
-    this.themeService.applyTemplate.emit(this.page.templateName);
+    // this.themeService.applyTemplate.emit(this.page.templateName);
   }
 
   addPage() {
-    this.theme.pages[this.page.link] = {content: this.page.content, title: this.page.title, templateName: this.page.templateName};
+    this.theme.pages[this.page.link] = {
+      content: this.page.content,
+      title: this.page.title,
+      templateName: this.page.templateName
+    };
   }
 }
 

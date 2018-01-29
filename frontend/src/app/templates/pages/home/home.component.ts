@@ -29,7 +29,7 @@ export class HomeComponent implements OnInit {
         this.combinedObs = combineLatest(currentPage, currentUser, this.userConfig);
         this.sub = this.combinedObs.subscribe(info => {
           this.page = info[0]['path'];
-          this.pageContent = info[2]['config']['pages'][this.page];
+          this.pageContent = info[2]['pages'][this.page];
         });
       });
   }

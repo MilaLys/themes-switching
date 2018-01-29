@@ -132,8 +132,8 @@
             <div class="col-xs-6">
               <select [(ngModel)]="newMenuItemLink" class="form-control">
                 <option disabled>Choose page</option>
-                <option *ngFor="let item of currentConfig?.config.pages | keys" value="{{item}}">
-                  <b>Page: </b>{{currentConfig?.config.pages[item].title}}
+                <option *ngFor="let item of currentConfig?.pages | keys" value="{{item}}">
+                  <b>Page: </b>{{currentConfig?.pages[item].title}}
                 </option>
               </select>
             </div>
@@ -143,7 +143,7 @@
           <hr/>
           <h5><b>Previous editions:</b></h5>
           <ul>
-            <li *ngFor="let item of configs">{{item.startDate}}</li>
+            <li *ngFor="let config of configs">{{config.startDate}}</li>
           </ul>
           <button class="btn btn-primary btn-block" (click)="updateUserConfig()">Save changes</button>
         </div>

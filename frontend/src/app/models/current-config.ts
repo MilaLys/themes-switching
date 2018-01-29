@@ -1,7 +1,6 @@
 import {MenuItem} from './menu-item.interface';
 
 export interface CurrentConfig {
-  config: {
     _id: string;
     userId: number;
     isVisibleMenu: boolean;
@@ -9,5 +8,6 @@ export interface CurrentConfig {
     logoName: string;
     menuItems: MenuItem[];
     pages: any;
-  };
+    startDate: string;
+    endDate: string;
 }
