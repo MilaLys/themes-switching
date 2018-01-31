@@ -10,15 +10,18 @@ import {CustomPageComponent} from '../templates/pages/custom-page/custom-page.co
 import {BasicTemplateComponent} from '../templates/pages/custom-page/basic-template/basic-template.component';
 import {ContactsTemplateComponent} from '../templates/pages/custom-page/contacts-template/contacts-template.component';
 import {CustomContentComponent} from '../templates/pages/custom-page/custom-content.component';
+import { ThemeComponent } from './theme.component';
+import { routing, themeRoutingProviders } from './theme.routes';
 
 @NgModule({
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    RouterModule
+    RouterModule,
+    routing
   ],
-  providers: [],
+  providers: [themeRoutingProviders],
   declarations: [
     THEMES,
     THEMES_COMPONENT,
@@ -27,7 +30,8 @@ import {CustomContentComponent} from '../templates/pages/custom-page/custom-cont
     BasicTemplateComponent,
     ContactsTemplateComponent,
     CustomContentComponent,
-    CustomPageComponent
+    CustomPageComponent,
+    ThemeComponent
   ],
   exports: [THEMES, THEMES_COMPONENT, BasicTemplateComponent, ContactsTemplateComponent]
 })

@@ -6,7 +6,7 @@ import { User } from '../models/user.interface';
 import { CurrentTheme } from '../models/current-theme.interface';
 import { CurrentConfig } from '../models/current-config';
 import { Page } from '../models/page.interface';
-import { ActivatedRoute } from '@angular/router';
+import { Router} from '@angular/router';
 
 @Component({
   selector: 'app-theme-manager',
@@ -16,6 +16,7 @@ import { ActivatedRoute } from '@angular/router';
 
 export class ThemeManagerComponent implements OnInit {
   componentData = null;
+  isVisible = false;
   newMenuItem: string;
   newMenuItemLink = 'Choose page';
   themes: Theme[] = [];
@@ -35,7 +36,7 @@ export class ThemeManagerComponent implements OnInit {
     pages: {}
   };
 
-  constructor(private themeService: ThemeService) {
+  constructor(private themeService: ThemeService, private router: Router) {
   }
 
   ngOnInit() {
@@ -96,8 +97,6 @@ export class ThemeManagerComponent implements OnInit {
 
   changeVisibleLogo() {
     this.currentConfig.isVisibleLogo = this.theme.isVisibleLogo;
-    console.log('curr', this.currentConfig.isVisibleLogo);
-    console.log(this.theme.isVisibleLogo);
     this.themeService.visibleLogo.emit(this.theme.isVisibleLogo);
   }
 

@@ -1,0 +1,18 @@
+<h6 class="text-uppercase">Themes</h6>
+<ul class="list-unstyled">
+  <li *ngFor="let item of themes">
+    Apply {{item.themeName}}
+      <a class="btn btn-dark btn-sm" routerLink="/admin/themes/editor">Customize</a>
+      <div class="dropdown">
+        <button class="btn btn-dark btn-sm dropdown-toggle" type="button" id="dropdownMenuButton"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Actions
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" target="_blank" (click)="goToEditor()">Edit code</a>
+          <a class="dropdown-item" href="#">Another action</a>
+        </div>
+      </div>
+  </li>
+</ul>
+
