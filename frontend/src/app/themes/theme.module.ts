@@ -10,6 +10,7 @@ import {CustomPageComponent} from '../templates/pages/custom-page/custom-page.co
 import {BasicTemplateComponent} from '../templates/pages/custom-page/basic-template/basic-template.component';
 import {ContactsTemplateComponent} from '../templates/pages/custom-page/contacts-template/contacts-template.component';
 import {CustomContentComponent} from '../templates/pages/custom-page/custom-content.component';
+import {MonacoEditorModule} from 'ngx-monaco-editor';
 
 @NgModule({
   imports: [

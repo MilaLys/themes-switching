@@ -26,4 +26,4 @@ export const THEMES_COMPONENT = [
 export const TEMPLATES = {
   'BasicTemplateComponent': BasicTemplateComponent,
   'ContactsTemplateComponent': ContactsTemplateComponent
-}
+};

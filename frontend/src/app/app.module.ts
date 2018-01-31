@@ -13,6 +13,8 @@ import {appRoutingProviders, routing} from './app.routes';
 import {ContactsTemplateComponent} from './templates/pages/custom-page/contacts-template/contacts-template.component';
 import {BasicTemplateComponent} from './templates/pages/custom-page/basic-template/basic-template.component';
 import {CustomContentComponent} from './templates/pages/custom-page/custom-content.component';
+import {CodeEditorComponent} from './templates/pages/code-editor/code-editor.component';
+import {CodemirrorModule} from 'ng2-codemirror';
 
 export function httpFactory(backend: XHRBackend, defaultOptions: RequestOptions): any {
   return new HttpService(backend, defaultOptions);
@@ -23,12 +25,14 @@ export function httpFactory(backend: XHRBackend, defaultOptions: RequestOptions)
     AppComponent,
     DynamicComponentFactory,
     ThemeManagerComponent,
-    KeysPipe
+    KeysPipe,
+    CodeEditorComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     routing,
+    CodemirrorModule,
     ThemeModule.withComponents([
       THEMES,
       THEMES_COMPONENT,
