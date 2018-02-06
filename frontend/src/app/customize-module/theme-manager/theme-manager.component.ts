@@ -1,12 +1,11 @@
-import { Component, OnInit, Pipe, PipeTransform } from '@angular/core';
-import { THEMES_ID } from '../themes';
-import { ThemeService } from '../services/theme.service';
-import { Theme } from '../models/theme.interface';
-import { User } from '../models/user.interface';
-import { CurrentTheme } from '../models/current-theme.interface';
-import { CurrentConfig } from '../models/current-config';
-import { Page } from '../models/page.interface';
-import {ActivatedRoute, Router} from '@angular/router';
+import {Component, OnInit, Pipe, PipeTransform} from '@angular/core';
+import {THEMES_ID} from '../../theme-module/themes';
+import {Theme} from '../models/theme.interface';
+import {User} from '../models/user.interface';
+import {CurrentTheme} from '../models/current-theme.interface';
+import {CurrentConfig} from '../models/current-config';
+import {Page} from '../models/page.interface';
+import {ThemeService} from '../services/theme.service';
 
 @Component({
   selector: 'app-theme-manager',
@@ -36,18 +35,13 @@ export class ThemeManagerComponent implements OnInit {
     pages: {}
   };
 
-  constructor(private themeService: ThemeService, private router: Router) {
+  constructor(private themeService: ThemeService) {
   }
 
   ngOnInit() {
     this.getCurrentUser();
     this.getThemes();
     this.getAllConfigs();
-  }
-
-  goToEditor() {
-    this.isVisible = false;
-    this.router.navigate(['/themes/code-editor']);
   }
 
   getAllConfigs() {

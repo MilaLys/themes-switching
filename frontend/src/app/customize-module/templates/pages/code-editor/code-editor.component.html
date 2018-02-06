@@ -1,0 +1,23 @@
+<a [routerLink]="['/admin', {outlets: {admin: 'themes'}}]">
+  <i class="fas fa-angle-left"></i>
+  Themes
+</a>
+<h4 class="text-capitalize">{{currentTheme?.themeName}}</h4>
+<!--<h5>JS</h5>
+<ace-editor #jsEditor
+            [text]="jsContent"
+            (textChanged)="onRuleChange($event)"
+            [options]="options"
+            [readOnly]="false"
+            [autoUpdateContent]="true"
+            style="min-height: 200px; width:100%; overflow: auto;"
+            mode="javascript"></ace-editor>
+<h5>HTML</h5>-->
+<ace-editor #htmlEditor
+            [text]="htmlContent"
+            (textChanged)="onRuleChange($event)"
+            [options]="options"
+            [readOnly]="false"
+            [autoUpdateContent]="true"
+            mode="html"
+            style="min-height: 200px; width:100%; overflow: auto;font-size: 16px;"></ace-editor>

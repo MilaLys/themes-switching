@@ -1,0 +1,38 @@
+<h4><b>Themes</b></h4>
+<hr/>
+<b>Current theme</b>
+<ul class="list-unstyled list-inline">
+  <li class="list-inline-item">{{currentTheme?.themeName}}</li>
+  <li class="list-inline-item"><a class="btn btn-dark btn-sm" routerLink="/editor">Customize</a></li>
+  <li class="list-inline-item">
+    <div class="dropdown">
+      <button class="btn btn-dark btn-sm dropdown-toggle" type="button" id="dropdownMenu"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Actions
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenu">
+        <a class="dropdown-item" [routerLink]="['/admin', {outlets: {admin: 'code-editor'}}]">Edit code</a>
+        <a class="dropdown-item" href="#">Another action</a>
+      </div>
+    </div>
+  </li>
+</ul>
+<hr/>
+<b>More themes</b>
+<ul class="list-inline" *ngFor="let item of themes">
+  <li class="list-inline-item">
+    {{item.themeName}}
+  </li>
+  <li class="list-inline-item">
+    <div class="dropdown">
+      <button class="btn btn-dark btn-sm dropdown-toggle" type="button" id="dropdownMenuButton"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Actions
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item" target="_blank" (click)="goToEditor()">Edit code</a>
+        <a class="dropdown-item" (click)="publishTheme(item.id)">Publish</a>
+      </div>
+    </div>
+  </li>
+</ul>

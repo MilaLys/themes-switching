@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-2">
         <div class="navbar-brand" *ngIf="theme?.isVisibleLogo">
-          <a href="#" class="text-uppercase">{{theme?.logoName}}</a>
+          <a [routerLink]="['/admin', {outlets: {admin: 'themes'}}]" class="text-uppercase">{{theme?.logoName}}</a>
         </div>
       </div>
       <div class="col-10">

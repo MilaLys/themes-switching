@@ -8,7 +8,7 @@ import {CurrentTheme} from '../models/current-theme.interface';
 import {CurrentConfig} from '../models/current-config';
 import {Theme} from '../models/theme.interface';
 import {Page} from '../models/page.interface';
-import {environment} from '../../environments/environment';
+import {environment} from '../../../environments/environment';
 
 @Injectable()
 export class ThemeService {

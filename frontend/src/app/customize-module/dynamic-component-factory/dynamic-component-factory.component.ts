@@ -1,12 +1,11 @@
 import {
   Component,
-  ReflectiveInjector,
   ViewChild,
   ViewContainerRef,
   Input,
   ComponentFactoryResolver
 } from '@angular/core';
-import {THEMES} from '../themes';
+import {THEMES} from '../../theme-module/themes';
 import {ComponentLoader, inputData} from '../component-loader.decorator';
 
 

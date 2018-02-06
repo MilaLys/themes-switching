@@ -1,33 +1,36 @@
 <div class="container-fluid">
   <div class="row" style="display: flex;min-height: 100vh;">
-    <div class="col-4 alert-info">
-      <h2 class="text-uppercase"><b>Admin panel</b></h2>
-      <h4><b>Choose themes:</b></h4>
-      <ul class="list-unstyled">
-        <li *ngFor="let item of themes">
-          <label>
-            <input type="radio"
-                   name="chooseTheme"
-                   (click)="applyTheme(item.id);"
-                   [checked]="item.id==currentTheme.themeId"
-            />
-            Apply {{item.themeName}}
-            <div class="dropdown">
-              <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
-                      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Actions
-              </button>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" target="_blank" (click)="goToEditor()">Edit code</a>
-                <a class="dropdown-item" href="#">Another action</a>
-              </div>
-            </div>
-          </label>
-        </li>
-      </ul>
-      <hr/>
+    <div class="col-3 alert-dark">
+      <a [routerLink]="['/admin', {outlets: {admin: 'themes'}}]" class="alert-link">
+        <i class="fas fa-home"></i>
+        Home
+      </a>
+      <!-- <h6 class="text-uppercase">Themes</h6>
+       <ul class="list-unstyled">
+         <li *ngFor="let item of themes">
+           <label>
+             <input type="radio"
+                    name="chooseTheme"
+                    (click)="applyTheme(item.id);"
+                    [checked]="item.id==currentTheme.themeId"
+             />
+             Apply {{item.themeName}}
+             <div class="dropdown">
+               <button class="btn btn-dark btn-sm dropdown-toggle" type="button" id="dropdownMenuButton"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                 Actions
+               </button>
+               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                 <a class="dropdown-item" target="_blank" (click)="goToEditor()">Edit code</a>
+                 <a class="dropdown-item" href="#">Another action</a>
+               </div>
+             </div>
+           </label>
+         </li>
+       </ul>
+       <hr/>-->
       <div>
-        <h4><b>Menu</b></h4>
+        <h6 class="text-uppercase">Menu</h6>
         <div class="row">
           <div class="col-6">
             <label for="logoName">Change logo</label>
@@ -62,7 +65,7 @@
 
         <!-- Add page -->
         <form (submit)="addPage()">
-          <h4><b>Add page</b></h4>
+          <h6 class="text-uppercase">Add page</h6>
           <div class="row">
             <div class="col-6">
               <div class="input-group">
@@ -109,7 +112,7 @@
             </div>
             <div class="col-12">
               <div class="form-group">
-                <h5><b>Template</b></h5>
+                <b>Template</b>
                 <p>Select a template for this page.</p>
                 <select [(ngModel)]="page.templateName" class="form-control" name="templates"
                         (change)="applyTemplate(page.templateName)">
@@ -121,16 +124,18 @@
             </div>
           </div>
           <div style="padding-top: 10px;">
-            <button type="submit" class="btn btn-primary"
-                    [class.disabled]="link.errors?.required || content.errors?.required">Add page
+            <button type="submit"
+                    class="btn btn-dark btn-sm"
+                    [class.disabled]="link.errors?.required || content.errors?.required">
+              Add page
             </button>
-            <button type="reset" class="btn btn-info">Reset</button>
+            <button type="reset" class="btn btn-light btn-sm">Reset</button>
           </div>
         </form>
 
         <!--Add menu item-->
         <hr/>
-        <h4><b>Add menu item</b></h4>
+        <h5>Add menu item</h5>
         <div>
           <div class="row">
             <div class="col-6">
@@ -141,31 +146,27 @@
               />
             </div>
             <div class="col-6">
-              <select [(ngModel)]="newMenuItemLink" class="form-control">
+              <!--<select [(ngModel)]="newMenuItemLink" class="form-control">
                 <option disabled>Choose page</option>
                 <option *ngFor="let item of currentConfig?.pages | keys" value="{{item}}">
                   <b>Page: </b>{{currentConfig?.pages[item].title}}
                 </option>
-              </select>
+              </select>-->
             </div>
           </div>
           <br/>
-          <button class="btn btn-primary" (click)="addMenuItem();">Add menu item</button>
+          <button class="btn btn-dark btn-sm" (click)="addMenuItem();">Add menu item</button>
           <hr/>
-          <h5><b>Previous editions:</b></h5>
+         <!-- <b>Previous editions:</b>
           <ul>
             <li *ngFor="let config of configs">{{config.startDate}}</li>
-          </ul>
-          <button class="btn btn-primary btn-block" (click)="updateUserConfig()">Save changes</button>
+          </ul>-->
+          <button class="btn btn-dark btn-block btn-sm" (click)="updateUserConfig()">Save changes</button>
         </div>
       </div>
     </div>
-
-    <div class="col-8">
-      <router-outlet [componentData]="componentData"></router-outlet>
+    <div class="col-9">
+      <router-outlet [componentData]="componentData" name="pages"></router-outlet>
     </div>
   </div>
 </div>
-
-
-

@@ -1,20 +1,23 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { AppComponent } from './app.component';
-import { DynamicComponentFactory } from './dynamic-component-factory/dynamic-component-factory.component';
-import { THEMES, THEMES_COMPONENT } from './themes';
-import { ThemeModule } from './themes/theme.module';
-import { FormsModule } from '@angular/forms';
-import { HttpService } from './services/http.service';
-import { XHRBackend, RequestOptions } from '@angular/http';
-import { ThemeService } from './services/theme.service';
-import {KeysPipe, ThemeManagerComponent} from './theme-manager/theme-manager.component';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {RequestOptions, XHRBackend} from '@angular/http';
+import {HttpService} from './customize-module/services/http.service';
+import {KeysPipe, ThemeManagerComponent} from './customize-module/theme-manager/theme-manager.component';
+import {FormsModule} from '@angular/forms';
 import {appRoutingProviders, routing} from './app.routes';
-import {ContactsTemplateComponent} from './templates/pages/custom-page/contacts-template/contacts-template.component';
-import {BasicTemplateComponent} from './templates/pages/custom-page/basic-template/basic-template.component';
-import {CustomContentComponent} from './templates/pages/custom-page/custom-content.component';
-import {CodeEditorComponent} from './templates/pages/code-editor/code-editor.component';
-import {CodemirrorModule} from 'ng2-codemirror';
+import {BasicTemplateComponent} from './customize-module/templates/pages/custom-page/basic-template/basic-template.component';
+import {ContactsTemplateComponent} from './customize-module/templates/pages/custom-page/contacts-template/contacts-template.component';
+import {CustomContentComponent} from './customize-module/templates/pages/custom-page/custom-content.component';
+import {ThemeService} from './customize-module/services/theme.service';
+import {AppComponent} from './app.component';
+import {CustomizeModule} from './customize-module/customize.module';
+import {HomeComponent} from './customize-module/templates/pages/home/home.component';
+import {CustomPageComponent} from './customize-module/templates/pages/custom-page/custom-page.component';
+import {BlogComponent} from './customize-module/templates/pages/blog/blog.component';
+import {ThemeModule} from './theme-module/theme.module';
+import {ThemeComponent} from './theme-module/theme.component';
+import {CustomizeComponent} from './customize-module/customize.component';
+import {AdminNavigationComponent} from './admin-navigation/admin-navigation.component';
 
 export function httpFactory(backend: XHRBackend, defaultOptions: RequestOptions): any {
   return new HttpService(backend, defaultOptions);
@@ -23,23 +26,27 @@ export function httpFactory(backend: XHRBackend, defaultOptions: RequestOptions)
 @NgModule({
   declarations: [
     AppComponent,
-    DynamicComponentFactory,
-    ThemeManagerComponent,
-    KeysPipe,
-    CodeEditorComponent
+    AdminNavigationComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    routing,
-    CodemirrorModule,
+      CustomizeModule.withComponents([
+      ThemeManagerComponent,
+      HomeComponent,
+      BlogComponent,
+      BasicTemplateComponent,
+      ContactsTemplateComponent,
+      CustomContentComponent,
+      CustomPageComponent,
+      CustomizeComponent
+    ]),
     ThemeModule.withComponents([
-      THEMES,
-      THEMES_COMPONENT,
-      BasicTemplateComponent, ContactsTemplateComponent, CustomContentComponent
-    ])
+      ThemeComponent
+    ]),
+    routing
   ],
-  entryComponents: [THEMES, BasicTemplateComponent, ContactsTemplateComponent],
+  entryComponents: [],
   providers: [
     ThemeService,
     appRoutingProviders,
@@ -50,5 +57,6 @@ export function httpFactory(backend: XHRBackend, defaultOptions: RequestOptions)
     }],
   bootstrap: [AppComponent]
 })
+
 export class AppModule {
 }

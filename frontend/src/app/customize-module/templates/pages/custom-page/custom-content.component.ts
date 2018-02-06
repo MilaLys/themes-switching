@@ -1,14 +1,13 @@
 import {
   Component,
   Input,
-  ReflectiveInjector,
   ViewChild,
   ViewContainerRef,
-  ComponentFactoryResolver, Output, EventEmitter
+  ComponentFactoryResolver
 } from '@angular/core';
 import {BasicTemplateComponent} from './basic-template/basic-template.component';
 import {ThemeService} from '../../../services/theme.service';
-import {TEMPLATES} from '../../../themes';
+import {TEMPLATES} from '../../../../theme-module/themes';
 import {combineLatest} from 'rxjs/observable/combineLatest';
 import {ActivatedRoute} from '@angular/router';
 import {ComponentLoader, inputData} from '../../../component-loader.decorator';
