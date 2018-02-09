@@ -2,7 +2,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {RequestOptions, XHRBackend} from '@angular/http';
 import {HttpService} from './customize-module/services/http.service';
-import {KeysPipe, ThemeManagerComponent} from './customize-module/theme-manager/theme-manager.component';
+import {ThemeManagerComponent} from './customize-module/theme-manager/theme-manager.component';
 import {FormsModule} from '@angular/forms';
 import {appRoutingProviders, routing} from './app.routes';
 import {BasicTemplateComponent} from './customize-module/templates/pages/custom-page/basic-template/basic-template.component';
@@ -17,7 +17,10 @@ import {BlogComponent} from './customize-module/templates/pages/blog/blog.compon
 import {ThemeModule} from './theme-module/theme.module';
 import {ThemeComponent} from './theme-module/theme.component';
 import {CustomizeComponent} from './customize-module/customize.component';
+import {AdminNavigationModule} from './admin-navigation/admin-navigation.module';
 import {AdminNavigationComponent} from './admin-navigation/admin-navigation.component';
+import {CommonModule} from '@angular/common';
+import {RouterModule} from '@angular/router';
 
 export function httpFactory(backend: XHRBackend, defaultOptions: RequestOptions): any {
   return new HttpService(backend, defaultOptions);
@@ -25,13 +28,15 @@ export function httpFactory(backend: XHRBackend, defaultOptions: RequestOptions)
 
 @NgModule({
   declarations: [
-    AppComponent,
-    AdminNavigationComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-      CustomizeModule.withComponents([
+    AdminNavigationModule.withComponents([
+      AdminNavigationComponent
+    ]),
+    CustomizeModule.withComponents([
       ThemeManagerComponent,
       HomeComponent,
       BlogComponent,
@@ -44,6 +49,7 @@ export function httpFactory(backend: XHRBackend, defaultOptions: RequestOptions)
     ThemeModule.withComponents([
       ThemeComponent
     ]),
+    CommonModule,
     routing
   ],
   entryComponents: [],
@@ -55,7 +61,8 @@ export function httpFactory(backend: XHRBackend, defaultOptions: RequestOptions)
       useFactory: httpFactory,
       deps: [XHRBackend, RequestOptions]
     }],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports: [RouterModule]
 })
 
 export class AppModule {

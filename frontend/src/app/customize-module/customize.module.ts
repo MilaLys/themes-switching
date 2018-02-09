@@ -15,6 +15,7 @@ import {CustomizeComponent} from './customize.component';
 import {FormsModule} from '@angular/forms';
 import {BrowserModule} from '@angular/platform-browser';
 import {DynamicComponentFactory} from './dynamic-component-factory/dynamic-component-factory.component';
+import {appRoutingProviders, routing} from './customize-module.routes';
 
 
 @NgModule({
@@ -39,9 +40,19 @@ import {DynamicComponentFactory} from './dynamic-component-factory/dynamic-compo
     ThemeModule.withComponents([
       THEMES,
       THEMES_COMPONENT
-    ])],
-  providers: [],
-  exports: [ThemeManagerComponent, CodeEditorComponent, CustomizeComponent, HomeComponent, CustomPageComponent, CustomContentComponent]
+    ]),
+    routing
+  ],
+  providers: [appRoutingProviders],
+  exports: [
+    RouterModule,
+    ThemeManagerComponent,
+    CodeEditorComponent,
+    CustomizeComponent,
+    HomeComponent,
+    CustomPageComponent,
+    CustomContentComponent
+  ]
 })
 
 export class CustomizeModule {

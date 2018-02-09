@@ -15,7 +15,6 @@ import {ThemeService} from '../services/theme.service';
 
 export class ThemeManagerComponent implements OnInit {
   componentData = null;
-  isVisible = false;
   newMenuItem: string;
   newMenuItemLink = 'Choose page';
   themes: Theme[] = [];

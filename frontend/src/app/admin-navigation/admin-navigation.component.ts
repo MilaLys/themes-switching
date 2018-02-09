@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {ThemeService} from '../customize-module/services/theme.service';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: '<admin-panel>',
@@ -15,7 +16,7 @@ import {ThemeService} from '../customize-module/services/theme.service';
               Online App
             </a>
             <a class="list-group-item list-group-item-action"
-               [routerLink]="['/admin', {outlets: {admin: 'themes'}}]"
+               routerLink="/admin"
                routerLinkActive="list-group-item-dark">Themes</a>
             <a class="list-group-item list-group-item-action"
                routerLinkActive="list-group-item-dark">Blog</a>
@@ -40,13 +41,17 @@ export class AdminNavigationComponent {
   themes;
   theme;
 
-  constructor(private themeService: ThemeService) {
+  constructor(private router: Router, private themeService: ThemeService, private activatedRoute: ActivatedRoute) {
   }
 
   ngOnInit() {
-    // this.getCurrentTheme();
+    // this.router.navigate(['/admin', {outlets: {'admin': 'themes'}}]);
+    this.gotToThemes();
   }
 
+  gotToThemes() {
+    this.router.navigate(['/admin', {outlets: {'admin': 'themes'}}]);
+  }
   // getCurrentTheme() {
   //   this.themeService.getCurrentUser().subscribe(data => {
   //     this.user = data._id;
