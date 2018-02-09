@@ -6,4 +6,5 @@ export interface Theme extends Document {
   isVisibleLogo: boolean;
   isVisibleMenu: boolean;
   headerDark: boolean;
+  files: object[];
 }

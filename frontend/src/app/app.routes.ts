@@ -5,10 +5,10 @@ export const routes: Routes = [
   //   path: 'admin',
   //   loadChildren: '../admin-navigation/admin-navigation.module'
   // },
-  {
-    path: 'editor',
-    loadChildren: '../customize-module/customize-module.module'
-  },
+  // {
+  //   path: 'editor',
+  //   loadChildren: '../customize-module/customize-module.module'
+  // },
   {
     path: '**',
     redirectTo: 'admin'

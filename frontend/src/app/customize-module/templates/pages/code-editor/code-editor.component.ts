@@ -1,5 +1,9 @@
-import {AfterViewInit, Component, Input, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {ThemeService} from '../../../services/theme.service';
+// import * as ace from 'brace';
+// import 'brace/mode/javascript';
+// import 'brace/theme/monokai';
+import htmlBeautify from 'html-beautify';
 
 declare let ace: any;
 
@@ -9,13 +13,13 @@ declare let ace: any;
   styleUrls: ['./code-editor.component.css']
 })
 export class CodeEditorComponent implements AfterViewInit, OnInit {
-  jsContent = 'function getSumma (a,b){return a+b;}';
-  htmlContent = '<div><h1>Hello!</h1></div>';
-  options: any = {maxLines: 1000, printMargin: false};
+  htmlContent: any;
+  options: any = {maxLines: 'Infinity'};
   themes;
   user;
   theme;
   currentTheme;
+  files;
 
   @ViewChild('editor') editor;
   @ViewChild('htmlEditor') htmlEditor;
@@ -41,7 +45,14 @@ export class CodeEditorComponent implements AfterViewInit, OnInit {
         this.theme = info;
         this.currentTheme = this.themes.filter((obj) => obj['id'] === this.theme.themeId)[0];
       });
+      this.themeService.getUserConfig(this.user).subscribe(config => {
+        this.files = config.files;
+      });
     });
+  }
+
+  getCode() {
+    this.htmlContent = htmlBeautify(this.files[0].value);
   }
 
   onRuleChange(e) {
@@ -49,12 +60,19 @@ export class CodeEditorComponent implements AfterViewInit, OnInit {
   }
 
   ngAfterViewInit() {
+    // const editor = ace.edit('javascript-editor');
+    // editor.getSession().setMode('ace/mode/javascript');
+    // editor.setTheme('ace/theme/monokai');
+
+    // const beautify = ace.require('ace/ext/beautify');
+    // const editor = ace.edit('htmlEditor');
+    // beautify.beautify(editor.session);
     // const Range = ace.require('ace/range').Range;
     //
     // this.htmlEditor.getEditor().session.addMarker(
-    //   new Range(0, 0, 2, 1), "myMarker", "fullLine"
+    //   new Range(0, 0, 2, 1), 'myMarker', 'fullLine'
     // );
-    //
-    // this.editor.getEditor().session.setOption("useWorker", true);
+
+     // this.htmlEditor.getEditor().session.setOption('useWorker', true);
   }
 }

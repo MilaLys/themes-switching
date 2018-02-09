@@ -10,4 +10,5 @@ export interface CurrentConfig {
     pages: any;
     startDate: string;
     endDate: string;
+    files: object[];
 }

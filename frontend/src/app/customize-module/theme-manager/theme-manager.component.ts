@@ -31,7 +31,8 @@ export class ThemeManagerComponent implements OnInit {
     isVisibleLogo: this.isVisibleLogo,
     isVisibleMenu: this.isVisibleMenu,
     menuItems: [],
-    pages: {}
+    pages: {},
+    files: []
   };
 
   constructor(private themeService: ThemeService) {
@@ -72,6 +73,7 @@ export class ThemeManagerComponent implements OnInit {
       this.theme.logoName = data.logoName;
       this.theme.pages = data.pages || {};
       this.theme.menuItems = data.menuItems || [];
+      this.theme.files = data.files || [];
       this.applyTheme(this.currentTheme.themeId);
     });
   }

@@ -1,8 +1,16 @@
 <a [routerLink]="['/admin', {outlets: {admin: 'themes'}}]">
   <i class="fas fa-angle-left"></i>
-  Themes
+  <small>Themes</small>
 </a>
 <h4 class="text-capitalize">{{currentTheme?.themeName}}</h4>
+<a routerLink="/editor"><i class="fas fa-edit"></i><small>Customize theme</small></a>
+<hr/>
+<b>Templates</b>
+<ul>
+  <li *ngFor="let item of files" style="cursor:pointer;">
+    <p (click)="getCode()">{{item.key}}</p>
+  </li>
+</ul>
 <!--<h5>JS</h5>
 <ace-editor #jsEditor
             [text]="jsContent"
@@ -14,6 +22,7 @@
             mode="javascript"></ace-editor>
 <h5>HTML</h5>-->
 <ace-editor #htmlEditor
+            class="editor"
             [text]="htmlContent"
             (textChanged)="onRuleChange($event)"
             [options]="options"
