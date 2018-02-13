@@ -1,4 +1,4 @@
-import {Routes, RouterModule, PreloadAllModules} from '@angular/router';
+import {Routes, RouterModule} from '@angular/router';
 
 export const routes: Routes = [
   // {
@@ -22,4 +22,4 @@ export const routes: Routes = [
 
 export const appRoutingProviders: any[] = [];
 
-export const routing = RouterModule.forRoot(routes, {useHash: true, preloadingStrategy : PreloadAllModules});
+export const routing = RouterModule.forRoot(routes, {useHash: true});

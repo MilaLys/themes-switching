@@ -31,8 +31,7 @@ export class ThemeManagerComponent implements OnInit {
     isVisibleLogo: this.isVisibleLogo,
     isVisibleMenu: this.isVisibleMenu,
     menuItems: [],
-    pages: {},
-    files: []
+    pages: {}
   };
 
   constructor(private themeService: ThemeService) {
@@ -45,10 +44,10 @@ export class ThemeManagerComponent implements OnInit {
   }
 
   getAllConfigs() {
-    this.themeService.getAllConfigs()
-      .subscribe(data => {
-        this.configs = data;
-      });
+    // this.themeService.getAllConfigs()
+    //   .subscribe(data => {
+    //     this.configs = data;
+    //   });
   }
 
   getCurrentUser() {
@@ -73,7 +72,6 @@ export class ThemeManagerComponent implements OnInit {
       this.theme.logoName = data.logoName;
       this.theme.pages = data.pages || {};
       this.theme.menuItems = data.menuItems || [];
-      this.theme.files = data.files || [];
       this.applyTheme(this.currentTheme.themeId);
     });
   }

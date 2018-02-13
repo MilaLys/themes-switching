@@ -9,6 +9,7 @@ export const routes: Routes = [
     component: AdminNavigationComponent,
     children: [
      // {path: '', pathMatch: 'full', redirectTo: 'themes'},
+      // {path: '', pathMatch: 'full', redirectTo: '/admin/(admin:admin/themes)'},
       {path: '', component: ThemeComponent, outlet: 'admin'},
       {path: 'code-editor', component: CodeEditorComponent, outlet: 'admin'}
     ],

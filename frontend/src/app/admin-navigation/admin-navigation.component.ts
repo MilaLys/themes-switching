@@ -18,13 +18,13 @@ import {ActivatedRoute, Router} from '@angular/router';
             <a class="list-group-item list-group-item-action"
                routerLink="/admin"
                routerLinkActive="list-group-item-dark">Themes</a>
-            <a class="list-group-item list-group-item-action"
+            <a class="list-group-item list-group-item-action disabled"
                routerLinkActive="list-group-item-dark">Blog</a>
-            <a class="list-group-item list-group-item-action"
+            <a class="list-group-item list-group-item-action disabled"
                routerLinkActive="list-group-item-dark">Pages</a>
-            <a class="list-group-item list-group-item-action"
+            <a class="list-group-item list-group-item-action disabled"
                routerLinkActive="list-group-item-dark">Navigation</a>
-            <a class="list-group-item list-group-item-action"
+            <a class="list-group-item list-group-item-action disabled"
                routerLinkActive="list-group-item-dark">Preferences</a>
           </div>
         </div>
@@ -50,7 +50,7 @@ export class AdminNavigationComponent {
   }
 
   gotToThemes() {
-    this.router.navigate(['/admin', {outlets: {'admin': 'themes'}}]);
+    //this.router.navigate(['/admin', {outlets: {'admin': 'themes'}}]);
   }
   // getCurrentTheme() {
   //   this.themeService.getCurrentUser().subscribe(data => {

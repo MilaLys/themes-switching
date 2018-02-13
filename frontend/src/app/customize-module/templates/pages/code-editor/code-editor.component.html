@@ -3,30 +3,50 @@
   <small>Themes</small>
 </a>
 <h4 class="text-capitalize">{{currentTheme?.themeName}}</h4>
-<a routerLink="/editor"><i class="fas fa-edit"></i><small>Customize theme</small></a>
+<a routerLink="/editor"><i class="fas fa-edit"></i>
+  <small>Customize theme</small>
+</a>
 <hr/>
-<b>Templates</b>
-<ul>
-  <li *ngFor="let item of files" style="cursor:pointer;">
-    <p (click)="getCode()">{{item.key}}</p>
-  </li>
-</ul>
-<!--<h5>JS</h5>
-<ace-editor #jsEditor
-            [text]="jsContent"
-            (textChanged)="onRuleChange($event)"
-            [options]="options"
-            [readOnly]="false"
-            [autoUpdateContent]="true"
-            style="min-height: 200px; width:100%; overflow: auto;"
-            mode="javascript"></ace-editor>
-<h5>HTML</h5>-->
-<ace-editor #htmlEditor
-            class="editor"
-            [text]="htmlContent"
-            (textChanged)="onRuleChange($event)"
-            [options]="options"
-            [readOnly]="false"
-            [autoUpdateContent]="true"
-            mode="html"
-            style="min-height: 200px; width:100%; overflow: auto;font-size: 16px;"></ace-editor>
+<div class='row'>
+  <div class="col-lg-3 col-md-12">
+    <b>Templates</b>
+    <ul>
+      <li *ngFor="let item of allFilesOfTheme">
+        <a href="javascript:void(0)" (click)="getCode(item.key)">{{item.key}}</a>
+      </li>
+    </ul>
+  </div>
+  <div class="col-lg-9 col-md-12">
+    <div class="row" *ngIf="isFileChosen">
+      <div class="col-7">
+        <ul class="list-unstyled list-inline">
+          <li class="list-inline-item">
+            <small>Chosen file: <b>{{currentFile}}</b></small>
+          </li>
+          <li class="list-inline-item">
+            <select class="custom-select btn-sm" [(ngModel)]="startDate">
+              <option selected>Older versions</option>
+              <option *ngFor="let item of fileVersions" value="{{item.startDate}}">{{item.startDate}}</option>
+            </select>
+          </li>
+        </ul>
+      </div>
+      <div class="col-5 text-right">
+        <div class="btn-group btn-group-sm" role="group">
+          <button type="button" class="btn btn-secondary">Delete</button>
+          <button type="button" class="btn btn-secondary">Rename</button>
+          <button type="button" class="btn btn-secondary" (click)="saveFile()">Save</button>
+        </div>
+      </div>
+    </div>
+
+    <ace-editor #htmlEditor
+                class="editor"
+                [(text)]="htmlContent"
+                [options]="options"
+                [readOnly]="false"
+                [autoUpdateContent]="true"
+                mode="html"
+                style="min-height: 200px; width:100%; overflow: auto;font-size: 16px;"></ace-editor>
+  </div>
+</div>

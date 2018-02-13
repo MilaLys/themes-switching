@@ -3,4 +3,5 @@ export interface Theme {
   isVisibleLogo?: boolean;
   isVisibleMenu?: boolean;
   menuItems: any;
+  files: object;
 }

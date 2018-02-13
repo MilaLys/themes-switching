@@ -8,7 +8,4 @@ export interface CurrentConfig {
     logoName: string;
     menuItems: MenuItem[];
     pages: any;
-    startDate: string;
-    endDate: string;
-    files: object[];
 }

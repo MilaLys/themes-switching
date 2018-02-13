@@ -1,18 +1,14 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {ThemeService} from '../../../services/theme.service';
-// import * as ace from 'brace';
-// import 'brace/mode/javascript';
-// import 'brace/theme/monokai';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ThemeService } from '../../../services/theme.service';
 import htmlBeautify from 'html-beautify';
-
-declare let ace: any;
+import { CurrentConfig } from '../../../models/current-config';
 
 @Component({
   selector: 'code-editor',
   templateUrl: './code-editor.component.html',
   styleUrls: ['./code-editor.component.css']
 })
-export class CodeEditorComponent implements AfterViewInit, OnInit {
+export class CodeEditorComponent implements OnInit {
   htmlContent: any;
   options: any = {maxLines: 'Infinity'};
   themes;
@@ -20,8 +16,13 @@ export class CodeEditorComponent implements AfterViewInit, OnInit {
   theme;
   currentTheme;
   files;
+  isFileChosen: boolean = false;
+  currentFile = '';
+  versionsOfFile;
+  startDate;
+  allFilesOfTheme;
+  fileVersions;
 
-  @ViewChild('editor') editor;
   @ViewChild('htmlEditor') htmlEditor;
 
   constructor(private themeService: ThemeService) {
@@ -30,6 +31,12 @@ export class CodeEditorComponent implements AfterViewInit, OnInit {
   ngOnInit() {
     this.getThemes();
     this.getCurrentTheme();
+  }
+
+  getAllFilesOfTheme(userId){
+    this.themeService.getAllFiles(userId).subscribe(data => {
+      this.allFilesOfTheme = data;
+    })
   }
 
   getThemes() {
@@ -41,38 +48,85 @@ export class CodeEditorComponent implements AfterViewInit, OnInit {
   getCurrentTheme() {
     this.themeService.getCurrentUser().subscribe(data => {
       this.user = data._id;
+      this.getAllFilesOfTheme(this.user);
+
       this.themeService.getUserTheme(this.user).subscribe(info => {
         this.theme = info;
         this.currentTheme = this.themes.filter((obj) => obj['id'] === this.theme.themeId)[0];
       });
-      this.themeService.getUserConfig(this.user).subscribe(config => {
-        this.files = config.files;
-      });
     });
   }
 
-  getCode() {
-    this.htmlContent = htmlBeautify(this.files[0].value);
+  getFileVersions(userId, key) {
+    this.themeService.getFileVersions(userId, key).subscribe(data => {
+      this.fileVersions = data; // this.formatDate(this.startDate);
+    })
   }
 
-  onRuleChange(e) {
-    // console.log(e);
+  formatDate(date) {
+    let dateNow = new Date();
+    let dateNowMs = dateNow.getTime();
+    let diff = dateNowMs - date.getTime();
+
+    if (diff < 1000) {
+      return 'right now';
+    }
+
+    let sec = Math.floor(diff / 1000);
+
+    if (sec < 60) {
+      return sec + ' seconds ago';
+    }
+
+    let min = Math.floor(diff / 60000);
+    if (min < 60) {
+      return min + ' minutes ago';
+    }
+
+    let d = date;
+    d = [
+      '0' + d.getDate(),
+      '0' + (d.getMonth() + 1),
+      '' + d.getFullYear(),
+      '0' + d.getHours(),
+      '0' + d.getMinutes()
+    ];
+
+    for (let i = 0; i < d.length; i++) {
+      d[i] = d[i].slice(-2);
+    }
+
+    return d.slice(0, 3).join('.') + ' ' + d.slice(3).join(':');
   }
 
-  ngAfterViewInit() {
-    // const editor = ace.edit('javascript-editor');
-    // editor.getSession().setMode('ace/mode/javascript');
-    // editor.setTheme('ace/theme/monokai');
+  getByValue(array, key) {
+    const result = array.filter((o) =>
+      o.key === key
+    );
+    return result ? result[0] : null;
+  }
 
-    // const beautify = ace.require('ace/ext/beautify');
-    // const editor = ace.edit('htmlEditor');
-    // beautify.beautify(editor.session);
-    // const Range = ace.require('ace/range').Range;
-    //
-    // this.htmlEditor.getEditor().session.addMarker(
-    //   new Range(0, 0, 2, 1), 'myMarker', 'fullLine'
-    // );
+  setByValue(array, key, value) {
+    for (let i = 0; i < array.length; i++) {
+      if (array[i].key === key) {
+        array[i].value = value;
+        return;
+      }
+    }
+    array.push({key: key, value: value});
+  }
 
-     // this.htmlEditor.getEditor().session.setOption('useWorker', true);
+  getCode(currentFile) {
+    const code = this.getByValue(this.allFilesOfTheme, currentFile);
+    this.htmlContent = htmlBeautify(code.value);
+    this.isFileChosen = true;
+    this.currentFile = currentFile;
+    this.getFileVersions(this.user, this.currentFile);
+  }
+
+  saveFile() {
+    // this.setByValue(this.allFilesOfTheme, this.currentFile, this.htmlContent);
+    console.log(this.user, this.currentFile, this.htmlContent);
+    this.themeService.updateUserFiles(this.user, this.currentFile, this.htmlContent);
   }
 }

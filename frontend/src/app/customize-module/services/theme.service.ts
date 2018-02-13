@@ -1,14 +1,14 @@
-import {EventEmitter, Injectable} from '@angular/core';
-import {Response} from '@angular/http';
-import {HttpService} from './http.service';
-import {Observable} from 'rxjs/Observable';
+import { EventEmitter, Injectable } from '@angular/core';
+import { Response } from '@angular/http';
+import { HttpService } from './http.service';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
-import {User} from '../models/user.interface';
-import {CurrentTheme} from '../models/current-theme.interface';
-import {CurrentConfig} from '../models/current-config';
-import {Theme} from '../models/theme.interface';
-import {Page} from '../models/page.interface';
-import {environment} from '../../../environments/environment';
+import { User } from '../models/user.interface';
+import { CurrentTheme } from '../models/current-theme.interface';
+import { CurrentConfig } from '../models/current-config';
+import { Theme } from '../models/theme.interface';
+import { Page } from '../models/page.interface';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class ThemeService {
@@ -24,7 +24,9 @@ export class ThemeService {
   currentTheme: CurrentTheme;
   currentConfig: CurrentConfig;
   page: Page;
-  configs: CurrentConfig[] = [];
+  files;
+  lastEditedFile;
+  fileVersions;
 
   private apiUrl = environment.apiUrl;
 
@@ -42,17 +44,43 @@ export class ThemeService {
 
   public updateUserConfig(id, config): void {
     this.httpService
-      .post(`${this.apiUrl}/api/user-config/${id}`, config)
+      .put(`${this.apiUrl}/api/user-config/${id}`, config)
       .subscribe(data => data.json());
   }
 
-  public getAllConfigs(): Observable<CurrentConfig[]> {
+  public updateUserFiles(id, key, value): void {
+    console.log(id, key, value);
+    this.httpService
+      .post(`${this.apiUrl}/api/user-files/${id}`, {key: key, value: value})
+      .subscribe(data => data.json());
+  }
+
+  public getAllFiles(userId): Observable<any> {
     return this.httpService
-      .get(`${this.apiUrl}/api/user-config`)
+      .get(`${this.apiUrl}/api/user-files/${userId}`)
       .map((data: Response) => {
-        this.configs = data.json().configs;
-        return this.configs;
-      });
+        this.files = data.json().configs;
+        return this.files;
+      })
+  }
+
+  public getLastUserFile(userId): Observable<any> {
+    return this.httpService
+      .get(`${this.apiUrl}/api/user-files/${userId}`)
+      .map((data: Response) => {
+        this.lastEditedFile = data.json().configs;
+        return this.lastEditedFile;
+      })
+  }
+
+  public getFileVersions(userId, key): Observable<any> {
+    return this.httpService
+      .get(`${this.apiUrl}/api/user-files/versions/${userId}`, key)
+      .map((data: Response) => {
+        this.fileVersions = data.json();
+        console.log(data.json());
+        return this.fileVersions;
+      })
   }
 
   public updateUserTheme(userId, themeId): void {
