@@ -1,14 +1,16 @@
-import { EventEmitter, Injectable } from '@angular/core';
-import { Response } from '@angular/http';
-import { HttpService } from './http.service';
-import { Observable } from 'rxjs/Observable';
+import {EventEmitter, Injectable} from '@angular/core';
+import {Response} from '@angular/http';
+import {HttpService} from './http.service';
+import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
-import { User } from '../models/user.interface';
-import { CurrentTheme } from '../models/current-theme.interface';
-import { CurrentConfig } from '../models/current-config';
-import { Theme } from '../models/theme.interface';
-import { Page } from '../models/page.interface';
-import { environment } from '../../../environments/environment';
+import {User} from '../models/user.interface';
+import {CurrentTheme} from '../models/current-theme.interface';
+import {CurrentConfig} from '../models/current-config';
+import {Theme} from '../models/theme.interface';
+import {Page} from '../models/page.interface';
+import {environment} from '../../../environments/environment';
+import {catchError, tap} from 'rxjs/operators';
+import {HttpHeaders} from '@angular/common/http';
 
 @Injectable()
 export class ThemeService {
@@ -49,7 +51,6 @@ export class ThemeService {
   }
 
   public updateUserFiles(id, key, value): void {
-    console.log(id, key, value);
     this.httpService
       .post(`${this.apiUrl}/api/user-files/${id}`, {key: key, value: value})
       .subscribe(data => data.json());
@@ -61,7 +62,7 @@ export class ThemeService {
       .map((data: Response) => {
         this.files = data.json().configs;
         return this.files;
-      })
+      });
   }
 
   public getLastUserFile(userId): Observable<any> {
@@ -70,17 +71,21 @@ export class ThemeService {
       .map((data: Response) => {
         this.lastEditedFile = data.json().configs;
         return this.lastEditedFile;
-      })
+      });
   }
 
   public getFileVersions(userId, key): Observable<any> {
     return this.httpService
-      .get(`${this.apiUrl}/api/user-files/versions/${userId}`, key)
+      .get(`${this.apiUrl}/api/user-files/versions/${userId}/${key}`)
       .map((data: Response) => {
         this.fileVersions = data.json();
-        console.log(data.json());
         return this.fileVersions;
-      })
+      });
+  }
+
+  public deleteFileVersion(userID, currentFile): Observable<Response> {
+    return this.httpService
+      .delete(`${this.apiUrl}/api/user-files/${userID}`, {body: { key: currentFile}});
   }
 
   public updateUserTheme(userId, themeId): void {

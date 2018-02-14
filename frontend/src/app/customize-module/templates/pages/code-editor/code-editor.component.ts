@@ -1,7 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { ThemeService } from '../../../services/theme.service';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {ThemeService} from '../../../services/theme.service';
 import htmlBeautify from 'html-beautify';
-import { CurrentConfig } from '../../../models/current-config';
 
 @Component({
   selector: 'code-editor',
@@ -9,19 +8,20 @@ import { CurrentConfig } from '../../../models/current-config';
   styleUrls: ['./code-editor.component.css']
 })
 export class CodeEditorComponent implements OnInit {
-  htmlContent: any;
+  htmlContent = '';
   options: any = {maxLines: 'Infinity'};
+  currentTheme;
   themes;
   user;
   theme;
-  currentTheme;
   files;
-  isFileChosen: boolean = false;
+  isFileChosen = false;
   currentFile = '';
-  versionsOfFile;
-  startDate;
+  startDate = 'Older versions';
   allFilesOfTheme;
   fileVersions;
+  chosenFile;
+  html = `<button class="btn btn-danger">Never trust not sanitized HTML!!!</button>`;
 
   @ViewChild('htmlEditor') htmlEditor;
 
@@ -33,10 +33,10 @@ export class CodeEditorComponent implements OnInit {
     this.getCurrentTheme();
   }
 
-  getAllFilesOfTheme(userId){
+  getAllFilesOfTheme(userId) {
     this.themeService.getAllFiles(userId).subscribe(data => {
       this.allFilesOfTheme = data;
-    })
+    });
   }
 
   getThemes() {
@@ -59,44 +59,28 @@ export class CodeEditorComponent implements OnInit {
 
   getFileVersions(userId, key) {
     this.themeService.getFileVersions(userId, key).subscribe(data => {
-      this.fileVersions = data; // this.formatDate(this.startDate);
-    })
+      this.fileVersions = data;
+    });
   }
 
-  formatDate(date) {
-    let dateNow = new Date();
-    let dateNowMs = dateNow.getTime();
-    let diff = dateNowMs - date.getTime();
-
-    if (diff < 1000) {
-      return 'right now';
+  deleteFileVersion(userID, currentFile) {
+    if (confirm(`Do you really want to remove page ${this.currentFile}`)) {
+      this.themeService
+        .deleteFileVersion(userID, currentFile)
+        .subscribe(
+          result => console.log(result),
+          error => console.error(error)
+        );
     }
+    this.htmlContent = '';
+    this.currentFile = '';
+    this.isFileChosen = false;
+    this.allFilesOfTheme = this.getAllFilesOfTheme(this.user);
+    this.fileVersions = [];
+  }
 
-    let sec = Math.floor(diff / 1000);
+  renameFile(userId, currentFile) {
 
-    if (sec < 60) {
-      return sec + ' seconds ago';
-    }
-
-    let min = Math.floor(diff / 60000);
-    if (min < 60) {
-      return min + ' minutes ago';
-    }
-
-    let d = date;
-    d = [
-      '0' + d.getDate(),
-      '0' + (d.getMonth() + 1),
-      '' + d.getFullYear(),
-      '0' + d.getHours(),
-      '0' + d.getMinutes()
-    ];
-
-    for (let i = 0; i < d.length; i++) {
-      d[i] = d[i].slice(-2);
-    }
-
-    return d.slice(0, 3).join('.') + ' ' + d.slice(3).join(':');
   }
 
   getByValue(array, key) {
@@ -124,9 +108,13 @@ export class CodeEditorComponent implements OnInit {
     this.getFileVersions(this.user, this.currentFile);
   }
 
+  getChosenFileVersion(date) {
+    this.chosenFile = this.fileVersions.filter((o) => o.startDate === date);
+    this.htmlContent = htmlBeautify(this.chosenFile[0].value);
+  }
+
   saveFile() {
-    // this.setByValue(this.allFilesOfTheme, this.currentFile, this.htmlContent);
-    console.log(this.user, this.currentFile, this.htmlContent);
     this.themeService.updateUserFiles(this.user, this.currentFile, this.htmlContent);
   }
 }
+

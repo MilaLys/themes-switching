@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Req, Res } from '@nestjs/common';
+import {Controller, Delete, Get, Post, Req, Res} from '@nestjs/common';
 import { UserFilesService } from './user-files.service';
 
 
@@ -25,7 +25,7 @@ export class UserFilesController {
       .then((data) => res.json(data));
   }
 
-  @Get('/user-files/versions/:userId')
+  @Get('/user-files/versions/:userId/:key')
   getFileVersions(@Req() req, @Res() res) {
     this.userFilesService
       .getFileVersions(req.params.userId, req.params.key)
@@ -41,5 +41,11 @@ export class UserFilesController {
         }
         res.json({data});
       });
+  }
+
+  @Delete('/user-files/:userId')
+  private deleteFile(@Req() req, @Res() res) {
+    this.userFilesService
+      .deleteFile(req.params.userId, req.body.key);
   }
 }

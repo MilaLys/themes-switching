@@ -1,6 +1,6 @@
-import { Component, Inject } from '@nestjs/common';
-import { Model } from 'mongoose';
-import { UserFiles } from './user-files.interface';
+import {Component, Inject} from '@nestjs/common';
+import {Model} from 'mongoose';
+import {UserFiles} from './user-files.interface';
 
 @Component()
 export class UserFilesService {
@@ -18,13 +18,11 @@ export class UserFilesService {
     return await this.userFilesModel.findOne({userId: userId, endDate: {$gt: dateNow}, key: key}).exec();
   }
 
-  async getFileVersions(userId, key): Promise<UserFiles[]> { // todo: front
-    console.log(userId, key);
+  async getFileVersions(userId, key): Promise<UserFiles[]> {
     return await this.userFilesModel.find({userId: userId, key: key}).exec();
   }
 
   async updateUserFile(userId, key, value, cb): Promise<any> {
-    console.log(userId, key, value);
     const dateNow = (new Date()).toISOString();
     this.userFilesModel
       .update({userId: userId, key: key, endDate: {$gt: dateNow}},
@@ -45,5 +43,15 @@ export class UserFilesService {
     };
     const createdFile = new this.userFilesModel(newFile);
     return await createdFile.save(cb);
+  }
+
+  async deleteFile(userId, currentFile) {
+    this.userFilesModel
+      .find({userId: userId, key: currentFile})
+      .remove()
+      .exec()
+      .then(() => {
+        return console.log('Delete file successfully!');
+      });
   }
 }

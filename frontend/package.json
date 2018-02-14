@@ -32,6 +32,7 @@
     "html-beautify": "^1.0.4",
     "lstat": "1.0.0",
     "ng2-ace-editor": "0.3.4",
+    "ngx-bootstrap": "^2.0.2",
     "reflect-metadata": "0.1.10",
     "rxjs": "5.5.2",
     "zone.js": "0.8.14"
