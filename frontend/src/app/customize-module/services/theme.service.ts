@@ -88,6 +88,13 @@ export class ThemeService {
       .delete(`${this.apiUrl}/api/user-files/${userID}`, {body: { key: currentFile}});
   }
 
+  public renameFile(userId, currentFile): void {
+    console.log(userId, currentFile);
+     this.httpService
+      .put(`${this.apiUrl}/api/user-files/${userId}`, {key: currentFile})
+      .subscribe(data => data.json());
+  }
+
   public updateUserTheme(userId, themeId): void {
     this.httpService
       .put(`${this.apiUrl}/api/user-theme/${userId}`, {themeId: themeId})

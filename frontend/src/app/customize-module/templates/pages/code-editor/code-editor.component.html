@@ -26,7 +26,8 @@
           <li class="list-inline-item">
             <select class="custom-select btn-sm" [(ngModel)]="startDate" (change)="getChosenFileVersion(startDate);">
               <option selected disabled>Older versions</option>
-              <option *ngFor="let item of fileVersions" value="{{item.startDate}}">{{item.startDate | date: 'short'}}</option>
+              <option *ngFor="let item of fileVersions" value="{{item.startDate}}">{{item.startDate | date: 'short'}}
+              </option>
             </select>
           </li>
         </ul>
@@ -34,10 +35,16 @@
       <div class="col-5 text-right">
         <div class="btn-group btn-group-sm" role="group">
           <button type="button" class="btn btn-secondary" (click)="deleteFileVersion(user, currentFile)">Delete</button>
-          <!--<button type="button" class="btn btn-secondary" (click)="renameFile(user, currentFile)">Rename</button>-->
-          <ng-template #popTemplate><div [innerHtml]="html"></div></ng-template>
+          <ng-template #popTemplate>
+            <div class="input-group">
+              <input type="text" class="form-control" [(ngModel)]="currentFile" [attr.placeholder]="currentFile">
+              <div class="input-group-append">
+                <button class="btn btn-secondary" type="button">Cancel</button>
+                <button class="btn btn-dark" type="button" (click)="renameFile(user, currentFile)">Rename</button>
+              </div>
+            </div>
+          </ng-template>
           <button type="button" class="btn btn-secondary"
-                  (click)="renameFile(user, currentFile)"
                   [outsideClick]="true"
                   [popover]="popTemplate"
                   placement="left"

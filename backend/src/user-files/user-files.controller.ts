@@ -1,4 +1,4 @@
-import {Controller, Delete, Get, Post, Req, Res} from '@nestjs/common';
+import {Controller, Delete, Get, Post, Put, Req, Res} from '@nestjs/common';
 import { UserFilesService } from './user-files.service';
 
 
@@ -47,5 +47,17 @@ export class UserFilesController {
   private deleteFile(@Req() req, @Res() res) {
     this.userFilesService
       .deleteFile(req.params.userId, req.body.key);
+  }
+
+  @Put('/user-files/:userId')
+  private renameFile(@Req() req, @Res() res) {
+    console.log(123);
+    this.userFilesService
+      .renameFile(req.params.userId, req.body.key, (err, data) => {
+        if (err) {
+          return console.error(err);
+        }
+        res.json(data);
+      });
   }
 }

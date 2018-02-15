@@ -5,13 +5,15 @@ import { THEMES, THEMES_COMPONENT } from './themes';
 import { HttpModule } from '@angular/http';
 import {RouterModule} from '@angular/router';
 import {ThemeComponent} from './theme.component';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 @NgModule({
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    RouterModule
+    RouterModule,
+    BsDropdownModule.forRoot()
   ],
   providers: [],
   declarations: [

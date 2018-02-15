@@ -12,8 +12,8 @@ import {ActivatedRoute, Router} from '@angular/router';
             <a class="list-group-item list-group-item-action"
                routerLink="/editor"
                routerLinkActive="list-group-item-dark">
-              <i class="fas fa-eye"></i>
-              Online App
+              <!--<i class="fas fa-eye"></i>-->
+              Customize theme
             </a>
             <a class="list-group-item list-group-item-action"
                routerLink="/admin"
@@ -50,7 +50,7 @@ export class AdminNavigationComponent {
   }
 
   gotToThemes() {
-    //this.router.navigate(['/admin', {outlets: {'admin': 'themes'}}]);
+    // this.router.navigate(['/admin', {outlets: {'admin': 'themes'}}]);
   }
   // getCurrentTheme() {
   //   this.themeService.getCurrentUser().subscribe(data => {

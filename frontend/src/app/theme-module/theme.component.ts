@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {Theme} from '../customize-module/models/theme.interface';
-import {ThemeService} from '../customize-module/services/theme.service';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Theme } from '../customize-module/models/theme.interface';
+import { ThemeService } from '../customize-module/services/theme.service';
 
 @Component({
   selector: 'themes',
@@ -33,7 +33,7 @@ export class ThemeComponent implements OnInit {
       this.user = data._id;
       this.themeService.getUserTheme(this.user).subscribe(info => {
         this.theme = info;
-        this.currentTheme = this.themes.filter((obj) => obj['id'] === this.theme.themeId )[0];
+        this.currentTheme = this.themes.filter((obj) => obj['id'] === this.theme.themeId)[0];
       });
     });
   }

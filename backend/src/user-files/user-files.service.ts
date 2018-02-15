@@ -54,4 +54,9 @@ export class UserFilesService {
         return console.log('Delete file successfully!');
       });
   }
+
+  async renameFile (userId, currentFile, cb) {
+    console.log(123);
+    this.userFilesModel.update({userId: userId}, {$set: {key: currentFile}}).lean().exec(cb);
+  }
 }

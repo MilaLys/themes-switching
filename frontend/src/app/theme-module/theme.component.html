@@ -1,19 +1,20 @@
 <h4><b>Themes</b></h4>
 <hr/>
 <b>Current theme</b>
+
 <ul class="list-unstyled list-inline">
   <li class="list-inline-item">{{currentTheme?.themeName}}</li>
   <li class="list-inline-item"><a class="btn btn-dark btn-sm" routerLink="/editor">Customize</a></li>
   <li class="list-inline-item">
-    <div class="dropdown">
-      <button class="btn btn-dark btn-sm dropdown-toggle" type="button" id="dropdownMenu"
-              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Actions
+    <div class="btn-group" dropdown>
+      <button dropdownToggle type="button" class="btn btn-dark btn-sm dropdown-toggle">
+        Actions <span class="caret"></span>
       </button>
-      <div class="dropdown-menu" aria-labelledby="dropdownMenu">
-        <a class="dropdown-item" [routerLink]="['/admin', {outlets: {admin: 'code-editor'}}]">Edit code</a>
-        <a class="dropdown-item" href="#">Another action</a>
-      </div>
+      <ul *dropdownMenu class="dropdown-menu" role="menu">
+        <li role="menuitem"><a class="dropdown-item" href="#"
+                               [routerLink]="['/admin', {outlets: {admin: 'code-editor'}}]">Edit code</a></li>
+        <li role="menuitem"><a class="dropdown-item" href="#">Another action</a></li>
+      </ul>
     </div>
   </li>
 </ul>
@@ -24,15 +25,13 @@
     {{item.themeName}}
   </li>
   <li class="list-inline-item">
-    <div class="dropdown">
-      <button class="btn btn-dark btn-sm dropdown-toggle" type="button" id="dropdownMenuButton"
-              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Actions
+    <div class="btn-group" dropdown>
+      <button dropdownToggle type="button" class="btn btn-dark btn-sm dropdown-toggle">
+        Actions <span class="caret"></span>
       </button>
-      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <!--<a class="dropdown-item" target="_blank" (click)="goToEditor()">Edit code</a>-->
-        <a class="dropdown-item" (click)="publishTheme(item.id)">Publish</a>
-      </div>
+      <ul *dropdownMenu class="dropdown-menu" role="menu">
+        <li role="menuitem"><a class="dropdown-item" href="#" (click)="publishTheme(item.id)">Publish</a></li>
+      </ul>
     </div>
   </li>
 </ul>

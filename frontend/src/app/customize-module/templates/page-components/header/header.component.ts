@@ -1,7 +1,5 @@
 import {Component, OnInit, OnChanges, Input} from '@angular/core';
 import {ThemeService} from '../../../services/theme.service';
-import {DomSanitizer} from '@angular/platform-browser';
-import {combineLatest} from 'rxjs/observable/combineLatest';
 
 @Component({
   selector: 'app-header',
@@ -12,8 +10,6 @@ export class HeaderComponent implements OnInit, OnChanges {
   @Input() headerConfig: any;
   theme = {isVisibleLogo: false, logoName: '', content: {}, headerDark: ''};
   page = '/app-home';
-  userConfig;
-  themeConfig;
 
   constructor(private themeService: ThemeService) {
   }

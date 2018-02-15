@@ -1,6 +1,7 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild, ViewContainerRef} from '@angular/core';
 import {ThemeService} from '../../../services/theme.service';
-import htmlBeautify from 'html-beautify';
+import * as htmlBeautify from 'html-beautify';
+import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
   selector: 'code-editor',
@@ -21,7 +22,7 @@ export class CodeEditorComponent implements OnInit {
   allFilesOfTheme;
   fileVersions;
   chosenFile;
-  html = `<button class="btn btn-danger">Never trust not sanitized HTML!!!</button>`;
+  html;
 
   @ViewChild('htmlEditor') htmlEditor;
 
@@ -79,10 +80,6 @@ export class CodeEditorComponent implements OnInit {
     this.fileVersions = [];
   }
 
-  renameFile(userId, currentFile) {
-
-  }
-
   getByValue(array, key) {
     const result = array.filter((o) =>
       o.key === key
@@ -102,10 +99,15 @@ export class CodeEditorComponent implements OnInit {
 
   getCode(currentFile) {
     const code = this.getByValue(this.allFilesOfTheme, currentFile);
-    this.htmlContent = htmlBeautify(code.value);
+    this.htmlContent =  htmlBeautify(code.value);
     this.isFileChosen = true;
     this.currentFile = currentFile;
     this.getFileVersions(this.user, this.currentFile);
+  }
+
+  renameFile(userId, currentFile) {
+    console.log(userId, currentFile);
+    this.themeService.renameFile(userId, currentFile);
   }
 
   getChosenFileVersion(date) {
