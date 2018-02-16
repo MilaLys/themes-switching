@@ -49,11 +49,11 @@ export class UserFilesController {
       .deleteFile(req.params.userId, req.body.key);
   }
 
-  @Put('/user-files/:userId')
+  @Put('/user-files/:userId/:key')
   private renameFile(@Req() req, @Res() res) {
-    console.log(123);
+    console.log(req.params, req.body);
     this.userFilesService
-      .renameFile(req.params.userId, req.body.key, (err, data) => {
+      .renameFile(req.params.userId, req.params.key, req.body.newFileName, (err, data) => {
         if (err) {
           return console.error(err);
         }

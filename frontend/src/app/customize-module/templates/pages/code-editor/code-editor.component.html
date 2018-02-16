@@ -37,10 +37,10 @@
           <button type="button" class="btn btn-secondary" (click)="deleteFileVersion(user, currentFile)">Delete</button>
           <ng-template #popTemplate>
             <div class="input-group">
-              <input type="text" class="form-control" [(ngModel)]="currentFile" [attr.placeholder]="currentFile">
+              <input type="text" class="form-control" [(ngModel)]="newFileName" [attr.placeholder]="currentFile">
               <div class="input-group-append">
                 <button class="btn btn-secondary" type="button">Cancel</button>
-                <button class="btn btn-dark" type="button" (click)="renameFile(user, currentFile)">Rename</button>
+                <button class="btn btn-dark" type="button" (click)="renameFile(user, currentFile, newFileName)">Rename</button>
               </div>
             </div>
           </ng-template>
@@ -62,7 +62,6 @@
                 [options]="options"
                 [readOnly]="false"
                 [autoUpdateContent]="true"
-                mode="html"
-                style="min-height: 200px; width:100%; overflow: auto;font-size: 16px;"></ace-editor>
+                mode="html"></ace-editor>
   </div>
 </div>

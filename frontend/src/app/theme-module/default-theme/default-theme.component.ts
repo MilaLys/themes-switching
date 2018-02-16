@@ -1,4 +1,4 @@
-import {Component, Injectable, OnInit} from '@angular/core';
+import { Component, Injectable, OnInit } from '@angular/core';
 
 @Injectable()
 @Component({
@@ -9,6 +9,7 @@ import {Component, Injectable, OnInit} from '@angular/core';
 
 export class DefaultThemeComponent implements OnInit {
   theme;
+
   constructor() {
   }
 

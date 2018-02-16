@@ -1,11 +1,11 @@
-import {Component, OnInit, Pipe, PipeTransform} from '@angular/core';
-import {THEMES_ID} from '../../theme-module/themes';
-import {Theme} from '../models/theme.interface';
-import {User} from '../models/user.interface';
-import {CurrentTheme} from '../models/current-theme.interface';
-import {CurrentConfig} from '../models/current-config';
-import {Page} from '../models/page.interface';
-import {ThemeService} from '../services/theme.service';
+import { Component, OnInit, Pipe, PipeTransform } from '@angular/core';
+import { THEMES_ID } from '../../theme-module/themes';
+import { Theme } from '../models/theme.interface';
+import { User } from '../models/user.interface';
+import { CurrentTheme } from '../models/current-theme.interface';
+import { CurrentConfig } from '../models/current-config';
+import { Page } from '../models/page.interface';
+import { ThemeService } from '../services/theme.service';
 
 @Component({
   selector: 'app-theme-manager',
@@ -24,7 +24,6 @@ export class ThemeManagerComponent implements OnInit {
   isVisibleMenu;
   isVisibleLogo;
   templateName = 'Choose template';
-  configs;
   page: Page = {title: '', content: '', link: '', templateName: this.templateName};
   theme = {
     logoName: '',
@@ -40,14 +39,6 @@ export class ThemeManagerComponent implements OnInit {
   ngOnInit() {
     this.getCurrentUser();
     this.getThemes();
-    this.getAllConfigs();
-  }
-
-  getAllConfigs() {
-    // this.themeService.getAllConfigs()
-    //   .subscribe(data => {
-    //     this.configs = data;
-    //   });
   }
 
   getCurrentUser() {

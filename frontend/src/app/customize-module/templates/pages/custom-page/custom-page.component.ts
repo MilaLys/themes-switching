@@ -1,11 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {ThemeService} from '../../../services/theme.service';
-import {DomSanitizer} from '@angular/platform-browser';
+import { Component, OnInit } from '@angular/core';
+import { ThemeService } from '../../../services/theme.service';
+import { DomSanitizer } from '@angular/platform-browser';
 import 'rxjs/operators/combineLatest';
 import 'rxjs/operators/switchMap';
 import 'rxjs/add/operator/switchMap';
-import {ContactsTemplateComponent} from './contacts-template/contacts-template.component';
-import {BasicTemplateComponent} from './basic-template/basic-template.component';
+import { ContactsTemplateComponent } from './contacts-template/contacts-template.component';
+import { BasicTemplateComponent } from './basic-template/basic-template.component';
 
 @Component({
   selector: 'custom-page',

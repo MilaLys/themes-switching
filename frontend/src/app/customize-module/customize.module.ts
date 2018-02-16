@@ -8,7 +8,7 @@ import { ContactsTemplateComponent } from './templates/pages/custom-page/contact
 import { BlogComponent } from './templates/pages/blog/blog.component';
 import { BasicTemplateComponent } from './templates/pages/custom-page/basic-template/basic-template.component';
 import { ThemeModule } from '../theme-module/theme.module';
-import {CodeEditorComponent} from './templates/pages/code-editor/code-editor.component';
+import { CodeEditorComponent } from './templates/pages/code-editor/code-editor.component';
 import { AceEditorModule } from 'ng2-ace-editor';
 import { RouterModule } from '@angular/router';
 import { CustomizeComponent } from './customize.component';
@@ -16,7 +16,7 @@ import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { DynamicComponentFactory } from './dynamic-component-factory/dynamic-component-factory.component';
 import { appRoutingProviders, routing } from './customize-module.routes';
-import {PopoverModule} from 'ngx-bootstrap';
+import { PopoverModule } from 'ngx-bootstrap';
 
 @NgModule({
   declarations: [

@@ -1,6 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {ThemeService} from '../../../../services/theme.service';
-import {ActivatedRoute} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ThemeService } from '../../../../services/theme.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'contacts-template',

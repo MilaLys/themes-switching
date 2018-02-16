@@ -1,7 +1,7 @@
-import {ANALYZE_FOR_ENTRY_COMPONENTS, NgModule} from '@angular/core';
-import {AdminNavigationComponent} from './admin-navigation.component';
-import {RouterModule} from '@angular/router';
-import {appRoutingProviders, routing} from './admin-navigation.routes';
+import { ANALYZE_FOR_ENTRY_COMPONENTS, NgModule } from '@angular/core';
+import { AdminNavigationComponent } from './admin-navigation.component';
+import { RouterModule } from '@angular/router';
+import { appRoutingProviders, routing } from './admin-navigation.routes';
 
 @NgModule({
   declarations: [AdminNavigationComponent],

@@ -1,7 +1,6 @@
-import {Component, ElementRef, OnInit, ViewChild, ViewContainerRef} from '@angular/core';
-import {ThemeService} from '../../../services/theme.service';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ThemeService } from '../../../services/theme.service';
 import * as htmlBeautify from 'html-beautify';
-import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
   selector: 'code-editor',
@@ -23,6 +22,7 @@ export class CodeEditorComponent implements OnInit {
   fileVersions;
   chosenFile;
   html;
+  newFileName = '';
 
   @ViewChild('htmlEditor') htmlEditor;
 
@@ -99,15 +99,15 @@ export class CodeEditorComponent implements OnInit {
 
   getCode(currentFile) {
     const code = this.getByValue(this.allFilesOfTheme, currentFile);
-    this.htmlContent =  htmlBeautify(code.value);
+    this.htmlContent = htmlBeautify(code.value);
     this.isFileChosen = true;
     this.currentFile = currentFile;
     this.getFileVersions(this.user, this.currentFile);
   }
 
-  renameFile(userId, currentFile) {
-    console.log(userId, currentFile);
-    this.themeService.renameFile(userId, currentFile);
+  renameFile(userId, currentFile, newFileName) {
+    console.log(userId, currentFile, newFileName);
+    this.themeService.renameFile(userId, currentFile, newFileName);
   }
 
   getChosenFileVersion(date) {

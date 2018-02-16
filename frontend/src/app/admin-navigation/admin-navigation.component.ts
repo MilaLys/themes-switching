@@ -1,6 +1,6 @@
-import {Component} from '@angular/core';
-import {ThemeService} from '../customize-module/services/theme.service';
-import {ActivatedRoute, Router} from '@angular/router';
+import { Component } from '@angular/core';
+import { ThemeService } from '../customize-module/services/theme.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: '<admin-panel>',
@@ -52,6 +52,7 @@ export class AdminNavigationComponent {
   gotToThemes() {
     // this.router.navigate(['/admin', {outlets: {'admin': 'themes'}}]);
   }
+
   // getCurrentTheme() {
   //   this.themeService.getCurrentUser().subscribe(data => {
   //     this.user = data._id;

@@ -1,16 +1,14 @@
-import {EventEmitter, Injectable} from '@angular/core';
-import {Response} from '@angular/http';
-import {HttpService} from './http.service';
-import {Observable} from 'rxjs/Observable';
+import { EventEmitter, Injectable } from '@angular/core';
+import { Response } from '@angular/http';
+import { HttpService } from './http.service';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
-import {User} from '../models/user.interface';
-import {CurrentTheme} from '../models/current-theme.interface';
-import {CurrentConfig} from '../models/current-config';
-import {Theme} from '../models/theme.interface';
-import {Page} from '../models/page.interface';
-import {environment} from '../../../environments/environment';
-import {catchError, tap} from 'rxjs/operators';
-import {HttpHeaders} from '@angular/common/http';
+import { User } from '../models/user.interface';
+import { CurrentTheme } from '../models/current-theme.interface';
+import { CurrentConfig } from '../models/current-config';
+import { Theme } from '../models/theme.interface';
+import { Page } from '../models/page.interface';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class ThemeService {
@@ -85,13 +83,13 @@ export class ThemeService {
 
   public deleteFileVersion(userID, currentFile): Observable<Response> {
     return this.httpService
-      .delete(`${this.apiUrl}/api/user-files/${userID}`, {body: { key: currentFile}});
+      .delete(`${this.apiUrl}/api/user-files/${userID}`, {body: {key: currentFile}});
   }
 
-  public renameFile(userId, currentFile): void {
-    console.log(userId, currentFile);
-     this.httpService
-      .put(`${this.apiUrl}/api/user-files/${userId}`, {key: currentFile})
+  public renameFile(userId, currentFile, newFileName): void {
+    console.log(userId, currentFile, newFileName);
+    this.httpService
+      .put(`${this.apiUrl}/api/user-files/${userId}`, {param: {key: currentFile}}, {body: {key: newFileName}})
       .subscribe(data => data.json());
   }
 

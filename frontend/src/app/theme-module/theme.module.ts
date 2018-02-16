@@ -1,10 +1,10 @@
-import {NgModule, ANALYZE_FOR_ENTRY_COMPONENTS} from '@angular/core';
-import {BrowserModule} from '@angular/platform-browser';
-import {FormsModule} from '@angular/forms';
+import { NgModule, ANALYZE_FOR_ENTRY_COMPONENTS } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 import { THEMES, THEMES_COMPONENT } from './themes';
 import { HttpModule } from '@angular/http';
-import {RouterModule} from '@angular/router';
-import {ThemeComponent} from './theme.component';
+import { RouterModule } from '@angular/router';
+import { ThemeComponent } from './theme.component';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 @NgModule({

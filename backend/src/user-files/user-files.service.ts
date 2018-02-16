@@ -1,6 +1,6 @@
-import {Component, Inject} from '@nestjs/common';
-import {Model} from 'mongoose';
-import {UserFiles} from './user-files.interface';
+import { Component, Inject } from '@nestjs/common';
+import { Model } from 'mongoose';
+import { UserFiles } from './user-files.interface';
 
 @Component()
 export class UserFilesService {
@@ -55,8 +55,11 @@ export class UserFilesService {
       });
   }
 
-  async renameFile (userId, currentFile, cb) {
-    console.log(123);
-    this.userFilesModel.update({userId: userId}, {$set: {key: currentFile}}).lean().exec(cb);
+  async renameFile(userId, file, newFileName, cb) {
+    console.log(userId, file, newFileName);
+    this.userFilesModel
+      .update({userId: userId, key: file}, {$set: {key: newFileName}}, {multi: true})
+      .lean()
+      .exec(cb);
   }
 }

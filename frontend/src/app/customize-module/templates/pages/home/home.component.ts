@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {ThemeService} from '../../../services/theme.service';
-import {ActivatedRoute} from '@angular/router';
-import {combineLatest} from 'rxjs/observable/combineLatest';
-import {DomSanitizer} from '@angular/platform-browser';
+import { Component, OnInit } from '@angular/core';
+import { ThemeService } from '../../../services/theme.service';
+import { ActivatedRoute } from '@angular/router';
+import { combineLatest } from 'rxjs/observable/combineLatest';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'home',

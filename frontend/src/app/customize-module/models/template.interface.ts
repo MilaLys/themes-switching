@@ -1,5 +1,6 @@
-import {Type} from '@angular/core';
+import { Type } from '@angular/core';
 
 export class Template {
-  constructor(public component: Type<any>, public data: any) {}
+  constructor(public component: Type<any>, public data: any) {
+  }
 }
