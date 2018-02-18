@@ -6,7 +6,7 @@ import {
   ComponentFactoryResolver
 } from '@angular/core';
 import { BasicTemplateComponent } from './basic-template/basic-template.component';
-import { ThemeService } from '../../../services/theme.service';
+import { ThemeService } from '../../../../services/theme.service';
 import { TEMPLATES } from '../../../../theme-module/themes';
 import { combineLatest } from 'rxjs/observable/combineLatest';
 import { ActivatedRoute } from '@angular/router';

@@ -55,10 +55,9 @@ export class UserFilesService {
       });
   }
 
-  async renameFile(userId, file, newFileName, cb) {
-    console.log(userId, file, newFileName);
+  async renameFile(userId, currentFile, newFileName, cb) {
     this.userFilesModel
-      .update({userId: userId, key: file}, {$set: {key: newFileName}}, {multi: true})
+      .update({userId: userId, key: currentFile}, {$set: {key: newFileName}}, {multi: true})
       .lean()
       .exec(cb);
   }

@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { ThemeService } from '../../../services/theme.service';
+import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { ThemeService } from '../../../../services/theme.service';
 import * as htmlBeautify from 'html-beautify';
 
 @Component({
@@ -26,7 +26,7 @@ export class CodeEditorComponent implements OnInit {
 
   @ViewChild('htmlEditor') htmlEditor;
 
-  constructor(private themeService: ThemeService) {
+  constructor(private themeService: ThemeService, private renderer: Renderer2) {
   }
 
   ngOnInit() {
@@ -106,8 +106,11 @@ export class CodeEditorComponent implements OnInit {
   }
 
   renameFile(userId, currentFile, newFileName) {
-    console.log(userId, currentFile, newFileName);
+    if (newFileName === '') {
+      return;
+    }
     this.themeService.renameFile(userId, currentFile, newFileName);
+    this.currentFile = this.newFileName;
   }
 
   getChosenFileVersion(date) {

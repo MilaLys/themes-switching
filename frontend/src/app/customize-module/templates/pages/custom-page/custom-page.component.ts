@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ThemeService } from '../../../services/theme.service';
+import { ThemeService } from '../../../../services/theme.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import 'rxjs/operators/combineLatest';
 import 'rxjs/operators/switchMap';

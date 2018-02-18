@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ThemeService } from '../customize-module/services/theme.service';
+import { ThemeService } from '../services/theme.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({

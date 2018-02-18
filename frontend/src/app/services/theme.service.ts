@@ -3,12 +3,12 @@ import { Response } from '@angular/http';
 import { HttpService } from './http.service';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
-import { User } from '../models/user.interface';
-import { CurrentTheme } from '../models/current-theme.interface';
-import { CurrentConfig } from '../models/current-config';
-import { Theme } from '../models/theme.interface';
-import { Page } from '../models/page.interface';
-import { environment } from '../../../environments/environment';
+import { User } from '../customize-module/models/user.interface';
+import { CurrentTheme } from '../customize-module/models/current-theme.interface';
+import { CurrentConfig } from '../customize-module/models/current-config';
+import { Theme } from '../customize-module/models/theme.interface';
+import { Page } from '../customize-module/models/page.interface';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class ThemeService {
@@ -35,7 +35,7 @@ export class ThemeService {
 
   public getThemes(): Observable<Theme[]> {
     return this.httpService
-      .get(`${this.apiUrl}/api/themes`)
+      .get(`${this.apiUrl}/themes`)
       .map((data: Response) => {
         this.themes = data.json();
         return this.themes;
@@ -44,19 +44,19 @@ export class ThemeService {
 
   public updateUserConfig(id, config): void {
     this.httpService
-      .put(`${this.apiUrl}/api/user-config/${id}`, config)
+      .put(`${this.apiUrl}/user-config/${id}`, config)
       .subscribe(data => data.json());
   }
 
   public updateUserFiles(id, key, value): void {
     this.httpService
-      .post(`${this.apiUrl}/api/user-files/${id}`, {key: key, value: value})
+      .post(`${this.apiUrl}/user-files/${id}`, {key: key, value: value})
       .subscribe(data => data.json());
   }
 
   public getAllFiles(userId): Observable<any> {
     return this.httpService
-      .get(`${this.apiUrl}/api/user-files/${userId}`)
+      .get(`${this.apiUrl}/user-files/${userId}`)
       .map((data: Response) => {
         this.files = data.json().configs;
         return this.files;
@@ -65,7 +65,7 @@ export class ThemeService {
 
   public getLastUserFile(userId): Observable<any> {
     return this.httpService
-      .get(`${this.apiUrl}/api/user-files/${userId}`)
+      .get(`${this.apiUrl}/user-files/${userId}`)
       .map((data: Response) => {
         this.lastEditedFile = data.json().configs;
         return this.lastEditedFile;
@@ -74,7 +74,7 @@ export class ThemeService {
 
   public getFileVersions(userId, key): Observable<any> {
     return this.httpService
-      .get(`${this.apiUrl}/api/user-files/versions/${userId}/${key}`)
+      .get(`${this.apiUrl}/user-files/versions/${userId}/${key}`)
       .map((data: Response) => {
         this.fileVersions = data.json();
         return this.fileVersions;
@@ -83,25 +83,24 @@ export class ThemeService {
 
   public deleteFileVersion(userID, currentFile): Observable<Response> {
     return this.httpService
-      .delete(`${this.apiUrl}/api/user-files/${userID}`, {body: {key: currentFile}});
+      .delete(`${this.apiUrl}/user-files/${userID}`, {body: {key: currentFile}});
   }
 
   public renameFile(userId, currentFile, newFileName): void {
-    console.log(userId, currentFile, newFileName);
     this.httpService
-      .put(`${this.apiUrl}/api/user-files/${userId}`, {param: {key: currentFile}}, {body: {key: newFileName}})
+      .put(`${this.apiUrl}/user-files/${userId}`, {currentFile: currentFile, newFileName: newFileName})
       .subscribe(data => data.json());
   }
 
   public updateUserTheme(userId, themeId): void {
     this.httpService
-      .put(`${this.apiUrl}/api/user-theme/${userId}`, {themeId: themeId})
+      .put(`${this.apiUrl}/user-theme/${userId}`, {themeId: themeId})
       .subscribe(data => data.json());
   }
 
   public getCurrentUser(): Observable<User> {
     return this.httpService
-      .get(`${this.apiUrl}/api/user`)
+      .get(`${this.apiUrl}/user`)
       .map((data: Response) => {
         this.currentUser = data.json();
         return this.currentUser;
@@ -110,7 +109,7 @@ export class ThemeService {
 
   public getUserTheme(id): Observable<CurrentTheme> {
     return this.httpService
-      .get(`${this.apiUrl}/api/user-theme/${id}`)
+      .get(`${this.apiUrl}/user-theme/${id}`)
       .map((data: Response) => {
         this.currentTheme = data.json();
         return this.currentTheme;
@@ -118,7 +117,7 @@ export class ThemeService {
   }
 
   public getUserConfig(id): Observable<CurrentConfig> {
-    return this.httpService.get(`${this.apiUrl}/api/user-config/${id}`).map((data: Response) => {
+    return this.httpService.get(`${this.apiUrl}/user-config/${id}`).map((data: Response) => {
       this.currentConfig = data.json();
       if (this.currentConfig.pages == null) {
         this.currentConfig.pages = {};

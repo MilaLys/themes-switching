@@ -35,15 +35,20 @@
       <div class="col-5 text-right">
         <div class="btn-group btn-group-sm" role="group">
           <button type="button" class="btn btn-secondary" (click)="deleteFileVersion(user, currentFile)">Delete</button>
+          <!-- Popover -->
+
           <ng-template #popTemplate>
             <div class="input-group">
-              <input type="text" class="form-control" [(ngModel)]="newFileName" [attr.placeholder]="currentFile">
-              <div class="input-group-append">
-                <button class="btn btn-secondary" type="button">Cancel</button>
-                <button class="btn btn-dark" type="button" (click)="renameFile(user, currentFile, newFileName)">Rename</button>
-              </div>
+              <input type="text" class="form-control" [(ngModel)]="newFileName" placeholder="File name">
+            </div>
+            <div class="btn-group btn-group-sm btn-block">
+              <button class="btn btn-secondary" type="button">Cancel</button>
+              <button class="btn btn-dark" type="button"
+                      (click)="renameFile(user, currentFile, newFileName);">Rename
+              </button>
             </div>
           </ng-template>
+          <!-- /end -->
           <button type="button" class="btn btn-secondary"
                   [outsideClick]="true"
                   [popover]="popTemplate"

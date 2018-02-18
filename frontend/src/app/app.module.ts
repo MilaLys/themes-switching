@@ -1,14 +1,14 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RequestOptions, XHRBackend } from '@angular/http';
-import { HttpService } from './customize-module/services/http.service';
+import { HttpService } from './services/http.service';
 import { ThemeManagerComponent } from './customize-module/theme-manager/theme-manager.component';
 import { FormsModule } from '@angular/forms';
 import { appRoutingProviders, routing } from './app.routes';
 import { BasicTemplateComponent } from './customize-module/templates/pages/custom-page/basic-template/basic-template.component';
 import { ContactsTemplateComponent } from './customize-module/templates/pages/custom-page/contacts-template/contacts-template.component';
 import { CustomContentComponent } from './customize-module/templates/pages/custom-page/custom-content.component';
-import { ThemeService } from './customize-module/services/theme.service';
+import { ThemeService } from './services/theme.service';
 import { AppComponent } from './app.component';
 import { CustomizeModule } from './customize-module/customize.module';
 import { HomeComponent } from './customize-module/templates/pages/home/home.component';

@@ -5,7 +5,7 @@ import { User } from '../models/user.interface';
 import { CurrentTheme } from '../models/current-theme.interface';
 import { CurrentConfig } from '../models/current-config';
 import { Page } from '../models/page.interface';
-import { ThemeService } from '../services/theme.service';
+import { ThemeService } from '../../services/theme.service';
 
 @Component({
   selector: 'app-theme-manager',

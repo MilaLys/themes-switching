@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Theme } from '../customize-module/models/theme.interface';
-import { ThemeService } from '../customize-module/services/theme.service';
+import { ThemeService } from '../services/theme.service';
 
 @Component({
   selector: 'themes',
