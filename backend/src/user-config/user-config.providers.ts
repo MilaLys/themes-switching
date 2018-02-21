@@ -1,5 +1,5 @@
-import {UserConfigSchema} from './user-config.schema';
-import {Connection} from 'mongoose';
+import { UserConfigSchema } from './user-config.schema';
+import { Connection } from 'mongoose';
 
 export const UserConfigProviders = [
   {

@@ -5,6 +5,7 @@ export interface CurrentConfig {
   userId: number;
   isVisibleMenu: boolean;
   isVisibleLogo: boolean;
+  themeName: string;
   logoName: string;
   menuItems: MenuItem[];
   pages: any;

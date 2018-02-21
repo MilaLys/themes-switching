@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ThemeService } from '../../../../services/theme.service';
 import * as htmlBeautify from 'html-beautify';
 
@@ -23,15 +23,23 @@ export class CodeEditorComponent implements OnInit {
   chosenFile;
   html;
   newFileName = '';
+  userId;
+  currentThemeId;
+  themeName;
 
   @ViewChild('htmlEditor') htmlEditor;
 
-  constructor(private themeService: ThemeService, private renderer: Renderer2) {
+  constructor(private themeService: ThemeService) {
   }
 
   ngOnInit() {
-    this.getThemes();
     this.getCurrentTheme();
+    this.themeService.currentUser.subscribe(data => {
+      if (!data) {
+        return;
+      }
+      this.user = data._id;
+    });
   }
 
   getAllFilesOfTheme(userId) {
@@ -40,20 +48,21 @@ export class CodeEditorComponent implements OnInit {
     });
   }
 
-  getThemes() {
-    this.themeService.getThemes().subscribe(data => {
-      this.themes = data;
-    });
-  }
-
   getCurrentTheme() {
-    this.themeService.getCurrentUser().subscribe(data => {
-      this.user = data._id;
-      this.getAllFilesOfTheme(this.user);
-
-      this.themeService.getUserTheme(this.user).subscribe(info => {
-        this.theme = info;
-        this.currentTheme = this.themes.filter((obj) => obj['id'] === this.theme.themeId)[0];
+    this.themeService.currentTheme.subscribe(data => {
+      if (!data) {
+        return;
+      }
+      this.currentThemeId = data.themeId;
+      this.themeService.currentConfig.subscribe(data => this.userId = data.userId);
+      this.getAllFilesOfTheme(this.userId);
+      this.themeService.themes.subscribe(data => {
+        this.themes = data;
+        if (!data) {
+          return;
+        }
+        this.currentTheme = this.themes.filter((o) => o.id === this.currentThemeId);
+        this.themeName = this.currentTheme[0].themeName;
       });
     });
   }
@@ -111,6 +120,7 @@ export class CodeEditorComponent implements OnInit {
     }
     this.themeService.renameFile(userId, currentFile, newFileName);
     this.currentFile = this.newFileName;
+    this.getAllFilesOfTheme(this.userId);
   }
 
   getChosenFileVersion(date) {

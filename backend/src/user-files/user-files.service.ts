@@ -8,18 +8,18 @@ export class UserFilesService {
   constructor(@Inject('UserFilesModelToken') private readonly userFilesModel: Model<UserFiles>) {
   }
 
-  async getAllFiles(userId, cb) {
+  async getAllFiles(userId) {
     const dateNow = (new Date()).toISOString();
-    return await this.userFilesModel.find({userId: userId, endDate: {$gt: dateNow}}).exec(cb);
+    return this.userFilesModel.find({userId: userId, endDate: {$gt: dateNow}}).exec();
   }
 
   async getLastUserFile(userId, key): Promise<UserFiles> {
     const dateNow = (new Date()).toISOString();
-    return await this.userFilesModel.findOne({userId: userId, endDate: {$gt: dateNow}, key: key}).exec();
+    return this.userFilesModel.findOne({userId: userId, endDate: {$gt: dateNow}, key: key}).exec();
   }
 
   async getFileVersions(userId, key): Promise<UserFiles[]> {
-    return await this.userFilesModel.find({userId: userId, key: key}).exec();
+    return this.userFilesModel.find({userId: userId, key: key}).exec();
   }
 
   async updateUserFile(userId, key, value, cb): Promise<any> {
@@ -42,23 +42,23 @@ export class UserFilesService {
       endDate: (new Date('3000-01-01')).toISOString()
     };
     const createdFile = new this.userFilesModel(newFile);
-    return await createdFile.save(cb);
+    return createdFile.save(cb);
   }
 
   async deleteFile(userId, currentFile) {
-    this.userFilesModel
+    return this.userFilesModel
       .find({userId: userId, key: currentFile})
       .remove()
       .exec()
       .then(() => {
-        return console.log('Delete file successfully!');
+        console.log('Delete file successfully!');
       });
   }
 
-  async renameFile(userId, currentFile, newFileName, cb) {
-    this.userFilesModel
+  async renameFile(userId, currentFile, newFileName) {
+    return this.userFilesModel
       .update({userId: userId, key: currentFile}, {$set: {key: newFileName}}, {multi: true})
       .lean()
-      .exec(cb);
+      .exec();
   }
 }

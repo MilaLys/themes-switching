@@ -1,6 +1,5 @@
 import { Component, OnInit, Pipe, PipeTransform } from '@angular/core';
 import { THEMES_ID } from '../../theme-module/themes';
-import { Theme } from '../models/theme.interface';
 import { User } from '../models/user.interface';
 import { CurrentTheme } from '../models/current-theme.interface';
 import { CurrentConfig } from '../models/current-config';
@@ -17,7 +16,6 @@ export class ThemeManagerComponent implements OnInit {
   componentData = null;
   newMenuItem: string;
   newMenuItemLink = 'Choose page';
-  themes: Theme[] = [];
   currentUser: User;
   currentTheme: CurrentTheme = {_id: null, themeId: null, userId: null};
   currentConfig: CurrentConfig;
@@ -38,14 +36,17 @@ export class ThemeManagerComponent implements OnInit {
 
   ngOnInit() {
     this.getCurrentUser();
-    this.getThemes();
   }
 
   getCurrentUser() {
-    this.themeService.getCurrentUser().subscribe(data => {
-      this.currentUser = data;
-      this.getUserTheme(this.currentUser._id);
-    });
+    this.themeService.currentUser.subscribe(data => {
+        if (!data) {
+          return;
+        }
+        this.currentUser = data;
+        this.getUserTheme(this.currentUser._id);
+      }
+    );
   }
 
   getUserTheme(currentUserId) {
@@ -55,7 +56,7 @@ export class ThemeManagerComponent implements OnInit {
     });
   }
 
-  getUserConfig(currentUserId) {
+  getUserConfig(currentUserId: string) {
     this.themeService.getUserConfig(currentUserId).subscribe(data => {
       this.currentConfig = data;
       this.theme.isVisibleLogo = data.isVisibleLogo;
@@ -64,12 +65,6 @@ export class ThemeManagerComponent implements OnInit {
       this.theme.pages = data.pages || {};
       this.theme.menuItems = data.menuItems || [];
       this.applyTheme(this.currentTheme.themeId);
-    });
-  }
-
-  getThemes() {
-    this.themeService.getThemes().subscribe(data => {
-      this.themes = data;
     });
   }
 
@@ -102,18 +97,14 @@ export class ThemeManagerComponent implements OnInit {
     this.newMenuItemLink = '';
   }
 
-  applyTheme(id) {
-    this.themeService.currentTheme.themeId = id;
+  applyTheme(id: number) {
+    this.currentTheme.themeId = id;
     this.componentData = {
       component: THEMES_ID[id],
       inputs: {
         theme: this.theme
       }
     };
-  }
-
-  applyTemplate() {
-    // this.themeService.applyTemplate.emit(this.page.templateName);
   }
 
   addPage() {

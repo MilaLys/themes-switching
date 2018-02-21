@@ -39,7 +39,7 @@ export class CustomContentComponent {
   }
 
   ngOnInit() {
-    const currentUser = this.themeService.getCurrentUser();
+    const currentUser = this.themeService.currentUser.filter((data: any) => data);
     const currentPage = this.route.params;
 
     currentUser
@@ -52,13 +52,6 @@ export class CustomContentComponent {
           this.applyTemplate();
         });
       });
-
-    this.themeService.applyTemplate.subscribe(data => {
-      this.templateName = data;
-      this.applyTemplate();
-    }, (error: string) => {
-      console.error(error);
-    });
   }
 
   applyTemplate() {

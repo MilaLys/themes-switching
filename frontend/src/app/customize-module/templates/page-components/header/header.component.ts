@@ -10,11 +10,13 @@ export class HeaderComponent implements OnInit, OnChanges {
   @Input() headerConfig: any;
   theme = {isVisibleLogo: false, logoName: '', content: {}, headerDark: ''};
   page = '/app-home';
+  currentConfig;
 
   constructor(private themeService: ThemeService) {
   }
 
   ngOnInit() {
+    this.themeService.currentConfig.asObservable().subscribe(data => this.currentConfig = data);
     this.themeService.visibleLogo.subscribe(evt => {
       this.theme.isVisibleLogo = evt;
     }, (error: string) => {

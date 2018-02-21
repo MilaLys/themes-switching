@@ -7,17 +7,16 @@ export class UserThemeController {
   }
 
   @Get('/:userId')
-  getUserTheme(@Req() req, @Res() res) {
-   this.userThemeService.getUserTheme(req.params.userId).then((data) => res.json(data));
+  getUserTheme(@Req() req) {
+    return this.userThemeService.getUserTheme(req.params.userId);
   }
 
   @Put('/:userId')
-  updateUserTheme(@Req() req, @Res() res) {
-    this.userThemeService.updateUserTheme(req.params.userId, req.body.themeId, (err, themeId) => {
+  updateUserTheme(@Req() req) {
+    return this.userThemeService.updateUserTheme(req.params.userId, req.body.themeId, (err) => {
       if (err) {
-        return console.error(err);
+        console.error(err);
       }
-      res.json(themeId);
     });
   }
 }

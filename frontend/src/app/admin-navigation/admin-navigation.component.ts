@@ -1,13 +1,11 @@
 import { Component } from '@angular/core';
-import { ThemeService } from '../services/theme.service';
-import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: '<admin-panel>',
   template: `
-    <div class="container-fluid">
-      <div class="row" style="display: flex;min-height: 100vh;">
-        <div class="col-3 alert-dark">
+    <div class="container-fluid h-100">
+      <div class="row h-100">
+        <div class="col-lg-3 col-sm-3 col-12 alert-dark">
           <div class="list-group list-group-flush">
             <a class="list-group-item list-group-item-action"
                routerLink="/editor"
@@ -28,7 +26,7 @@ import { ActivatedRoute, Router } from '@angular/router';
                routerLinkActive="list-group-item-dark">Preferences</a>
           </div>
         </div>
-        <div class="col-9">
+        <div class="col-lg-9 col-sm-9 col-12">
           <router-outlet name="admin"></router-outlet>
         </div>
       </div>
@@ -36,30 +34,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 
 export class AdminNavigationComponent {
-  currentTheme;
   user;
   themes;
   theme;
 
-  constructor(private router: Router, private themeService: ThemeService, private activatedRoute: ActivatedRoute) {
+  constructor() {
   }
 
   ngOnInit() {
-    // this.router.navigate(['/admin', {outlets: {'admin': 'themes'}}]);
-    this.gotToThemes();
   }
-
-  gotToThemes() {
-    // this.router.navigate(['/admin', {outlets: {'admin': 'themes'}}]);
-  }
-
-  // getCurrentTheme() {
-  //   this.themeService.getCurrentUser().subscribe(data => {
-  //     this.user = data._id;
-  //     this.themeService.getUserTheme(this.user).subscribe(info => {
-  //       this.theme = info;
-  //       this.currentTheme = this.themes[this.theme.themeId];
-  //     });
-  //   });
-  // }
 }

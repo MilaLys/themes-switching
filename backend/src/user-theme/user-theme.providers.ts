@@ -1,5 +1,5 @@
-import {UserThemeSchema} from './user-theme.schema';
-import {Connection} from 'mongoose';
+import { UserThemeSchema } from './user-theme.schema';
+import { Connection } from 'mongoose';
 
 export const UserThemeProviders = [
   {

@@ -1,4 +1,4 @@
-import { Controller, Get, Put, Req, Res } from '@nestjs/common';
+import { Controller, Get, Req } from '@nestjs/common';
 import { UsersService } from './users.service';
 
 @Controller('api')
@@ -7,7 +7,7 @@ export class UsersController {
   }
 
   @Get('/user')
-  getCurrentUser(@Req() req, @Res() res) {
-    this.usersService.getCurrentUser().then((data) => res.json(data));
+  getCurrentUser(@Req() req) {
+    return this.usersService.getCurrentUser();
   }
 }

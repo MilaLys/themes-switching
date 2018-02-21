@@ -9,18 +9,20 @@ import { ThemeService } from '../../../../services/theme.service';
 
 export class MenuComponent implements OnInit {
   theme = {isVisibleMenu: false, menuItems: []};
+  currentConfig;
 
   constructor(private themeService: ThemeService) {
   }
 
   ngOnInit() {
-    this.theme.isVisibleMenu = this.themeService.currentConfig.isVisibleMenu;
+    this.themeService.currentConfig.filter((data: any) => data).subscribe(data => this.currentConfig = data);
+    this.theme.isVisibleMenu = this.currentConfig.isVisibleMenu;
     this.themeService.visibleMenu.subscribe(evt => {
       this.theme.isVisibleMenu = evt;
     }, (error: string) => {
       console.error(error);
     });
 
-    this.theme.menuItems = this.themeService.currentConfig.menuItems;
+    this.theme.menuItems = this.currentConfig.menuItems;
   }
 }

@@ -21,10 +21,10 @@
 <hr/>
 <b>More themes</b>
 <ul class="list-inline" *ngFor="let item of themes">
-  <li class="list-inline-item">
-    {{item.themeName}}
+  <li class="list-inline-item" *ngIf="item != currentTheme">
+    {{item?.themeName}}
   </li>
-  <li class="list-inline-item">
+  <li class="list-inline-item" *ngIf="item != currentTheme">
     <div class="btn-group" dropdown>
       <button dropdownToggle type="button" class="btn btn-dark btn-sm dropdown-toggle">
         Actions <span class="caret"></span>

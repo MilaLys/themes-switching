@@ -1,5 +1,5 @@
-import {NestFactory} from '@nestjs/core';
-import {ApplicationModule} from './modules/app.module';
+import { NestFactory } from '@nestjs/core';
+import { ApplicationModule } from './modules/app.module';
 import * as bodyParser from 'body-parser';
 import * as express from '../node_modules/express';
 import * as cors from 'cors';
