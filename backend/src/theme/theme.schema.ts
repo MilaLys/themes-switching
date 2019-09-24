@@ -6,6 +6,7 @@ export const ThemeSchema = new mongoose.Schema({
   logoName: String,
   isVisibleLogo: Boolean,
   isVisibleMenu: Boolean,
-  headerDark: Boolean
+  headerDark: Boolean,
+  files: Object
 });
 

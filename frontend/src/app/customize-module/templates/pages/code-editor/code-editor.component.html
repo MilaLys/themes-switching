@@ -1,0 +1,72 @@
+<a [routerLink]="['/admin', {outlets: {admin: 'themes'}}]">
+  <i class="fas fa-angle-left"></i>
+  <small>Themes</small>
+</a>
+<h4 class="text-capitalize">{{themeName}}</h4>
+<a routerLink="/editor"><i class="fas fa-edit"></i>
+  <small>Customize theme</small>
+</a>
+<hr/>
+<div class='row'>
+  <div class="col-lg-3 col-md-12">
+    <b>Templates</b>
+    <ul>
+      <li *ngFor="let item of allFilesOfTheme">
+        <a href="javascript:void(0)" (click)="getCode(item.key)">{{item.key}}</a>
+      </li>
+    </ul>
+  </div>
+  <div class="col-lg-9 col-md-12">
+    <div class="row" *ngIf="isFileChosen">
+      <div class="col-7">
+        <ul class="list-unstyled list-inline">
+          <li class="list-inline-item">
+            <small><b>{{currentFile}}</b></small>
+          </li>
+          <li class="list-inline-item">
+            <select class="custom-select btn-sm" [(ngModel)]="startDate" (change)="getChosenFileVersion(startDate);">
+              <option selected disabled>Older versions</option>
+              <option *ngFor="let item of fileVersions" value="{{item.startDate}}">{{item.startDate | date: 'short'}}
+              </option>
+            </select>
+          </li>
+        </ul>
+      </div>
+      <div class="col-5 text-right">
+        <div class="btn-group btn-group-sm" role="group">
+          <button type="button" class="btn btn-secondary" (click)="deleteFileVersion(user, currentFile)">Delete</button>
+          <!-- Popover -->
+
+          <ng-template #popTemplate>
+            <div class="input-group">
+              <input type="text" class="form-control" [(ngModel)]="newFileName" placeholder="File name">
+            </div>
+            <div class="btn-group btn-group-sm btn-block">
+              <button class="btn btn-secondary" type="button">Cancel</button>
+              <button class="btn btn-dark" type="button"
+                      (click)="renameFile(user, currentFile, newFileName);">Rename
+              </button>
+            </div>
+          </ng-template>
+          <!-- /end -->
+          <button type="button" class="btn btn-secondary"
+                  [outsideClick]="true"
+                  [popover]="popTemplate"
+                  placement="left"
+                  popoverTitle="Rename file">
+            Rename
+          </button>
+          <button type="button" class="btn btn-secondary" (click)="saveFile()">Save</button>
+        </div>
+      </div>
+    </div>
+
+    <ace-editor #htmlEditor
+                class="editor"
+                [(text)]="htmlContent"
+                [options]="options"
+                [readOnly]="false"
+                [autoUpdateContent]="true"
+                mode="html"></ace-editor>
+  </div>
+</div>

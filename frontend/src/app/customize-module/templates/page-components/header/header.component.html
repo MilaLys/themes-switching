@@ -1,0 +1,17 @@
+<header class="nav-light" [ngClass]="(theme?.headerDark) ? 'bg-dark':'bg-light'">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-2">
+        <div class="navbar-brand" *ngIf="theme?.isVisibleLogo">
+          <a [routerLink]="['/admin', {outlets: {admin: 'themes'}}]" class="text-uppercase">{{theme?.logoName}}</a>
+        </div>
+      </div>
+      <div class="col-10">
+        <app-menu></app-menu>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+

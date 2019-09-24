@@ -1,4 +1,4 @@
-import {Document} from 'mongoose';
+import { Document } from 'mongoose';
 
 export interface Theme extends Document {
   themeName: string;
@@ -6,4 +6,5 @@ export interface Theme extends Document {
   isVisibleLogo: boolean;
   isVisibleMenu: boolean;
   headerDark: boolean;
+  files: object;
 }

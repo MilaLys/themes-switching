@@ -1,0 +1,37 @@
+<h4><b>Themes</b></h4>
+<hr/>
+<b>Current theme</b>
+
+<ul class="list-unstyled list-inline">
+  <li class="list-inline-item">{{currentTheme?.themeName}}</li>
+  <li class="list-inline-item"><a class="btn btn-dark btn-sm" routerLink="/editor">Customize</a></li>
+  <li class="list-inline-item">
+    <div class="btn-group" dropdown>
+      <button dropdownToggle type="button" class="btn btn-dark btn-sm dropdown-toggle">
+        Actions <span class="caret"></span>
+      </button>
+      <ul *dropdownMenu class="dropdown-menu" role="menu">
+        <li role="menuitem"><a class="dropdown-item" href="#"
+                               [routerLink]="['/admin', {outlets: {admin: 'code-editor'}}]">Edit code</a></li>
+        <li role="menuitem"><a class="dropdown-item" href="#">Another action</a></li>
+      </ul>
+    </div>
+  </li>
+</ul>
+<hr/>
+<b>More themes</b>
+<ul class="list-inline" *ngFor="let item of themes">
+  <li class="list-inline-item" *ngIf="item != currentTheme">
+    {{item?.themeName}}
+  </li>
+  <li class="list-inline-item" *ngIf="item != currentTheme">
+    <div class="btn-group" dropdown>
+      <button dropdownToggle type="button" class="btn btn-dark btn-sm dropdown-toggle">
+        Actions <span class="caret"></span>
+      </button>
+      <ul *dropdownMenu class="dropdown-menu" role="menu">
+        <li role="menuitem"><a class="dropdown-item" href="#" (click)="publishTheme(item.id)">Publish</a></li>
+      </ul>
+    </div>
+  </li>
+</ul>

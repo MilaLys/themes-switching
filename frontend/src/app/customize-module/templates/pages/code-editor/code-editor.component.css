@@ -1,0 +1,12 @@
+.aceEditorDirective {
+  margin-top: 50px;
+  min-height: 200px;
+  width: 100%;
+  overflow: auto;
+}
+.editor {
+  min-height: 200px;
+  width:100%;
+  overflow: auto;
+  font-size: 16px;
+}

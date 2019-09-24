@@ -1,0 +1,11 @@
+<ul class="nav justify-content-end" *ngIf="theme?.isVisibleMenu">
+  <li *ngFor="let items of theme?.menuItems" class="nav-item">
+    <a [routerLink]="['/editor', {outlets: {pages: ['pages', items?.link]}}]" routerLinkActive="btn-primary" class="text-uppercase nav-link">{{items.name}}</a>
+  </li>
+</ul>
+
+
+
+
+
+

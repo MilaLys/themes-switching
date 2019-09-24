@@ -1,0 +1,143 @@
+<div class="container-fluid h-100">
+  <div class="row h-100">
+    <div class="col-lg-3 col-sm-3 col-12 alert-dark">
+      <a [routerLink]="['/admin', {outlets: {admin: 'themes'}}]" class="alert-link">
+        <i class="fas fa-home"></i>
+        Home
+      </a>
+      <div>
+        <h6 class="text-uppercase">Menu</h6>
+        <div class="row">
+          <div class="col-6">
+            <label for="logoName">Change logo</label>
+            <input type="text"
+                   class="form-control"
+                   id="logoName"
+                   name="logoName"
+                   placeholder="Type name of logo"
+                   [(ngModel)]="theme.logoName"
+                   (ngModelChange)="changeLogoName();"
+            />
+          </div>
+        </div>
+        <input type="checkbox"
+               id="menu"
+               name="menu"
+               [checked]="theme?.isVisibleMenu"
+               [(ngModel)]="theme.isVisibleMenu"
+               (ngModelChange)="changeVisibleMenu();"
+        />
+        <label for="menu">Show Menu</label>
+        <br/>
+        <input type="checkbox"
+               id="logoInput"
+               name="logoInput"
+               [checked]="theme?.isVisibleLogo"
+               [(ngModel)]="theme.isVisibleLogo"
+               (ngModelChange)="changeVisibleLogo();"
+        />
+        <label for="logoInput">Show Logo</label>
+        <hr/>
+
+        <!-- Add page -->
+        <form (submit)="addPage()">
+          <h6 class="text-uppercase">Add page</h6>
+          <div class="row">
+            <div class="col-6">
+              <div class="input-group">
+                <label class="sr-only" for="title">Title</label>
+                <input type="text"
+                       class="form-control"
+                       [(ngModel)]="page.title"
+                       id="title"
+                       name="title"
+                       placeholder="Enter Title"
+                       required
+                />
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <label class="sr-only" for="link">Link</label>
+                <input type="text"
+                       class="form-control"
+                       [(ngModel)]="page.link"
+                       #link='ngModel'
+                       id="link"
+                       name="link"
+                       placeholder="Enter Link"
+                       required
+                />
+                <div *ngIf="link.errors?.required" class="text-danger">Link is required</div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-group">
+                <label class="sr-only" for="link">Content</label>
+                <textarea
+                  class="form-control"
+                  [(ngModel)]="page.content"
+                  #content="ngModel"
+                  id="content"
+                  name="content"
+                  placeholder="Enter Content"
+                  required
+                ></textarea>
+                <div *ngIf="content.errors?.required" class="text-danger">Content is required</div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-group">
+                <b>Template</b>
+                <p>Select a template for this page.</p>
+                <select [(ngModel)]="page.templateName" class="form-control" name="templates">
+                  <option disabled>Choose template</option>
+                  <option selected value="BasicTemplateComponent">template-basic</option>
+                  <option value="ContactsTemplateComponent">template-contacts</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div style="padding-top: 10px;">
+            <button type="submit"
+                    class="btn btn-dark btn-sm"
+                    [class.disabled]="link.errors?.required || content.errors?.required">
+              Add page
+            </button>
+            <button type="reset" class="btn btn-light btn-sm">Reset</button>
+          </div>
+        </form>
+
+        <!--Add menu item-->
+        <hr/>
+        <h5>Add menu item</h5>
+        <div>
+          <div class="row">
+            <div class="col-6">
+              <input type="text"
+                     class="form-control"
+                     placeholder="Add menu item"
+                     [(ngModel)]="newMenuItem"
+              />
+            </div>
+            <div class="col-6">
+              <select [(ngModel)]="newMenuItemLink" class="form-control">
+                <option disabled>Choose page</option>
+                <option *ngFor="let item of currentConfig?.pages | keys" value="{{item}}">
+                  <b>Page: </b>{{currentConfig?.pages[item].title}}
+                </option>
+              </select>
+            </div>
+          </div>
+          <br/>
+          <button class="btn btn-dark btn-sm" (click)="addMenuItem();">Add menu item</button>
+          <hr/>
+          <button class="btn btn-dark btn-block btn-sm" (click)="updateUserConfig()">Save changes</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-9 col-sm-9 col-12">
+      <router-outlet [componentData]="componentData" name="pages"></router-outlet>
+    </div>
+  </div>
+</div>

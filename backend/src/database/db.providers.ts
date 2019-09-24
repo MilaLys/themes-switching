@@ -8,7 +8,7 @@ const mongoDb = process.env.MONGODB_URL || config.db.url;
 export const databaseProviders = [
   {
     provide: 'DbConnectionToken',
-    useFactory: async() => {
+    useFactory: async () => {
       (mongoose as any).Promise = global.Promise;
       await mongoose.connect(mongoDb, {
         useMongoClient: true
